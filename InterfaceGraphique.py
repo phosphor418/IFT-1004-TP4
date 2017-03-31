@@ -19,7 +19,9 @@ class InterfaceGraphique(Tk):
         super().__init__()
 
         self.title("Poker d'As")
-        Label(self, text="Bienvenue dans le jeu Poker d'As!").grid(row=0, column=1, padx=10, pady=10)
+        self.geometry("800x500")
+        self.photo_acueil = PhotoImage(file = )
+        Label(self, text="Bienvenue dans le jeu Poker d'As!").grid(row=0, column=1, padx=290, pady=150)
 
         cadre_boutons = Frame(self)
         cadre_boutons.grid(row=1, column=1, padx = 10, pady=10)
@@ -32,12 +34,12 @@ class InterfaceGraphique(Tk):
 
 
     def selection_joueur (self) :
-        FenetreJoeur()
+        FenetreJouer()
         InterfaceGraphique.destroy(self)
 
 
 
-class FenetreJoeur (Tk) :
+class FenetreJouer (Tk) :
     def __init__(self):
 
         super().__init__()
@@ -59,7 +61,7 @@ class FenetreJoeur (Tk) :
 
     def ok (self):
         FenetreJeu ()
-        FenetreJoeur.destroy(self)
+        FenetreJouer.destroy(self)
 
 
 class FenetreJeu (Tk) :

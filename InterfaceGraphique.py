@@ -1,7 +1,7 @@
 """Un module d'interface pour la banque.
 
 """
-from tkinter import Tk, Toplevel, Label, Listbox, Frame, Entry, Button, END, NORMAL, E, DISABLED
+from tkinter import Tk, Toplevel, Label, Listbox, Frame, Entry, Button, END, NORMAL, E, DISABLED, messagebox
 
 
 
@@ -20,7 +20,6 @@ class InterfaceGraphique(Tk):
 
         self.title("Poker d'As")
         self.geometry("800x500")
-        self.photo_acueil = PhotoImage(file = )
         Label(self, text="Bienvenue dans le jeu Poker d'As!").grid(row=0, column=1, padx=290, pady=150)
 
         cadre_boutons = Frame(self)
@@ -29,13 +28,18 @@ class InterfaceGraphique(Tk):
         self.bouton_jouer = Button(cadre_boutons, text="Jouer", command=self.selection_joueur)
         self.bouton_jouer.grid(row=0, column=1)
 
-        self.bouton_quitter = Button(cadre_boutons, text="Quitter", command=None)
+
+        self.bouton_quitter = Button(cadre_boutons, text="Quitter", command=self.confirmation_quitter)
         self.bouton_quitter.grid(row=1, column=1)
 
 
     def selection_joueur (self) :
         FenetreJouer()
         InterfaceGraphique.destroy(self)
+
+    def confirmation_quitter(self):
+        if messagebox.askokcancel("Quitter", "Voulez-vous vraiment quitter?"):
+            self.destroy()
 
 
 

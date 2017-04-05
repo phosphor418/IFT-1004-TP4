@@ -152,6 +152,7 @@ class JoueurInterface(LabelFrame):
         return False
 
     def lancer_des(self):
+
         nombre_des = self.nb_des_a_lancer
         valeurs_obtenues = [randint(1, 6) for _ in range(nombre_des)]
         for k in range(7):
@@ -250,6 +251,7 @@ class InterfaceGraphique(Tk):
     JOUER = 1
 #    DECHARGE = 2
 
+
     def __init__(self):
         super().__init__()
         self.title("hb H17 aide TP4")
@@ -293,7 +295,8 @@ class InterfaceGraphique(Tk):
 
         self.boutonframe = Frame(self.frame_de_droit)
 
-        self.bouton_lancer = Button(self.boutonframe, text="Lancer", command=self.lancer_des)
+
+        self.bouton_lancer = Button(self.boutonframe, text="Lancer", command=self.value_checkbutton)
         self.bouton_lancer.grid(column=0, row=0, rowspan=1, columnspan=1)
 
         self.bouton_passer = Button(self.boutonframe, text="Passer", command=self.passer_au_suivant)
@@ -324,25 +327,35 @@ class InterfaceGraphique(Tk):
         self.carte_5.grid(row=1, column=4, padx=40, pady=10)
 
 
-        self.checkbutton_1 = Checkbutton(self.frame_de_bas,text="")
+        self.var_1 = IntVar()
+        self.var_2 = IntVar()
+        self.var_3 = IntVar()
+        self.var_4 = IntVar()
+        self.var_5 = IntVar()
+
+
+        self.checkbutton_1 = Checkbutton(self.frame_de_bas,text="",variable = self.var_1)
         self.checkbutton_1.grid(row=2,column=0,padx=0,pady=10)
 
-        self.checkbutton_2 = Checkbutton(self.frame_de_bas,text="")
+        self.checkbutton_2 = Checkbutton(self.frame_de_bas,text="",variable = self.var_2)
         self.checkbutton_2.grid(row=2,column=1,padx=40,pady=10)
 
 
-        self.checkbutton_3 = Checkbutton(self.frame_de_bas,text="")
+        self.checkbutton_3 = Checkbutton(self.frame_de_bas,text="",variable = self.var_3)
         self.checkbutton_3.grid(row=2,column=2,padx=40,pady=10)
 
 
-        self.checkbutton_4 = Checkbutton(self.frame_de_bas,text="")
+        self.checkbutton_4 = Checkbutton(self.frame_de_bas,text="",variable = self.var_4)
         self.checkbutton_4.grid(row=2,column=3,padx=40,pady=10)
 
-        self.checkbutton_5 = Checkbutton(self.frame_de_bas,text="")
+        self.checkbutton_5 = Checkbutton(self.frame_de_bas,text="",variable = self.var_5)
         self.checkbutton_5.grid(row=2,column=4,padx=40,pady=10)
 
-
-
+        self.checkbutton_1.select()
+        self.checkbutton_2.select()
+        self.checkbutton_3.select()
+        self.checkbutton_4.select()
+        self.checkbutton_5.select()
 
 
         self.afficher_menu_principal()
@@ -369,6 +382,7 @@ class InterfaceGraphique(Tk):
         self.tour = 0
         self.lancer_passer_control_var = BooleanVar(value=False)
         self.choix = None
+        self.value_checkbutton()
         
         afficheur_doptions = Parametres_partie(self)
         self.nombre_joueurs, self.inclure_ordi, self.nom_joueurs = afficheur_doptions.get_values_saved()
@@ -501,6 +515,7 @@ class InterfaceGraphique(Tk):
         self.phase = InterfaceGraphique.JOUER
         self.afficher_phase()
         self.empecher_passer()
+
         for i in range(self.nombre_joueurs):
             pos = (self.premier+i) % self.nombre_joueurs
             self.permettre_lancer()
@@ -510,11 +525,36 @@ class InterfaceGraphique(Tk):
             self.joueurs[pos].asg_tour(self.tour)
             self.joueurs[pos].jouer_tour(nb_des_a_lancer=NOMBRE_DES_DU_JEU, nb_maximum_lancer=1)
             self.joueurs[pos].lancer_des()
+
             self.joueurs[pos].clear_table()
+
 
 
         return -1, -1
 
+
+
+    def value_checkbutton(self):
+
+        value = []
+        value.clear()
+
+        if self.var_1.get():
+            value.append(1)
+
+        if self.var_2.get():
+            value.append(2)
+
+        if self.var_3.get():
+            value.append(3)
+
+        if self.var_4.get():
+            value.append(4)
+
+        if self.var_5.get():
+            value.append(5)
+
+        return value
 
     def jouer(self):
         """

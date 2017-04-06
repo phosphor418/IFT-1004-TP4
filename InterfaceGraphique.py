@@ -154,7 +154,23 @@ class JoueurInterface(LabelFrame):
     def lancer_des(self):
 
         nombre_des = self.nb_des_a_lancer
-        valeurs_obtenues = [randint(1, 6) for _ in range(nombre_des)]
+        self.lancer_1 = [0] *5
+
+        valeurs_obtenues = Combinaison()
+
+
+
+
+      #  premier = valeurs_obtenues._lancer_des(5)
+      #  print (premier)
+
+
+       # print(valeurs_obtenues)
+
+       # print(Combinaison.des)
+
+
+
         for k in range(7):
             shuffle(self.positions_libres)
             pos = self.positions_libres[:nombre_des]
@@ -180,8 +196,9 @@ class JoueurInterface(LabelFrame):
             self.des_sur_canvas[pos[i]] = (v, id)
 
         self.resultat_lancer += valeurs_obtenues
-        if len(self.resultat_lancer) == 3:
-            self.combinaison_actuelle = Combinaison(self.resultat_lancer)
+        #
+        self.combinaison_actuelle = Combinaison(self.resultat_lancer)
+        print(self.combinaison_actuelle)
 
 
         self.after(1000)
@@ -308,22 +325,34 @@ class InterfaceGraphique(Tk):
         self.ordre_joueur_label = Label(self.frame_de_gauche, text=" Ordre de joueur de la partie : ")
         self.ordre_joueur_label.grid(row=0, column=0, padx=40, pady=0)
 
-        self.jeu_courant_label= Label (self.frame_de_bas,text="Voici le jeu courant : ")
+        self.jeu_courant_label= Label (self.frame_de_bas,text="Voici le jeu courant ")
         self.jeu_courant_label.grid(padx=0,pady=0)
 
-        self.carte_1 = Label(self.frame_de_bas,text="carte_1")
+        valeurs_obtenues = Combinaison()
+        premier_lancer = valeurs_obtenues.des
+        self.liste = []
+        for elem in premier_lancer:
+            # chaine += "{:^3s}".format(elem)
+            self.liste += "{:s}".format(elem)
+        print(self.liste)
+
+        str_1 = self.liste [0]
+        print(str_1)
+
+
+        self.carte_1 = Label(self.frame_de_bas,text=self.liste[0])
         self.carte_1.grid(row=1,column=0,padx=0,pady=10)
 
-        self.carte_2 = Label(self.frame_de_bas,text="carte_2")
+        self.carte_2 = Label(self.frame_de_bas,text=self.liste[1])
         self.carte_2.grid(row=1,column=1,padx=40,pady=10)
 
-        self.carte_3 = Label(self.frame_de_bas, text="carte_3")
+        self.carte_3 = Label(self.frame_de_bas, text=self.liste[2])
         self.carte_3.grid(row=1, column=2, padx=40, pady=10)
 
-        self.carte_4 = Label(self.frame_de_bas, text="carte_4")
+        self.carte_4 = Label(self.frame_de_bas, text=self.liste[3])
         self.carte_4.grid(row=1, column=3, padx=40, pady=10)
 
-        self.carte_5 = Label(self.frame_de_bas, text="carte_5")
+        self.carte_5 = Label(self.frame_de_bas, text=self.liste[4])
         self.carte_5.grid(row=1, column=4, padx=40, pady=10)
 
 

@@ -136,8 +136,7 @@ class Combinaison:
         for i in range(0, len(self.des)):
             chaine += "{:^3d}".format(i + 1)
         chaine += "\nValeur: "
-        for elem in self.des:
-            chaine += "{:^3s}".format(elem)
+
         return chaine + "\n"
 
 

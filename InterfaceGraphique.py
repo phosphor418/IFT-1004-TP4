@@ -22,7 +22,7 @@ class Parametres_partie(Toplevel):
         super().__init__(parent)
         self.title("Info partie...")
         # self.geometry("600x200")
-
+        #tst
         # On prend le contrôle
         self.parent = parent
         self.transient(parent)

@@ -309,11 +309,12 @@ class InterfaceGraphique(Tk):
         self.frame_de_bas = Frame(self)
 
         self.recap_canvas = Canvas(self.frame_de_gauche)
+        self.bas_canvas = Canvas(self.frame_de_bas)
 
         self.boutonframe = Frame(self.frame_de_droit)
 
 
-        self.bouton_lancer = Button(self.boutonframe, text="Lancer", command=self.value_checkbutton)
+        self.bouton_lancer = Button(self.boutonframe, text="Lancer", command=self.afficher_tableau)
         self.bouton_lancer.grid(column=0, row=0, rowspan=1, columnspan=1)
 
         self.bouton_passer = Button(self.boutonframe, text="Passer", command=self.passer_au_suivant)
@@ -328,32 +329,7 @@ class InterfaceGraphique(Tk):
         self.jeu_courant_label= Label (self.frame_de_bas,text="Voici le jeu courant ")
         self.jeu_courant_label.grid(padx=0,pady=0)
 
-        valeurs_obtenues = Combinaison()
-        premier_lancer = valeurs_obtenues.des
-        self.liste = []
-        for elem in premier_lancer:
-            # chaine += "{:^3s}".format(elem)
-            self.liste += "{:s}".format(elem)
-        print(self.liste)
-
-        str_1 = self.liste [0]
-        print(str_1)
-
-
-        self.carte_1 = Label(self.frame_de_bas,text=self.liste[0])
-        self.carte_1.grid(row=1,column=0,padx=0,pady=10)
-
-        self.carte_2 = Label(self.frame_de_bas,text=self.liste[1])
-        self.carte_2.grid(row=1,column=1,padx=40,pady=10)
-
-        self.carte_3 = Label(self.frame_de_bas, text=self.liste[2])
-        self.carte_3.grid(row=1, column=2, padx=40, pady=10)
-
-        self.carte_4 = Label(self.frame_de_bas, text=self.liste[3])
-        self.carte_4.grid(row=1, column=3, padx=40, pady=10)
-
-        self.carte_5 = Label(self.frame_de_bas, text=self.liste[4])
-        self.carte_5.grid(row=1, column=4, padx=40, pady=10)
+        self.valeurs_obtenues = Combinaison()
 
 
         self.var_1 = IntVar()
@@ -362,29 +338,11 @@ class InterfaceGraphique(Tk):
         self.var_4 = IntVar()
         self.var_5 = IntVar()
 
-
-        self.checkbutton_1 = Checkbutton(self.frame_de_bas,text="",variable = self.var_1)
-        self.checkbutton_1.grid(row=2,column=0,padx=0,pady=10)
-
-        self.checkbutton_2 = Checkbutton(self.frame_de_bas,text="",variable = self.var_2)
-        self.checkbutton_2.grid(row=2,column=1,padx=40,pady=10)
-
-
-        self.checkbutton_3 = Checkbutton(self.frame_de_bas,text="",variable = self.var_3)
-        self.checkbutton_3.grid(row=2,column=2,padx=40,pady=10)
-
-
-        self.checkbutton_4 = Checkbutton(self.frame_de_bas,text="",variable = self.var_4)
-        self.checkbutton_4.grid(row=2,column=3,padx=40,pady=10)
-
-        self.checkbutton_5 = Checkbutton(self.frame_de_bas,text="",variable = self.var_5)
-        self.checkbutton_5.grid(row=2,column=4,padx=40,pady=10)
-
-        self.checkbutton_1.select()
-        self.checkbutton_2.select()
-        self.checkbutton_3.select()
-        self.checkbutton_4.select()
-        self.checkbutton_5.select()
+        #self.checkbutton_1.select()
+        #self.checkbutton_2.select()
+        #self.checkbutton_3.select()
+        #self.checkbutton_4.select()
+        #self.checkbutton_5.select()
 
 
         self.afficher_menu_principal()
@@ -481,6 +439,65 @@ class InterfaceGraphique(Tk):
         self.recap_canvas.grid(padx=5, pady=5)
         self.recap_canvas.update()
 
+    def afficher_tableau(self):
+        self.recap_canvas.delete('all')
+
+        self.checkbutton_1 = Checkbutton(self.frame_de_bas, text="", variable=self.var_1)
+        self.checkbutton_1.grid(row=2, column=0, padx=0, pady=10)
+
+        self.checkbutton_2 = Checkbutton(self.frame_de_bas, text="", variable=self.var_2)
+        self.checkbutton_2.grid(row=2, column=1, padx=40, pady=10)
+
+        self.checkbutton_3 = Checkbutton(self.frame_de_bas, text="", variable=self.var_3)
+        self.checkbutton_3.grid(row=2, column=2, padx=40, pady=10)
+
+        self.checkbutton_4 = Checkbutton(self.frame_de_bas, text="", variable=self.var_4)
+        self.checkbutton_4.grid(row=2, column=3, padx=40, pady=10)
+
+        self.checkbutton_5 = Checkbutton(self.frame_de_bas, text="", variable=self.var_5)
+        self.checkbutton_5.grid(row=2, column=4, padx=40, pady=10)
+
+
+
+        self.valeurs_obtenues.relancer_des([])
+
+        premier_lancer = self.valeurs_obtenues.des
+        self.liste = []
+
+
+        list_checkbox = self.value_checkbutton()
+        print(list_checkbox)
+        lol = self.valeurs_obtenues.relancer_des(list_checkbox)
+        print(lol)
+
+
+        for elem in premier_lancer:
+            # chaine += "{:^3s}".format(elem)
+            self.liste += "{:s}".format(elem)
+        print(self.liste)
+
+        str_1 = self.liste [0]
+        print(str_1)
+
+
+        self.carte_1 = Label(self.frame_de_bas,text=self.liste[0])
+        self.carte_1.grid(row=1,column=0,padx=0,pady=10)
+
+        self.carte_2 = Label(self.frame_de_bas,text=self.liste[1])
+        self.carte_2.grid(row=1,column=1,padx=40,pady=10)
+
+        self.carte_3 = Label(self.frame_de_bas, text=self.liste[2])
+        self.carte_3.grid(row=1, column=2, padx=40, pady=10)
+
+        self.carte_4 = Label(self.frame_de_bas, text=self.liste[3])
+        self.carte_4.grid(row=1, column=3, padx=40, pady=10)
+
+        self.carte_5 = Label(self.frame_de_bas, text=self.liste[4])
+        self.carte_5.grid(row=1, column=4, padx=40, pady=10)
+
+
+
+
     def afficher_espace_joueur_courant(self, position=None):
         for joueur in self.joueurs:
             joueur.grid_forget()
@@ -544,6 +561,7 @@ class InterfaceGraphique(Tk):
         self.phase = InterfaceGraphique.JOUER
         self.afficher_phase()
         self.empecher_passer()
+        self.afficher_tableau()
 
         for i in range(self.nombre_joueurs):
             pos = (self.premier+i) % self.nombre_joueurs
@@ -569,19 +587,19 @@ class InterfaceGraphique(Tk):
         value.clear()
 
         if self.var_1.get():
-            value.append(1)
+            value.append(0)
 
         if self.var_2.get():
-            value.append(2)
+            value.append(1)
 
         if self.var_3.get():
-            value.append(3)
+            value.append(2)
 
         if self.var_4.get():
-            value.append(4)
+            value.append(3)
 
         if self.var_5.get():
-            value.append(5)
+            value.append(4)
 
         return value
 

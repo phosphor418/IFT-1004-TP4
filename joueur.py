@@ -43,6 +43,8 @@ class Joueur:
                 des_a_relancer = []
                 for de in relance.split(","):
                     des_a_relancer.append(int(de)-1)
+
+
                 combinaison.relancer_des(des_a_relancer)
 
         print("Voici votre combinaison:")

@@ -312,18 +312,35 @@ class InterfaceGraphique(Tk):
 
         self.nb_lancer = 0
         self.nb_lancer_1 = 0
+        self.nb_lancer_2 = 0
         self.nb_lancer_autre = 0
         self.nb_lancer_autre_1 = 0
+        self.nb_lancer_autre_2 = 0
+        self.max_lancer = 3
+        self.zero = 0
+
         self.passer = 0
         self.joueur_1 = []
         self.joueur_2 = []
         self.joueur_3 = []
         self.bool_passer = True
 
+        self.bool_lancer_1 = True
+        self.bool_lancer_2 = False
+        self.bool_lancer_3 = False
+
+        self.lol_1 = False
+        self.lol_2 = False
+        self.lol_3 = False
+
+        self.tour_joueur_1 = 0
+        self.tour_joueur_2 = 0
+        self.tour_joueur_3 = 0
 
 
 
-        self.bouton_lancer = Button(self.boutonframe, text="Lancer", command=self.tour)
+
+        self.bouton_lancer = Button(self.boutonframe, text="Lancer", command=self.tour_jouer)
         self.bouton_lancer.grid(column=0, row=0, rowspan=1, columnspan=1)
 
         self.bouton_passer = Button(self.boutonframe, text="Passer", command=self.passer_tour)
@@ -479,9 +496,7 @@ class InterfaceGraphique(Tk):
     def afficher_tableau(self):
 
         self.recap_canvas.delete()
-        self.nb_lancer += 1
-        self.nb_lancer_autre += 1
-        print(self.nb_lancer)
+
 
         self.checkbutton_1 = Checkbutton(self.frame_de_bas, text="", variable=self.var_1)
         self.checkbutton_1.grid(row=2, column=0, padx=0, pady=10)
@@ -533,48 +548,109 @@ class InterfaceGraphique(Tk):
 
     def passer_tour (self):
         self.bool_passer = False
-        self.tour
+        self.tour_jouer()
 
-    def tour (self):
+    def tour_jouer (self):
+
+        self.nb_lancer += 1
+        self.nb_lancer_autre += 1
+        print("lancer {0}".format(self.nb_lancer))
 
 
-        if self.bool_passer == False :
-            self.passer +=1
+        if self.bool_lancer_1 == True :
+            self.tour_joueur_1 +=1
+            self.lol_1 = True
+            print("lancer1 :{0}".format(self.tour_joueur_1))
+        if self.bool_lancer_2 == True :
+            self.tour_joueur_2 +=1
+            print("lancer2 : {0}".format(self.tour_joueur_2))
+            self.lol_1= False
+            self.lol_2 = True
+        if self.bool_lancer_3 == True :
+            self.tour_joueur_3 +=1
+            print("lancer3 : {0}".format(self.tour_joueur_3))
+            self.lol_1 = False
+            self.lol_2 = False
+            self.lol_3 = True
+
+
+
+        if self.bool_passer == False:
+            self.passer += 1
 
             print(self.passer)
+
             print(self.bool_passer)
+
+
         elif self.bool_passer == True :
-            print("swag")
+
             self.afficher_tableau()
-
-
         self.bool_passer = True
 
 
-        if self.nb_lancer == NB_MAX_LANCERS or self.passer == 1:
+
+
+        if self.lol_1 == True :
+            if self.tour_joueur_1==NB_MAX_LANCERS or self.passer == 1 :
+
+
+                self.nb_lancer_1 = self.tour_joueur_1
+                self.bool_lancer_2 = True
+
+                #  self.nb_lancer_autre_1 = self.nb_lancer_autre + self.nb_lancer_1
+
+                self.passer = 2
+                print("joueur    1")
+
+
+        elif self.lol_2 == True :
+            if self.tour_joueur_2 == self.nb_lancer_1 or self.passer == 3 :
+                # self.tour_joueur_1 = 3
+
+
+
+                 self.bool_lancer_3 = True
+                 self.passer = 4
+
+                 #  self.nb_lacer_2 = self.nb_lancer_1
+                 #  self.nb_lancer_autre_2 = self.nb_lacer_2 + self.nb_lancer_autre_1
+
+                 print("joueur    2")
+
+        elif self.lol_3 == True:
+            if self.tour_joueur_3 == self.nb_lancer_1 or self.passer == 5:
+
+               self.passer = 5
+               self.tour_joueur_3 == 5
+               print("joueur    3")
+
+
+
+
+
+        """
+        if self.tour_joueur_1 == 2 or self.passer == 1:
             self.joueur_1 = self.liste
             print("MAIN DU JOUEUR 1")
             print (self.joueur_1)
 
-            self.nb_lancer_1 = self.nb_lancer
-            self.nb_lancer_autre_1 = self.nb_lancer_autre + self.nb_lancer_1
-            self.passer = 1
 
 
-        elif self.nb_lancer == self.nb_lancer_autre_1 or self.passer == 2:
+
+        elif self.tour_joueur_1 == 3  or self.passer == 3:
             self.joueur_2 = self.liste
             print("MAIN DU JOUEUR 2")
             print(self.joueur_2)
-            self.passer = 2
-            self.nb_lacer_2 = self.nb_lancer
-            self.nb_lacer_autre_2 = self.nb_lacer_2 + self.nb_lancer_autre_1
 
-        elif self.nb_lancer == self.nb_lancer_autre_1 or self.passer == 3 :
+
+        elif self.tour_joueur_1 == 4 or self.passer == 5 :
             self.joueur_3 = self.liste
             print("MAIN DU JOUEUR 3 ")
             print(self.joueur_3)
-            self.passer = 3
 
+        #self.tour_joueur_1 = 1
+        """
 
     def txt_utilisateur (self, string):
         return self.string

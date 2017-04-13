@@ -15,6 +15,7 @@ GROS_LOT = 1
 
 
 
+
 #*****************************************************************************
 
 class Parametres_partie(Toplevel):
@@ -152,7 +153,7 @@ class JoueurInterface(LabelFrame):
         return False
 
     def lancer_des(self):
-
+        """
         nombre_des = self.nb_des_a_lancer
         self.lancer_1 = [0] *5
 
@@ -188,17 +189,12 @@ class JoueurInterface(LabelFrame):
 
         shuffle(self.positions_libres)
         pos = self.positions_libres[:nombre_des]
-        for i, v in enumerate(valeurs_obtenues):
-            x = pos[i][0] * self.nb_pixels_img + self.nb_pixels_img // 2
-            y = pos[i][1] * self.nb_pixels_img + self.nb_pixels_img // 2
-            id = self.table_de_jeu.create_image(x, y, image=self.images_des[v-1])
-            self.table_de_jeu.update()
-            self.des_sur_canvas[pos[i]] = (v, id)
+
 
         self.resultat_lancer += valeurs_obtenues
         #
         self.combinaison_actuelle = Combinaison(self.resultat_lancer)
-        print(self.combinaison_actuelle)
+       # print(self.combinaison_actuelle)
 
 
         self.after(1000)
@@ -206,6 +202,7 @@ class JoueurInterface(LabelFrame):
         self.des_a_relancer = []
         self.nb_des_a_lancer = 0
         return valeurs_obtenues
+        """
 
     def jouer_tour(self, nb_des_a_lancer=NOMBRE_DES_DU_JEU, nb_maximum_lancer=NB_MAX_LANCERS):
         self.nb_des_a_lancer = nb_des_a_lancer
@@ -313,11 +310,23 @@ class InterfaceGraphique(Tk):
 
         self.boutonframe = Frame(self.frame_de_droit)
 
+        self.nb_lancer = 0
+        self.nb_lancer_1 = 0
+        self.nb_lancer_autre = 0
+        self.nb_lancer_autre_1 = 0
+        self.passer = 0
+        self.joueur_1 = []
+        self.joueur_2 = []
+        self.joueur_3 = []
+        self.bool_passer = True
 
-        self.bouton_lancer = Button(self.boutonframe, text="Lancer", command=self.afficher_tableau)
+
+
+
+        self.bouton_lancer = Button(self.boutonframe, text="Lancer", command=self.tour)
         self.bouton_lancer.grid(column=0, row=0, rowspan=1, columnspan=1)
 
-        self.bouton_passer = Button(self.boutonframe, text="Passer", command=self.passer_au_suivant)
+        self.bouton_passer = Button(self.boutonframe, text="Passer", command=self.passer_tour)
         self.bouton_passer.grid(column=1, row=0, rowspan=1, columnspan=1)
 
         self.phase_label = Label(self.frame_de_droit, text="", font="Arial 20 italic")
@@ -330,7 +339,6 @@ class InterfaceGraphique(Tk):
         self.jeu_courant_label.grid(padx=0,pady=0)
 
         self.valeurs_obtenues = Combinaison()
-
 
         self.var_1 = IntVar()
         self.var_2 = IntVar()
@@ -439,8 +447,41 @@ class InterfaceGraphique(Tk):
         self.recap_canvas.grid(padx=5, pady=5)
         self.recap_canvas.update()
 
+
+    def tour_joueur (self):
+
+        nb_lancer = 0
+        nb_max_prochain = 0
+
+        if self.nombre_joueurs == 2 :
+            while nb_lancer < NB_MAX_LANCERS :
+                nb_lancer+=1
+                print("c'est au tour du jouer 1 ")
+
+                nb_max_prochain +=1
+
+
+
+
+
+
+
+
+
+        elif self.nombre_joueurs == 3 :
+            print("bui est tres fif")
+
+
+
+
+
+
     def afficher_tableau(self):
-        self.recap_canvas.delete('all')
+
+        self.recap_canvas.delete()
+        self.nb_lancer += 1
+        self.nb_lancer_autre += 1
+        print(self.nb_lancer)
 
         self.checkbutton_1 = Checkbutton(self.frame_de_bas, text="", variable=self.var_1)
         self.checkbutton_1.grid(row=2, column=0, padx=0, pady=10)
@@ -450,14 +491,11 @@ class InterfaceGraphique(Tk):
 
         self.checkbutton_3 = Checkbutton(self.frame_de_bas, text="", variable=self.var_3)
         self.checkbutton_3.grid(row=2, column=2, padx=40, pady=10)
-
         self.checkbutton_4 = Checkbutton(self.frame_de_bas, text="", variable=self.var_4)
         self.checkbutton_4.grid(row=2, column=3, padx=40, pady=10)
 
         self.checkbutton_5 = Checkbutton(self.frame_de_bas, text="", variable=self.var_5)
         self.checkbutton_5.grid(row=2, column=4, padx=40, pady=10)
-
-
 
         self.valeurs_obtenues.relancer_des([])
 
@@ -467,17 +505,14 @@ class InterfaceGraphique(Tk):
 
         list_checkbox = self.value_checkbutton()
         print(list_checkbox)
-        lol = self.valeurs_obtenues.relancer_des(list_checkbox)
-        print(lol)
-
-
+        self.lol = self.valeurs_obtenues.relancer_des(list_checkbox)
+        print(self.lol)
         for elem in premier_lancer:
-            # chaine += "{:^3s}".format(elem)
-            self.liste += "{:s}".format(elem)
+                 # chaine += "{:^3s}".format(elem)
+                self.liste += "{:s}".format(elem)
         print(self.liste)
 
-        str_1 = self.liste [0]
-        print(str_1)
+
 
 
         self.carte_1 = Label(self.frame_de_bas,text=self.liste[0])
@@ -494,6 +529,55 @@ class InterfaceGraphique(Tk):
 
         self.carte_5 = Label(self.frame_de_bas, text=self.liste[4])
         self.carte_5.grid(row=1, column=4, padx=40, pady=10)
+
+
+    def passer_tour (self):
+        self.bool_passer = False
+        self.tour
+
+    def tour (self):
+
+
+        if self.bool_passer == False :
+            self.passer +=1
+
+            print(self.passer)
+            print(self.bool_passer)
+        elif self.bool_passer == True :
+            print("swag")
+            self.afficher_tableau()
+
+
+        self.bool_passer = True
+
+
+        if self.nb_lancer == NB_MAX_LANCERS or self.passer == 1:
+            self.joueur_1 = self.liste
+            print("MAIN DU JOUEUR 1")
+            print (self.joueur_1)
+
+            self.nb_lancer_1 = self.nb_lancer
+            self.nb_lancer_autre_1 = self.nb_lancer_autre + self.nb_lancer_1
+            self.passer = 1
+
+
+        elif self.nb_lancer == self.nb_lancer_autre_1 or self.passer == 2:
+            self.joueur_2 = self.liste
+            print("MAIN DU JOUEUR 2")
+            print(self.joueur_2)
+            self.passer = 2
+            self.nb_lacer_2 = self.nb_lancer
+            self.nb_lacer_autre_2 = self.nb_lacer_2 + self.nb_lancer_autre_1
+
+        elif self.nb_lancer == self.nb_lancer_autre_1 or self.passer == 3 :
+            self.joueur_3 = self.liste
+            print("MAIN DU JOUEUR 3 ")
+            print(self.joueur_3)
+            self.passer = 3
+
+
+    def txt_utilisateur (self, string):
+        return self.string
 
 
 
@@ -530,6 +614,29 @@ class InterfaceGraphique(Tk):
         self.lancer_passer_control_var.set(True)
         self.choix = "P"
 
+        self.passer += 1
+
+        if self.passer == 1:
+            print("JOUEUR 1")
+            self.joueur_1 = self.liste
+            print(self.joueur_1)
+        elif self.passer == 2 :
+            print("JOEUR2")
+            self.joueur_2 = self.liste
+            print(self.joueur_2)
+
+        elif self.passer ==3 :
+            print("joueur 3")
+            self.joueur_3 = self.liste
+            print(self.joueur_3)
+
+
+
+
+
+
+
+
 
 
     def determiner_premier_lanceur(self):
@@ -547,7 +654,7 @@ class InterfaceGraphique(Tk):
 
         self.phase = InterfaceGraphique.TROUVER_PREMIER
         self.afficher_phase()
-        self.empecher_passer()
+      #  self.empecher_passer()
         concernes = list(range(self.nombre_joueurs))
         self.premier = concernes[0]
         self.afficher_tableau_recapitulatif()
@@ -560,7 +667,7 @@ class InterfaceGraphique(Tk):
         self.tour += 1
         self.phase = InterfaceGraphique.JOUER
         self.afficher_phase()
-        self.empecher_passer()
+    #    self.empecher_passer()
         self.afficher_tableau()
 
         for i in range(self.nombre_joueurs):

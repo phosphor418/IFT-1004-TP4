@@ -328,6 +328,8 @@ class InterfaceGraphique(Tk):
         self.max_lancer = 3
         self.zero = 0
 
+        self.joueur_liste=[]
+
         self.passer = 0
         self.joueur_1 = []
         self.joueur_2 = []
@@ -356,10 +358,10 @@ class InterfaceGraphique(Tk):
 
 
 
-        self.bouton_lancer = Button(self.boutonframe, text="Lancer", command=self.tour_jouer)
+        self.bouton_lancer = Button(self.boutonframe, text="Lancer", command= self.update)
         self.bouton_lancer.grid(column=0, row=0, rowspan=1, columnspan=1)
 
-        self.bouton_passer = Button(self.boutonframe, text="Passer", command=self.passer_tour)
+        self.bouton_passer = Button(self.boutonframe, text="Passer", command=self.update_passer)
         self.bouton_passer.grid(column=1, row=0, rowspan=1, columnspan=1)
 
         self.phase_label = Label(self.frame_de_droit, text="", font="Arial 20 italic")
@@ -377,14 +379,16 @@ class InterfaceGraphique(Tk):
         self.nom_joueur_courant = Label(self.frame_de_bas, text = "Joueur courant")
         self.nom_joueur_courant.grid(padx = 0, pady = 20)
 
-        self.var_nom_joueur_courant = Label(self.frame_de_bas, text = "X")
-        self.var_nom_joueur_courant.grid(padx = 0, pady = 20)
+        self.var_nom_joueur_courant = Label(self.frame_de_bas, text="XXXXXX")
+        self.var_nom_joueur_courant.grid(padx=0, pady=20)
+
+
 
         self.num_lancer = Label(self.frame_de_bas, text = "Lancer actuel")
         self.num_lancer.grid(padx=20, pady=20)
 
-        self.var_num_lancer = Label(self.frame_de_bas, text = "X")
-        self.var_num_lancer.grid(padx=0, pady=20)
+        self.var_num_lancer = Label(self.frame_de_bas, text = "XXXXXX")
+        self.var_num_lancer.grid(padx=20, pady=20)
 
         self.nbr_max_lancer = Label(self.frame_de_bas, text = "Nombre maximal de lancer(s)")
         self.nbr_max_lancer.grid(padx=20, pady=20)
@@ -437,7 +441,8 @@ class InterfaceGraphique(Tk):
         self.nombre_joueurs, self.as_joker, self.nom_joueurs = afficheur_doptions.get_values_saved()
         print("KKKKK")
         print(self.as_joker)
-        self.joueurs = [JoueurInterface(self.frame_de_droit, nom, self.images_des) for nom in self.nom_joueurs]
+        print(self.nom_joueurs)
+        #self.joueurs = [JoueurInterface(self.frame_de_droit, nom, self.images_des) for nom in self.nom_joueurs]
 
        # if self.inclure_ordi:
        #     self.joueurs += [JoueurAlgoInterface(self.frame_de_droit, self.images_des)]
@@ -449,14 +454,19 @@ class InterfaceGraphique(Tk):
 
 
 
-
+    def update(self):
+        self.tour_jouer()
+       # self.afficher_tableau_recapitulatif()
+    def update_passer(self):
+        self.passer_tour()
+        #self.afficher_tableau_recapitulatif()
 
 
     def afficher_partie(self):
         self.cacher_menu_principal()
         self.frame_de_gauche.grid(row=0, column=0)
         self.frame_de_droit.grid(row=0, column=1)
-        self.afficher_espace_joueur_courant()
+       # self.afficher_espace_joueur_courant()
         self.boutonframe.grid(row=3, column=0, columnspan=2)
         self.frame_de_bas.grid(row=7,column=0)
         self.nom_joueur_courant.grid(row=5, column=0)
@@ -482,33 +492,36 @@ class InterfaceGraphique(Tk):
         self.message.grid(row=1, column=0)
         self.message.after(3000, self.message.grid_forget)
 
+    """
+
     def afficher_tableau_recapitulatif(self):
         self.recap_canvas.delete('all')
         h, l = 100, 300
+        i=0
 
-        for position, joueur in enumerate(self.joueurs):
+        for position in range(len(self.nom_joueurs)):
             color = "black"
             self.recap_canvas.create_rectangle(1, 1 + (h * position), l, 1 + (h * (position+1)))
-            self.recap_canvas.create_text(15, 25 + (h * position), text=joueur.nom, font="Arial 16 italic", fill=color,
+            self.recap_canvas.create_text(15, 25 + (h * position), text=self.nom_joueurs[position], font="Arial 16 italic", fill=color,
                                           justify="left", anchor=W)
-            self.recap_canvas.create_text(50, 70 + (h * position), text= "Résultat: ",
+
+            self.recap_canvas.create_text(50, 70 + (h * position), text= "Résultat: {0}".format(self.joueur_liste[position]),
                                           font="Arial 12 italic", fill=color, justify="left")
 
-            if joueur.resultat_lancer is None:
-                comb_str = ""
-            elif joueur.tour == 0:
-                comb_str = "Lancer : " + str(joueur.resultat_lancer)
-            else:
-                comb_str = ""
 
-            self.recap_canvas.create_text(200, 70 + (h * position), text=comb_str, font="Arial 12 italic",
-                                          fill=color, justify="left")
+
+
+
+
+
         #self.recap_canvas.create_text(5, 25 + (h * self.nombre_joueurs),
                                      # text="Gros lot: {} $".format(self.gros_lot),
                                       #font="Arial 16 italic", fill="Blue", justify="left", anchor=W)
         self.recap_canvas.config(height=(h*self.nombre_joueurs+h), width=l+50)
         self.recap_canvas.grid(padx=5, pady=5)
         self.recap_canvas.update()
+
+        """
 
 
     def tour_joueur (self):
@@ -610,15 +623,22 @@ class InterfaceGraphique(Tk):
 
             if self.bool_compteur_lancer_1 == True :
                 self.tour_joueur_1 += 1
+                self.var_num_lancer.config(text=self.tour_joueur_1)
+                self.var_nbr_max_lancer.config(text=NB_MAX_LANCERS)
+
 
             if self.bool_lancer_1 == True :
 
                 self.lol_1 = True
                 print("lancer1 :{0}".format(self.tour_joueur_1))
+                self.var_nom_joueur_courant.config(text= self.nom_joueurs[self.ordre_joueur[0]])
+
 
             if self.bool_lancer_2 == True :
                 self.tour_joueur_2 +=1
+                self.var_num_lancer.config(text=self.tour_joueur_2)
                 print("lancer2 : {0}".format(self.tour_joueur_2))
+                self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[1]])
                 self.lol_1= False
                 self.lol_2 = True
 
@@ -653,14 +673,20 @@ class InterfaceGraphique(Tk):
                     self.joueur_1 = self.liste
                     self.joueur_1_lancer = self.lancer
 
+                    self.joueur_liste.append(self.joueur_1)
+
 
                     #  self.nb_lancer_autre_1 = self.nb_lancer_autre + self.nb_lancer_1
 
                     self.passer = 2
                     self.type_de_combin()
+
+                    self.var_nbr_max_lancer.config(text= self.nb_lancer_1)
                     print(self.joueur_1)
                     print("joueur    1")
                     print ("le nombre de lancé max pour les autre joueur est de {0}".format(self.tour_joueur_1))
+
+
 
 
             elif self.lol_2 == True :
@@ -673,6 +699,8 @@ class InterfaceGraphique(Tk):
                      self.joueur_2 = self.liste
 
                      self.joueur_2_lancer = self.lancer
+
+                     self.joueur_liste.append(self.joueur_2)
                      print(self.bool_lancer_2)
                      #  self.nb_lacer_2 = self.nb_lancer_1
                      #  self.nb_lancer_autre_2 = self.nb_lacer_2 + self.nb_lancer_autre_1
@@ -687,24 +715,34 @@ class InterfaceGraphique(Tk):
 
             self.nb_lancer += 1
             self.nb_lancer_autre += 1
+
             print("lancer {0}".format(self.nb_lancer))
 
             if self.bool_compteur_lancer_1 == True:
                 self.tour_joueur_1 += 1
+                self.var_num_lancer.config(text = self.tour_joueur_1)
+                self.var_nbr_max_lancer.config(text=NB_MAX_LANCERS)
 
             if self.bool_lancer_1 == True:
                 self.lol_1 = True
                 print("lancer1 :{0}".format(self.tour_joueur_1))
+                self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[0]])
+
+
 
             if self.bool_lancer_2 == True:
                 self.tour_joueur_2 += 1
+                self.var_num_lancer.config(text=self.tour_joueur_2)
                 print("lancer2 : {0}".format(self.tour_joueur_2))
+                self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[1]])
                 self.lol_1 = False
                 self.lol_2 = True
 
             if self.bool_lancer_3 == True:
                 self.tour_joueur_3 += 1
+                self.var_num_lancer.config(text=self.tour_joueur_3)
                 print("lancer3 : {0}".format(self.tour_joueur_3))
+                self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[3]])
 
                 self.lol_1 = False
                 self.lol_2 = False
@@ -728,6 +766,7 @@ class InterfaceGraphique(Tk):
                 if self.tour_joueur_1 == NB_MAX_LANCERS or self.passer == 1:
                     # self.tour_joueur_1 += -1
 
+
                     self.nb_lancer_1 = self.tour_joueur_1
                     self.bool_lancer_2 = True
                     self.bool_lancer_1 = False
@@ -738,6 +777,8 @@ class InterfaceGraphique(Tk):
 
                     self.passer = 2
                     self.type_de_combin()
+                    self.var_nbr_max_lancer.config(text=self.nb_lancer_1)
+                    self.joueur_liste.append(self.joueur_1)
                     print(self.joueur_1)
                     print("joueur    1")
                     print("le nombre de lancé max pour les autre joueur est de {0}".format(self.tour_joueur_1))
@@ -753,6 +794,7 @@ class InterfaceGraphique(Tk):
                     self.joueur_2 = self.liste
 
                     self.joueur_2_lancer = self.lancer
+                    self.joueur_liste.append(self.joueur_2)
                     print(self.bool_lancer_2)
                     #  self.nb_lacer_2 = self.nb_lancer_1
                     #  self.nb_lancer_autre_2 = self.nb_lacer_2 + self.nb_lancer_autre_1
@@ -767,6 +809,7 @@ class InterfaceGraphique(Tk):
 
                     self.joueur_3 = self.liste
                     self.joueur_3_lancer = self.lancer
+                    self.joueur_liste.append(self.joueur_3)
                     print(self.joueur_3)
                     print("joueur    3")
 
@@ -799,7 +842,7 @@ class InterfaceGraphique(Tk):
 
 
 
-
+    """
     def afficher_espace_joueur_courant(self, position=None):
         for joueur in self.joueurs:
             joueur.grid_forget()
@@ -808,7 +851,7 @@ class InterfaceGraphique(Tk):
         if position is None:
             position = self.indice_joueur_courant
         self.joueurs[position].grid(row=2, column=0, padx=5, pady=5)
-
+    """
     def lancer_des(self):
         self.lancer_passer_control_var.set(True)
        # lancer =[]
@@ -875,7 +918,7 @@ class InterfaceGraphique(Tk):
       #  self.empecher_passer()
         concernes = list(range(self.nombre_joueurs))
         self.premier = concernes[0]
-        self.afficher_tableau_recapitulatif()
+        #self.afficher_tableau_recapitulatif()
 
 
     def jouer_tour_premiere_phase(self):
@@ -893,7 +936,7 @@ class InterfaceGraphique(Tk):
             self.permettre_lancer()
             self.indice_joueur_courant = pos
 
-            self.afficher_espace_joueur_courant(pos)
+            #self.afficher_espace_joueur_courant(pos)
             self.joueurs[pos].asg_tour(self.tour)
             self.joueurs[pos].jouer_tour(nb_des_a_lancer=NOMBRE_DES_DU_JEU, nb_maximum_lancer=1)
             self.joueurs[pos].lancer_des()

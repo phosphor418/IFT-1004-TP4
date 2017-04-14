@@ -30,8 +30,8 @@ class Parametres_partie(Toplevel):
         self.grab_set()
 
         self.nombre_joueurs = 0
-        self.inclure_ordi = False
 
+        self.as_joker = None
         self.nom_joueurs = []
 
         self.instruction_nb_joueurs = Label(self, text="Nombre de joueur")
@@ -39,6 +39,7 @@ class Parametres_partie(Toplevel):
         self.var_nb_joueurs = IntVar()
         self.var_nb_joueurs.trace('w', self.selection_nb_joueur)
         self.box_nb_joueurs = Combobox(self, textvariable=self.var_nb_joueurs, values=[2, 3])
+
 
         self.box_nb_joueurs.grid(row=0, column=1, padx=5, pady=5)
 
@@ -75,21 +76,29 @@ class Parametres_partie(Toplevel):
         self.protocol("WM_DELETE_WINDOW", self.valider)
         self.wait_window()
 
+
     def valider(self):
         valide = False
         try:
             self.nombre_joueurs = self.var_nb_joueurs.get()  #INT NOMBRE DE JOUEUR
-           # self.inclure_ordi = self.var_ajout_ordi.get() == "Oui"
+            #self.inclure_ordi = self.var_ajout_ordi.get() == "Oui"
             self.nom_joueurs = [self.list_vars_nom_joueurs[i].get()  #LISTE NOM DE JOUEUR
                                 for i in range(self.nombre_joueurs)]
 
+            self.as_joker = self.var_As_joker.get()
+            print("hu")
+            print(self.as_joker)
 
 
-          #  print(self.ordre_joueur)
-            print(self.nom_joueurs)
+
+
+
             if not (2 <= self.nombre_joueurs <= 3):
                 messagebox.showerror("Erreur",
                                      "Le nombre de joueur de la partie incluant l'ordinateur doit être entre 2 et 3")
+            if not (self.as_joker == "Oui" or self.as_joker == "Non" ):
+                messagebox.showerror("Erreur",
+                                     "Vous devez entrer une reponse au as étant joker ou non")
             else:
                 valide = True
 
@@ -116,7 +125,7 @@ class Parametres_partie(Toplevel):
         self.bouton_commencer_partie.grid(row=3+i, column=1, padx=5, pady=5)
 
     def get_values_saved(self):
-        return self.nombre_joueurs, self.inclure_ordi, self.nom_joueurs
+        return self.nombre_joueurs, self.as_joker, self.nom_joueurs,
 
 #*****************************************************************************
 
@@ -323,8 +332,12 @@ class InterfaceGraphique(Tk):
         self.joueur_1 = []
         self.joueur_2 = []
         self.joueur_3 = []
-        self.bool_passer = True
+        self.joueur_1_lancer = None
+        self.joueur_2_lancer = None
+        self.joueur_3_lancer = None
 
+        self.bool_passer = True
+        self.bool_compteur_lancer_1 = True
         self.bool_lancer_1 = True
         self.bool_lancer_2 = False
         self.bool_lancer_3 = False
@@ -336,6 +349,9 @@ class InterfaceGraphique(Tk):
         self.tour_joueur_1 = 0
         self.tour_joueur_2 = 0
         self.tour_joueur_3 = 0
+        self.test= None
+        self.lolxd = None
+        self.lancer = None
 
 
 
@@ -418,7 +434,9 @@ class InterfaceGraphique(Tk):
         self.value_checkbutton()
         
         afficheur_doptions = Parametres_partie(self)
-        self.nombre_joueurs, self.inclure_ordi, self.nom_joueurs = afficheur_doptions.get_values_saved()
+        self.nombre_joueurs, self.as_joker, self.nom_joueurs = afficheur_doptions.get_values_saved()
+        print("KKKKK")
+        print(self.as_joker)
         self.joueurs = [JoueurInterface(self.frame_de_droit, nom, self.images_des) for nom in self.nom_joueurs]
 
        # if self.inclure_ordi:
@@ -543,15 +561,17 @@ class InterfaceGraphique(Tk):
 
         self.valeurs_obtenues.relancer_des([])
 
-        premier_lancer = self.valeurs_obtenues.des
+        self.lancer = self.valeurs_obtenues.des
+        print("XDXDXD")
+        print (self.lancer)
         self.liste = []
 
 
         list_checkbox = self.value_checkbutton()
         print(list_checkbox)
         self.lol = self.valeurs_obtenues.relancer_des(list_checkbox)
-        print(self.lol)
-        for elem in premier_lancer:
+
+        for elem in self.lancer:
                  # chaine += "{:^3s}".format(elem)
                 self.liste += "{:s}".format(elem)
         print(self.liste)
@@ -577,124 +597,202 @@ class InterfaceGraphique(Tk):
 
     def passer_tour (self):
         self.bool_passer = False
+        self.bool_compteur_lancer_1 = False
         self.tour_jouer()
 
     def tour_jouer (self):
 
+        if self.nombre_joueurs == 2 :
 
-        self.nb_lancer += 1
-        self.nb_lancer_autre += 1
-        print("lancer {0}".format(self.nb_lancer))
+            self.nb_lancer += 1
+            self.nb_lancer_autre += 1
+            print("lancer {0}".format(self.nb_lancer))
 
+            if self.bool_compteur_lancer_1 == True :
+                self.tour_joueur_1 += 1
 
-        if self.bool_lancer_1 == True :
-            self.tour_joueur_1 +=1
-            self.lol_1 = True
-            print("lancer1 :{0}".format(self.tour_joueur_1))
+            if self.bool_lancer_1 == True :
 
-        if self.bool_lancer_2 == True :
-            self.tour_joueur_2 +=1
-            print("lancer2 : {0}".format(self.tour_joueur_2))
-            self.lol_1= False
-            self.lol_2 = True
+                self.lol_1 = True
+                print("lancer1 :{0}".format(self.tour_joueur_1))
 
-        if self.bool_lancer_3 == True :
-            self.tour_joueur_3 +=1
-            print("lancer3 : {0}".format(self.tour_joueur_3))
-
-            self.lol_1 = False
-            self.lol_2 = False
-            self.lol_3 = True
+            if self.bool_lancer_2 == True :
+                self.tour_joueur_2 +=1
+                print("lancer2 : {0}".format(self.tour_joueur_2))
+                self.lol_1= False
+                self.lol_2 = True
 
 
 
+            if self.bool_passer == False:
+                self.passer += 1
 
-        if self.bool_passer == False:
-            self.passer += 1
+                print(self.passer)
 
-            print(self.passer)
-
-            print(self.bool_passer)
-
-
-        elif self.bool_passer == True :
-
-            self.afficher_tableau()
+                print(self.bool_passer)
 
 
-        self.bool_passer = True
+            elif self.bool_passer == True :
+
+                self.afficher_tableau()
+
+
+            self.bool_passer = True
 
 
 
 
-        if self.lol_1 == True :
-            if self.tour_joueur_1==NB_MAX_LANCERS or self.passer == 1 :
+            if self.lol_1 == True :
+                if self.tour_joueur_1==NB_MAX_LANCERS or self.passer == 1 :
 
-                self.tour_joueur_1 += -1
+                    #self.tour_joueur_1 += -1
 
-                self.nb_lancer_1 = self.tour_joueur_1
-                self.bool_lancer_2 = True
-                self.bool_lancer_1 = False
-                self.joueur_1 = self.liste
-
-
-                #  self.nb_lancer_autre_1 = self.nb_lancer_autre + self.nb_lancer_1
-
-                self.passer = 2
-                print("joueur    1")
-                print ("le nombre de lancé max pour les autre joueur est de {0}".format(self.tour_joueur_1))
+                    self.nb_lancer_1 = self.tour_joueur_1
+                    self.bool_lancer_2 = True
+                    self.bool_lancer_1 = False
+                    self.joueur_1 = self.liste
+                    self.joueur_1_lancer = self.lancer
 
 
-        elif self.lol_2 == True :
-            if self.tour_joueur_2 == self.nb_lancer_1 or self.passer == 3 :
-                # self.tour_joueur_1 = 3
+                    #  self.nb_lancer_autre_1 = self.nb_lancer_autre + self.nb_lancer_1
+
+                    self.passer = 2
+                    self.type_de_combin()
+                    print(self.joueur_1)
+                    print("joueur    1")
+                    print ("le nombre de lancé max pour les autre joueur est de {0}".format(self.tour_joueur_1))
 
 
-                 self.bool_lancer_2 = False
-                 self.bool_lancer_3 = True
-                 self.passer = 4
-                 self.joueur_2 = self.liste
+            elif self.lol_2 == True :
+                if self.tour_joueur_2 == self.nb_lancer_1 or self.passer == 3 :
+                    # self.tour_joueur_1 = 3
 
-                 #  self.nb_lacer_2 = self.nb_lancer_1
-                 #  self.nb_lancer_autre_2 = self.nb_lacer_2 + self.nb_lancer_autre_1
-
-                 print("joueur    2")
+                     self.bool_lancer_2 = False
 
 
-        elif self.lol_3 == True:
-            if self.tour_joueur_3 == self.nb_lancer_1 or self.passer == 5:
+                     self.joueur_2 = self.liste
 
-               self.passer = 5
-               self.tour_joueur_3 == 5
-               self.joueur_3 = self.liste
-               print("joueur    3")
+                     self.joueur_2_lancer = self.lancer
+                     print(self.bool_lancer_2)
+                     #  self.nb_lacer_2 = self.nb_lancer_1
+                     #  self.nb_lancer_autre_2 = self.nb_lacer_2 + self.nb_lancer_autre_1
 
-
-
+                     print("joueur    2")
 
 
-        """
-        if self.tour_joueur_1 == 2 or self.passer == 1:
-            self.joueur_1 = self.liste
-            print("MAIN DU JOUEUR 1")
-            print (self.joueur_1)
-
-
-
-
-        elif self.tour_joueur_1 == 3  or self.passer == 3:
-            self.joueur_2 = self.liste
-            print("MAIN DU JOUEUR 2")
+            print(self.joueur_1)
             print(self.joueur_2)
 
+        elif self.nombre_joueurs == 3:
 
-        elif self.tour_joueur_1 == 4 or self.passer == 5 :
-            self.joueur_3 = self.liste
-            print("MAIN DU JOUEUR 3 ")
+            self.nb_lancer += 1
+            self.nb_lancer_autre += 1
+            print("lancer {0}".format(self.nb_lancer))
+
+            if self.bool_compteur_lancer_1 == True:
+                self.tour_joueur_1 += 1
+
+            if self.bool_lancer_1 == True:
+                self.lol_1 = True
+                print("lancer1 :{0}".format(self.tour_joueur_1))
+
+            if self.bool_lancer_2 == True:
+                self.tour_joueur_2 += 1
+                print("lancer2 : {0}".format(self.tour_joueur_2))
+                self.lol_1 = False
+                self.lol_2 = True
+
+            if self.bool_lancer_3 == True:
+                self.tour_joueur_3 += 1
+                print("lancer3 : {0}".format(self.tour_joueur_3))
+
+                self.lol_1 = False
+                self.lol_2 = False
+                self.lol_3 = True
+
+            if self.bool_passer == False:
+                self.passer += 1
+
+                print(self.passer)
+
+                print(self.bool_passer)
+
+
+            elif self.bool_passer == True:
+
+                self.afficher_tableau()
+
+            self.bool_passer = True
+
+            if self.lol_1 == True:
+                if self.tour_joueur_1 == NB_MAX_LANCERS or self.passer == 1:
+                    # self.tour_joueur_1 += -1
+
+                    self.nb_lancer_1 = self.tour_joueur_1
+                    self.bool_lancer_2 = True
+                    self.bool_lancer_1 = False
+                    self.joueur_1 = self.liste
+                    self.joueur_1_lancer = self.lancer
+
+                    #  self.nb_lancer_autre_1 = self.nb_lancer_autre + self.nb_lancer_1
+
+                    self.passer = 2
+                    self.type_de_combin()
+                    print(self.joueur_1)
+                    print("joueur    1")
+                    print("le nombre de lancé max pour les autre joueur est de {0}".format(self.tour_joueur_1))
+
+
+            elif self.lol_2 == True:
+                if self.tour_joueur_2 == self.nb_lancer_1 or self.passer == 3:
+                    # self.tour_joueur_1 = 3
+
+                    self.bool_lancer_2 = False
+                    self.bool_lancer_3 = True
+                    self.passer = 4
+                    self.joueur_2 = self.liste
+
+                    self.joueur_2_lancer = self.lancer
+                    print(self.bool_lancer_2)
+                    #  self.nb_lacer_2 = self.nb_lancer_1
+                    #  self.nb_lancer_autre_2 = self.nb_lacer_2 + self.nb_lancer_autre_1
+
+                    print("joueur    2")
+
+
+            elif self.lol_3 == True:
+                if self.tour_joueur_3 == self.nb_lancer_1 or self.passer == 5:
+                    self.passer = 5
+                    self.tour_joueur_3 == 5
+
+                    self.joueur_3 = self.liste
+                    self.joueur_3_lancer = self.lancer
+                    print(self.joueur_3)
+                    print("joueur    3")
+
+            print(self.joueur_1)
+            print(self.joueur_2)
             print(self.joueur_3)
 
-        #self.tour_joueur_1 = 1
-        """
+    def type_de_combin (self):
+
+        if self.as_joker == "Oui":
+            print("OUI")
+            self.test = Combinaison(self.joueur_1_lancer)
+            self.lolxd = self.test.determiner_type_combinaison()
+            print(self.lolxd)
+            print("lolOLOLOLOLO")
+        else :
+            print("NON")
+            self.test = Combinaison(self.joueur_1_lancer)
+            self.lolxd = self.test.determiner_type_combinaison_sans_AS()
+            print(self.lolxd)
+
+
+        #self.lolxd = self.test.determiner_meilleur_combinaison()
+
+
+
 
     def txt_utilisateur (self, string):
         return self.string

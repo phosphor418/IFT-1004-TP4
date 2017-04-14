@@ -43,12 +43,16 @@ class Partie:
 
             print("C'est au tour de {}\n".format(joueur))
             resultat, nb_tours = joueur.jouer_tour(max_lancers)
+            print("AGAGAG")
+            print(resultat)
             if i == 0:
                 max_lancers = nb_tours
 
             print("{} a eu {}\n\n".format(joueur, resultat.determiner_type_combinaison()))
 
             resultats.append((joueur, resultat))
+            print("DEFIUWUW")
+            print(resultats)
 
         meilleur_joueur, _  = Combinaison.determiner_meilleur_combinaison(resultats)
         if meilleur_joueur is None:

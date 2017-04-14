@@ -41,7 +41,11 @@ class Combinaison:
         """
         valeurs = []
         for elem in self.des:
+
             valeurs.append(elem.value)
+            print("HhHHHHHHH")
+            print(self.des)
+            print(elem.value)
         valeurs.sort()
 
         nb_identiques = []
@@ -81,6 +85,60 @@ class Combinaison:
         if nb_identiques[0] == 2 and nb_identiques[1] == 2:
             return TypeCombinaison.DEUX_PAIRES
         if nb_identiques[0] + nb_as == 2:
+            return TypeCombinaison.UNE_PAIRE
+
+        return TypeCombinaison.AUTRE
+
+
+    def determiner_type_combinaison_sans_AS(self): # **** a completer ****
+        """Détermine le type de la combinaison.
+
+        Return (TypeCombinaison): Le type de la combinaison.
+        """
+
+        valeurs = []
+        for elem in self.des:
+            valeurs.append(elem.value)
+            print("HhHHHHHHH")
+            print(self.des)
+            print(elem.value)
+        valeurs.sort()
+
+        nb_identiques = []
+        precedent = -1
+        sequence = True
+        nb_as = 0
+        as_utilises_sequence = 0
+
+        for elem in valeurs:
+            if elem == Carte.AS.value:
+                nb_as += 1
+            elif precedent == elem:
+                nb_identiques[-1] += 1
+                sequence = False
+            else:
+                nb_identiques.append(1)
+                if not (precedent == -1 or precedent == elem - 1):
+                        sequence = False
+
+            if elem != Carte.AS.value:
+                precedent = elem
+
+        nb_identiques.sort(reverse=True)
+
+        if nb_as == 5 or nb_identiques[0]  == 5:
+            return TypeCombinaison.QUINTON
+        if nb_identiques[0]  == 4:
+            return TypeCombinaison.CARRE
+        if nb_identiques[0] == 3 and nb_identiques[1] == 2:
+            return TypeCombinaison.FULL
+        if nb_identiques[0]  == 3:
+            return TypeCombinaison.BRELAN
+        if sequence:
+            return TypeCombinaison.SEQUENCE
+        if nb_identiques[0] == 2 and nb_identiques[1] == 2:
+            return TypeCombinaison.DEUX_PAIRES
+        if nb_identiques[0]  == 2:
             return TypeCombinaison.UNE_PAIRE
 
         return TypeCombinaison.AUTRE
@@ -125,6 +183,8 @@ class Combinaison:
         resultats = []
         for _ in range(0, n):
             resultats.append(choice(self.types_cartes))
+        print("LLLLLLLL")
+        print(resultats)
         return resultats
 
     def __str__(self):

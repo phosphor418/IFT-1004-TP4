@@ -269,7 +269,7 @@ class InterfaceGraphique(Tk):
     def __init__(self):
         super().__init__()
         self.title("hb H17 aide TP4")
-        self.geometry("1080x600")
+        self.geometry("1200x700")
         self.protocol("WM_DELETE_WINDOW", self.confirmation_quitter)
 
         # menu
@@ -353,9 +353,27 @@ class InterfaceGraphique(Tk):
         self.ordre_joueur_label.grid(row=0, column=0, padx=40, pady=0)
 
         self.jeu_courant_label= Label (self.frame_de_bas,text="Voici le jeu courant ")
-        self.jeu_courant_label.grid(padx=0,pady=0)
+        self.jeu_courant_label.grid(row=7,padx=0,pady=0)
 
+        #   Zone du tableau des résultats
 
+        self.nom_joueur_courant = Label(self.frame_de_bas, text = "Joueur courant")
+        self.nom_joueur_courant.grid(padx = 0, pady = 20)
+
+        self.var_nom_joueur_courant = Label(self.frame_de_bas, text = "X")
+        self.var_nom_joueur_courant.grid(padx = 0, pady = 20)
+
+        self.num_lancer = Label(self.frame_de_bas, text = "Lancer actuel")
+        self.num_lancer.grid(padx=20, pady=20)
+
+        self.var_num_lancer = Label(self.frame_de_bas, text = "X")
+        self.var_num_lancer.grid(padx=0, pady=20)
+
+        self.nbr_max_lancer = Label(self.frame_de_bas, text = "Nombre maximal de lancer(s)")
+        self.nbr_max_lancer.grid(padx=20, pady=20)
+
+        self.var_nbr_max_lancer = Label(self.frame_de_bas, text = "X")
+        self.var_nbr_max_lancer.grid(padx=0, pady=20)
 
         self.valeurs_obtenues = Combinaison()
 
@@ -421,7 +439,14 @@ class InterfaceGraphique(Tk):
         self.frame_de_droit.grid(row=0, column=1)
         self.afficher_espace_joueur_courant()
         self.boutonframe.grid(row=3, column=0, columnspan=2)
-        self.frame_de_bas.grid(row=5,column=0)
+        self.frame_de_bas.grid(row=7,column=0)
+        self.nom_joueur_courant.grid(row=5, column=0)
+        self.var_nom_joueur_courant.grid(row=6, column=0)
+        self.nbr_max_lancer.grid(row=5, column=1)
+        self.var_nbr_max_lancer.grid(row=6, column=1)
+        self.num_lancer.grid(row=5, column=2)
+        self.var_num_lancer.grid(row=6, column=2)
+
 
     def afficher_phase(self):
         self.phase_label.grid_forget()
@@ -501,18 +526,19 @@ class InterfaceGraphique(Tk):
 
 
         self.checkbutton_1 = Checkbutton(self.frame_de_bas, text="", variable=self.var_1)
-        self.checkbutton_1.grid(row=2, column=0, padx=0, pady=10)
+        self.checkbutton_1.grid(row=9, column=0, padx=0, pady=10)
 
         self.checkbutton_2 = Checkbutton(self.frame_de_bas, text="", variable=self.var_2)
-        self.checkbutton_2.grid(row=2, column=1, padx=40, pady=10)
+        self.checkbutton_2.grid(row=9, column=1, padx=0, pady=10)
 
         self.checkbutton_3 = Checkbutton(self.frame_de_bas, text="", variable=self.var_3)
-        self.checkbutton_3.grid(row=2, column=2, padx=40, pady=10)
+        self.checkbutton_3.grid(row=9, column=2, padx=40, pady=10)
+
         self.checkbutton_4 = Checkbutton(self.frame_de_bas, text="", variable=self.var_4)
-        self.checkbutton_4.grid(row=2, column=3, padx=40, pady=10)
+        self.checkbutton_4.grid(row=9, column=3, padx=40, pady=10)
 
         self.checkbutton_5 = Checkbutton(self.frame_de_bas, text="", variable=self.var_5)
-        self.checkbutton_5.grid(row=2, column=4, padx=40, pady=10)
+        self.checkbutton_5.grid(row=9, column=4, padx=40, pady=10)
 
         self.valeurs_obtenues.relancer_des([])
 
@@ -533,19 +559,19 @@ class InterfaceGraphique(Tk):
 
 
         self.carte_1 = Label(self.frame_de_bas,text=self.liste[0])
-        self.carte_1.grid(row=1,column=0,padx=0,pady=10)
+        self.carte_1.grid(row=8,column=0,padx=0,pady=10)
 
         self.carte_2 = Label(self.frame_de_bas,text=self.liste[1])
-        self.carte_2.grid(row=1,column=1,padx=40,pady=10)
+        self.carte_2.grid(row=8,column=1,padx=0,pady=10)
 
         self.carte_3 = Label(self.frame_de_bas, text=self.liste[2])
-        self.carte_3.grid(row=1, column=2, padx=40, pady=10)
+        self.carte_3.grid(row=8, column=2, padx=40, pady=10)
 
         self.carte_4 = Label(self.frame_de_bas, text=self.liste[3])
-        self.carte_4.grid(row=1, column=3, padx=40, pady=10)
+        self.carte_4.grid(row=8, column=3, padx=40, pady=10)
 
         self.carte_5 = Label(self.frame_de_bas, text=self.liste[4])
-        self.carte_5.grid(row=1, column=4, padx=40, pady=10)
+        self.carte_5.grid(row=8, column=4, padx=40, pady=10)
 
 
     def passer_tour (self):

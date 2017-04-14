@@ -10,7 +10,7 @@ from partie import Partie
 NB_MAX_JOUEURS = 3
 NB_MAX_LANCERS = 3
 NOMBRE_DES_DU_JEU = 5
-GROS_LOT = 1
+#GROS_LOT = 1
 
 
 
@@ -139,7 +139,7 @@ class JoueurInterface(LabelFrame):
         self.nb_pixels_img = max(self.images_des[0].width(), self.images_des[0].height())
         self.nb_cases = 7
         self.table_de_jeu = Canvas(self, width=self.nb_pixels_img*self.nb_cases,
-                                   height=self.nb_pixels_img*self.nb_cases, bg='ivory')
+                                  height=self.nb_pixels_img*self.nb_cases, bg='ivory')
         self.table_de_jeu.grid()
 
         self.des_sur_canvas = {}
@@ -268,8 +268,8 @@ class InterfaceGraphique(Tk):
 
     def __init__(self):
         super().__init__()
-        self.title("hb H17 aide TP4")
-        self.geometry("1200x700")
+        self.title("Simulateur")
+        self.geometry("1200x800")
         self.protocol("WM_DELETE_WINDOW", self.confirmation_quitter)
 
         # menu
@@ -287,7 +287,7 @@ class InterfaceGraphique(Tk):
         self.config(menu=self.menubar)
 
         # ----- Menu principal -----
-        self.title_princ_jeu = Label(self, text="Jeu de dés....", font=("DejaVu Sans", 26),
+        self.title_princ_jeu = Label(self, text="Poker d'as", font=("DejaVu Sans", 26),
                                         width=30, height=3)
         self.title_princ_jeu['background'] = 'green'
         self.bouton_princ_jouer = Button(self, text="Nouvelle partie",  command=self.definir_partie,
@@ -349,8 +349,9 @@ class InterfaceGraphique(Tk):
         self.phase_label = Label(self.frame_de_droit, text="", font="Arial 20 italic")
         self.message = Label(self.frame_de_droit, text="", font="Arial 14 italic", foreground="blue")
 
-        self.ordre_joueur_label = Label(self.frame_de_gauche, text=" Ordre de joueur de la partie : ")
-        self.ordre_joueur_label.grid(row=0, column=0, padx=40, pady=0)
+        self.ordre_joueur_label = Label(self.frame_de_gauche, text=" Ordre des joueurs : ", font='Arial 20 italic')
+        self.ordre_joueur_label.grid(row=0, column=0, padx=40, pady=20)
+        self.ordre_joueur_label['background'] = 'blue'
 
         self.jeu_courant_label= Label (self.frame_de_bas,text="Voici le jeu courant ")
         self.jeu_courant_label.grid(row=7,padx=0,pady=0)
@@ -372,7 +373,7 @@ class InterfaceGraphique(Tk):
         self.nbr_max_lancer = Label(self.frame_de_bas, text = "Nombre maximal de lancer(s)")
         self.nbr_max_lancer.grid(padx=20, pady=20)
 
-        self.var_nbr_max_lancer = Label(self.frame_de_bas, text = "X")
+        self.var_nbr_max_lancer = Label(self.frame_de_bas, text = "")
         self.var_nbr_max_lancer.grid(padx=0, pady=20)
 
         self.valeurs_obtenues = Combinaison()
@@ -408,7 +409,7 @@ class InterfaceGraphique(Tk):
             self.destroy()
 
     def definir_partie(self):
-        self.gros_lot = GROS_LOT
+        #self.gros_lot = GROS_LOT
         self.indice_joueur_courant = None
         self.phase = InterfaceGraphique.TROUVER_PREMIER
         self.tour = 0
@@ -468,11 +469,11 @@ class InterfaceGraphique(Tk):
         h, l = 100, 300
 
         for position, joueur in enumerate(self.joueurs):
-            color = "black" if position != self.indice_joueur_courant else "red"
+            color = "black"
             self.recap_canvas.create_rectangle(1, 1 + (h * position), l, 1 + (h * (position+1)))
             self.recap_canvas.create_text(15, 25 + (h * position), text=joueur.nom, font="Arial 16 italic", fill=color,
                                           justify="left", anchor=W)
-            self.recap_canvas.create_text(50, 70 + (h * position), text=str(joueur.nb_jetons) + " mise",
+            self.recap_canvas.create_text(50, 70 + (h * position), text= "Résultat: ",
                                           font="Arial 12 italic", fill=color, justify="left")
 
             if joueur.resultat_lancer is None:
@@ -484,9 +485,9 @@ class InterfaceGraphique(Tk):
 
             self.recap_canvas.create_text(200, 70 + (h * position), text=comb_str, font="Arial 12 italic",
                                           fill=color, justify="left")
-        self.recap_canvas.create_text(5, 25 + (h * self.nombre_joueurs),
-                                      text="Gros lot: {} $".format(self.gros_lot),
-                                      font="Arial 16 italic", fill="Blue", justify="left", anchor=W)
+        #self.recap_canvas.create_text(5, 25 + (h * self.nombre_joueurs),
+                                     # text="Gros lot: {} $".format(self.gros_lot),
+                                      #font="Arial 16 italic", fill="Blue", justify="left", anchor=W)
         self.recap_canvas.config(height=(h*self.nombre_joueurs+h), width=l+50)
         self.recap_canvas.grid(padx=5, pady=5)
         self.recap_canvas.update()

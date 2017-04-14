@@ -355,6 +355,8 @@ class InterfaceGraphique(Tk):
         self.jeu_courant_label= Label (self.frame_de_bas,text="Voici le jeu courant ")
         self.jeu_courant_label.grid(padx=0,pady=0)
 
+
+
         self.valeurs_obtenues = Combinaison()
 
         self.var_1 = IntVar()
@@ -552,6 +554,7 @@ class InterfaceGraphique(Tk):
 
     def tour_jouer (self):
 
+
         self.nb_lancer += 1
         self.nb_lancer_autre += 1
         print("lancer {0}".format(self.nb_lancer))
@@ -561,17 +564,21 @@ class InterfaceGraphique(Tk):
             self.tour_joueur_1 +=1
             self.lol_1 = True
             print("lancer1 :{0}".format(self.tour_joueur_1))
+
         if self.bool_lancer_2 == True :
             self.tour_joueur_2 +=1
             print("lancer2 : {0}".format(self.tour_joueur_2))
             self.lol_1= False
             self.lol_2 = True
+
         if self.bool_lancer_3 == True :
             self.tour_joueur_3 +=1
             print("lancer3 : {0}".format(self.tour_joueur_3))
+
             self.lol_1 = False
             self.lol_2 = False
             self.lol_3 = True
+
 
 
 
@@ -586,6 +593,8 @@ class InterfaceGraphique(Tk):
         elif self.bool_passer == True :
 
             self.afficher_tableau()
+
+
         self.bool_passer = True
 
 
@@ -594,14 +603,19 @@ class InterfaceGraphique(Tk):
         if self.lol_1 == True :
             if self.tour_joueur_1==NB_MAX_LANCERS or self.passer == 1 :
 
+                self.tour_joueur_1 += -1
 
                 self.nb_lancer_1 = self.tour_joueur_1
                 self.bool_lancer_2 = True
+                self.bool_lancer_1 = False
+                self.joueur_1 = self.liste
+
 
                 #  self.nb_lancer_autre_1 = self.nb_lancer_autre + self.nb_lancer_1
 
                 self.passer = 2
                 print("joueur    1")
+                print ("le nombre de lancé max pour les autre joueur est de {0}".format(self.tour_joueur_1))
 
 
         elif self.lol_2 == True :
@@ -609,20 +623,23 @@ class InterfaceGraphique(Tk):
                 # self.tour_joueur_1 = 3
 
 
-
+                 self.bool_lancer_2 = False
                  self.bool_lancer_3 = True
                  self.passer = 4
+                 self.joueur_2 = self.liste
 
                  #  self.nb_lacer_2 = self.nb_lancer_1
                  #  self.nb_lancer_autre_2 = self.nb_lacer_2 + self.nb_lancer_autre_1
 
                  print("joueur    2")
 
+
         elif self.lol_3 == True:
             if self.tour_joueur_3 == self.nb_lancer_1 or self.passer == 5:
 
                self.passer = 5
                self.tour_joueur_3 == 5
+               self.joueur_3 = self.liste
                print("joueur    3")
 
 
@@ -671,7 +688,7 @@ class InterfaceGraphique(Tk):
         self.lancer_passer_control_var.set(True)
        # lancer =[]
        # Combinaison(lancer)
-        print("BRAP")
+
         self.choix = "L"
 
     def empecher_lancer(self):

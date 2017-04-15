@@ -306,8 +306,8 @@ class InterfaceGraphique(Tk):
         self.menubar = Menu(self)
         menu1 = Menu(self.menubar, tearoff=0)
         menu1.add_command(label="Nouvelle partie", command=self.definir_partie)
-        menu1.add_command(label="Charger", command=None)
-        menu1.add_command(label="Enregistrer", command=None)
+        menu1.add_command(label="Poursuivre...", command=None)
+        menu1.add_command(label="Enregistrer...", command=None)
         menu1.add_separator()
         menu1.add_command(label="Quitter", command=self.confirmation_quitter)
         self.menubar.add_cascade(label="Menu 1", menu=menu1)
@@ -483,24 +483,21 @@ class InterfaceGraphique(Tk):
         #self.checkbutton_2.select()
         #self.checkbutton_3.select()
         #self.checkbutton_4.select()
-        #sel  f.checkbutton_5.select()
+        #self.checkbutton_5.select()
 
 
         self.afficher_menu_principal()
-        #test
-        self.sauvegarde = open('Sauvegarde.txt','w')
+
 
     # ----- Gestion des l'affichage -----
     def afficher_menu_principal(self):
         self.title_princ_jeu.place(relx=0.5, rely=0.33, anchor=CENTER)
         self.bouton_princ_jouer.place(relx=0.5, rely=0.68, anchor=CENTER)
-        self.bouton_princ_charger.place(relx=0.5, rely=0.79, anchor=CENTER)
-        self.bouton_princ_quitter.place(relx=0.5, rely=0.90, anchor=CENTER)
+        self.bouton_princ_quitter.place(relx=0.5, rely=0.79, anchor=CENTER)
 
     def cacher_menu_principal(self):
         self.title_princ_jeu.place_forget()
         self.bouton_princ_jouer.place_forget()
-        self.bouton_princ_charger.place_forget()
         self.bouton_princ_quitter.place_forget()
 
     def confirmation_quitter(self):
@@ -548,7 +545,6 @@ class InterfaceGraphique(Tk):
         self.jouer()
        # self.sauvegarder()
 
-
     def update(self):
         self.tour_jouer()
 
@@ -579,21 +575,20 @@ class InterfaceGraphique(Tk):
 
     def sauvegarder(self):
         if self.nombre_joueurs ==2 :
+            self.sauvegarde = open('Sauvegarde.txt', 'w')
 
             self.sauvegarde.write(str(self.nombre_joueurs) + '\n')
             self.sauvegarde.write(str(self.as_joker) + '\n')
 
             if self.lol_1 == True :
+
                 self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '\n')
                 self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '\n')
                 self.sauvegarde.write(str(self.lol_1)+'\n')
                 self.sauvegarde.write(str(self.nb_lancer_1)+'\n')
                 self.sauvegarde.write(str(self.joueur_1)+'\n')
                 self.sauvegarde.write(str(self.joueur_1_lancer)+ '\n')
-
-
-
-
+                self.sauvegarde.close()
 
 
             elif self.lol_2 == True :
@@ -607,11 +602,18 @@ class InterfaceGraphique(Tk):
 
                 self.sauvegarde.write(str(self.joueur_2) + '\n')
                 self.sauvegarde.write(str(self.joueur_2_lancer) + '\n')
+                self.sauvegarde.close()
+
+            else :
+
+                 self.sauvegarde.close()
 
 
 
 
         elif self.nombre_joueurs == 3 :
+
+                self.sauvegarde = open('Sauvegarde.txt', 'w')
 
                 self.sauvegarde.write(str(self.nombre_joueurs) + '\n')
                 self.sauvegarde.write(str(self.as_joker) + '\n')
@@ -625,6 +627,8 @@ class InterfaceGraphique(Tk):
                     self.sauvegarde.write(str(self.nb_lancer_1) + '\n')
                     self.sauvegarde.write(str(self.joueur_1) + '\n')
                     self.sauvegarde.write(str(self.joueur_1_lancer) + '\n')
+                    self.sauvegarde.close()
+
 
 
                 elif self.lol_2 == True :
@@ -639,6 +643,8 @@ class InterfaceGraphique(Tk):
                      self.sauvegarde.write(str(self.lol_2) + '\n')
                      self.sauvegarde.write(str(self.joueur_2) + '\n')
                      self.sauvegarde.write(str(self.joueur_2_lancer) + '\n')
+                     self.sauvegarde.close()
+
 
 
                 elif self.lol_3 == True :
@@ -656,7 +662,9 @@ class InterfaceGraphique(Tk):
                      self.sauvegarde.write(str(self.lol_3) + '\n')
                      self.sauvegarde.write(str(self.joueur_3) + '\n')
                      self.sauvegarde.write(str(self.joueur_3_lancer) + '\n')
-
+                     self.sauvegarde.close()
+                else :
+                    self.sauvegarde.close()
 
     def afficher_tableau(self):
 
@@ -777,7 +785,7 @@ class InterfaceGraphique(Tk):
                     self.joueur_liste.append(self.joueur_1)
                     self.passer = 2
                     self.sauvegarder()
-                    self.sauvegarde.close()
+                    #self.sauvegarde.close()
                     self.type_de_combin()
                     self.changer_tour()
 
@@ -803,7 +811,7 @@ class InterfaceGraphique(Tk):
                     self.joueur_liste.append(self.joueur_2)
 
                     self.sauvegarder()
-                    self.sauvegarde.close()
+                    #self.sauvegarde.close()
 
                     self.type_de_combin()
                     self.changer_tour()
@@ -880,7 +888,7 @@ class InterfaceGraphique(Tk):
                     self.passer = 2
 
                     self.sauvegarder()
-                    self.sauvegarde.close()
+                    #self.sauvegarde.close()
 
                     self.type_de_combin()
                     self.changer_tour()
@@ -906,7 +914,7 @@ class InterfaceGraphique(Tk):
 
 
                     self.sauvegarder()
-                    self.sauvegarde.close()
+                    #self.sauvegarde.close()
 
 
                     self.type_de_combin()
@@ -934,7 +942,7 @@ class InterfaceGraphique(Tk):
                     self.joueur_liste.append(self.joueur_3)
 
                     self.sauvegarder()
-                    self.sauvegarde.close()
+                    #self.sauvegarde.close()
 
                     self.commencer_disable()
                     self.type_de_combin()
@@ -1216,6 +1224,7 @@ class InterfaceGraphique(Tk):
         """
         partie = Partie(self.nom_joueurs)
         self.ordre_joueur = partie._determiner_ordre()
+
 
         for i in range(0, len(self.ordre_joueur)):
             joueur = self.nom_joueurs[self.ordre_joueur[i]]

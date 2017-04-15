@@ -410,6 +410,8 @@ class InterfaceGraphique(Tk):
         self.nom_joueur_1_resultat.grid(row=1, column=0, padx=0, pady=0)
         self.var_joueur_1_resultat = Label (self.frame_de_bas, text = "X")
         self.var_joueur_1_resultat.grid(row=1, column=1, padx=0, pady=0)
+        self.var_joueur_1_sequence = Label(self.frame_de_bas, text = "X")
+        self.var_joueur_1_sequence.grid(row=1, column=2, padx=0, pady=0)
 
         self.nom_joueur_2 = Label(self.frame_de_bas, text="Joueur 2")
         self.nom_joueur_2.grid(row=2, column=0, padx=0, pady=0)
@@ -417,6 +419,8 @@ class InterfaceGraphique(Tk):
         self.nom_joueur_2_resultat.grid(row=3, column=0, padx=0, pady=0)
         self.var_joueur_2_resultat = Label(self.frame_de_bas, text="X")
         self.var_joueur_2_resultat.grid(row=3, column=1, padx=0, pady=0)
+        self.var_joueur_2_sequence = Label(self.frame_de_bas, text="X")
+        self.var_joueur_2_sequence.grid(row=3, column=2, padx=0, pady=0)
 
         self.nom_joueur_3 = Label(self.frame_de_bas, text="Joueur 3")
         self.nom_joueur_3.grid(row=4, column=0, padx=0, pady=0)
@@ -424,6 +428,8 @@ class InterfaceGraphique(Tk):
         self.nom_joueur_3_resultat.grid(row=5, column=0, padx=0, pady=0)
         self.var_joueur_3_resultat = Label(self.frame_de_bas, text="X")
         self.var_joueur_3_resultat.grid(row=5, column=1, padx=0, pady=0)
+        self.var_joueur_3_sequence = Label(self.frame_de_bas, text="X")
+        self.var_joueur_3_sequence.grid(row=5, column=2, padx=0, pady=0)
 
         self.nom_joueur_courant = Label(self.frame_de_bas, text="Joueur courant")
         self.nom_joueur_courant.grid(row=6, column=0, padx=0, pady=0)

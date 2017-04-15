@@ -86,10 +86,6 @@ class Parametres_partie(Toplevel):
                                 for i in range(self.nombre_joueurs)]
 
             self.as_joker = self.var_As_joker.get()
-            print("hu")
-            print(self.as_joker)
-
-
 
 
 
@@ -278,7 +274,7 @@ class InterfaceGraphique(Tk):
     def __init__(self):
         super().__init__()
         self.title("Simulateur")
-        self.geometry("1200x800")
+        self.geometry("800x500")
         self.protocol("WM_DELETE_WINDOW", self.confirmation_quitter)
 
         # menu
@@ -501,9 +497,7 @@ class InterfaceGraphique(Tk):
         
         afficheur_doptions = Parametres_partie(self)
         self.nombre_joueurs, self.as_joker, self.nom_joueurs = afficheur_doptions.get_values_saved()
-        print("KKKKK")
-        print(self.as_joker)
-        print(self.nom_joueurs)
+
         #self.joueurs = [JoueurInterface(self.frame_de_droit, nom, self.images_des) for nom in self.nom_joueurs]
 
        # if self.inclure_ordi:
@@ -593,24 +587,9 @@ class InterfaceGraphique(Tk):
         if self.nombre_joueurs == 2 :
             while nb_lancer < NB_MAX_LANCERS :
                 nb_lancer+=1
-                print("c'est au tour du jouer 1 ")
+                print("C'est au tour du jouer 1 ")
 
                 nb_max_prochain +=1
-
-
-
-
-
-
-
-
-
-        elif self.nombre_joueurs == 3 :
-            print("bui est tres fif")
-
-
-
-
 
 
     def afficher_tableau(self):
@@ -636,19 +615,15 @@ class InterfaceGraphique(Tk):
         self.valeurs_obtenues.relancer_des([])
 
         self.lancer = self.valeurs_obtenues.des
-        print("XDXDXD")
-        print (self.lancer)
         self.liste = []
 
 
         list_checkbox = self.value_checkbutton()
-        print(list_checkbox)
         self.lol = self.valeurs_obtenues.relancer_des(list_checkbox)
 
         for elem in self.lancer:
                  # chaine += "{:^3s}".format(elem)
                 self.liste += "{:s}".format(elem)
-        print(self.liste)
 
 
 
@@ -683,7 +658,6 @@ class InterfaceGraphique(Tk):
 
             self.nb_lancer += 1
             self.nb_lancer_autre += 1
-            print("lancer {0}".format(self.nb_lancer))
 
             if self.bool_compteur_lancer_1 == True :
                 self.tour_joueur_1 += 1
@@ -694,14 +668,12 @@ class InterfaceGraphique(Tk):
             if self.bool_lancer_1 == True :
 
                 self.lol_1 = True
-                print("lancer1 :{0}".format(self.tour_joueur_1))
                 self.var_nom_joueur_courant.config(text= self.nom_joueurs[self.ordre_joueur[0]])
 
 
             if self.bool_lancer_2 == True :
                 self.tour_joueur_2 +=1
                 self.var_num_lancer.config(text=self.tour_joueur_2)
-                print("lancer2 : {0}".format(self.tour_joueur_2))
                 self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[1]])
                 self.lol_1= False
                 self.lol_2 = True
@@ -766,8 +738,6 @@ class InterfaceGraphique(Tk):
             self.nb_lancer += 1
             self.nb_lancer_autre += 1
 
-            print("lancer {0}".format(self.nb_lancer))
-
             if self.bool_compteur_lancer_1 == True:
                 self.tour_joueur_1 += 1
                 self.var_num_lancer.config(text = self.tour_joueur_1)
@@ -777,7 +747,6 @@ class InterfaceGraphique(Tk):
                 self.lol_1 = True
                 self.lol_2 = False
                 self.lol_3 = False
-                print("lancer1 :{0}".format(self.tour_joueur_1))
                 self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[0]])
 
 
@@ -785,7 +754,6 @@ class InterfaceGraphique(Tk):
             if self.bool_lancer_2 == True:
                 self.tour_joueur_2 += 1
                 self.var_num_lancer.config(text=self.tour_joueur_2)
-                print("lancer2 : {0}".format(self.tour_joueur_2))
                 self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[1]])
                 self.lol_1 = False
                 self.lol_2 = True
@@ -794,7 +762,6 @@ class InterfaceGraphique(Tk):
             if self.bool_lancer_3 == True:
                 self.tour_joueur_3 += 1
                 self.var_num_lancer.config(text=self.tour_joueur_3)
-                print("lancer3 : {0}".format(self.tour_joueur_3))
                 self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[2]])
 
                 self.lol_1 = False
@@ -875,7 +842,6 @@ class InterfaceGraphique(Tk):
     def type_de_combin (self):
 
         if self.as_joker == "Oui":
-            print("OUI")
 
             if self.lol_1 == True :
                  self.test = Combinaison(self.joueur_1_lancer)
@@ -1083,7 +1049,6 @@ class InterfaceGraphique(Tk):
 
         for i in range(0, len(self.ordre_joueur)):
             joueur = self.nom_joueurs[self.ordre_joueur[i]]
-            print("Le joueur {} est {}".format(i + 1, joueur))
             self.ordre_joueur_label1 = Label(self.frame_de_gauche, text="Le joueur {} est {}".format(i + 1, joueur))
             self.ordre_joueur_label1.grid(row=i + 1, column=0, padx=0, pady=0)
 

@@ -43,9 +43,6 @@ class Combinaison:
         for elem in self.des:
 
             valeurs.append(elem.value)
-            print("HhHHHHHHH")
-            print(self.des)
-            print(elem.value)
         valeurs.sort()
 
         nb_identiques = []
@@ -99,9 +96,6 @@ class Combinaison:
         valeurs = []
         for elem in self.des:
             valeurs.append(elem.value)
-            print("HhHHHHHHH")
-            print(self.des)
-            print(elem.value)
         valeurs.sort()
 
         nb_identiques = []
@@ -183,8 +177,6 @@ class Combinaison:
         resultats = []
         for _ in range(0, n):
             resultats.append(choice(self.types_cartes))
-        print("LLLLLLLL")
-        print(resultats)
         return resultats
 
     def __str__(self):

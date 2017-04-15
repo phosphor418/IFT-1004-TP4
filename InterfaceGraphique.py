@@ -792,7 +792,7 @@ class InterfaceGraphique(Tk):
                 self.tour_joueur_3 += 1
                 self.var_num_lancer.config(text=self.tour_joueur_3)
                 print("lancer3 : {0}".format(self.tour_joueur_3))
-                self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[3]])
+                self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[2]])
 
                 self.lol_1 = False
                 self.lol_2 = False

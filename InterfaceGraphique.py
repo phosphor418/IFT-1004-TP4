@@ -376,6 +376,21 @@ class InterfaceGraphique(Tk):
 
         #   Zone du tableau des résultats
 
+        self.nom_joueur_1 = Label (self.frame_de_bas, text = "Joueur 1")
+        self.nom_joueur_1.grid (row = 0, column = 0, padx = 0, pady = 0 )
+        self.nom_joueur_1_resultat = Label(self.frame_de_bas, text="Resutat :")
+        self.nom_joueur_1_resultat.grid(row=1, column=0, padx=0, pady=0)
+
+        self.nom_joueur_2 = Label(self.frame_de_bas, text="Joueur 2")
+        self.nom_joueur_2.grid(row=2, column=0, padx=0, pady=0)
+        self.nom_joueur_2_resultat = Label(self.frame_de_bas, text="Resultat :")
+        self.nom_joueur_2_resultat.grid(row=3, column=0, padx=0, pady=0)
+
+        self.nom_joueur_3 = Label(self.frame_de_bas, text="Joueur 3")
+        self.nom_joueur_3.grid(row=4, column=0, padx=0, pady=0)
+        self.nom_joueur_3_resultat = Label(self.frame_de_bas, text="Resultat :")
+        self.nom_joueur_3_resultat.grid(row=5, column=0, padx=0, pady=0)
+
         self.nom_joueur_courant = Label(self.frame_de_bas, text = "Joueur courant")
         self.nom_joueur_courant.grid(padx = 0, pady = 20)
 
@@ -393,7 +408,7 @@ class InterfaceGraphique(Tk):
         self.nbr_max_lancer = Label(self.frame_de_bas, text = "Nombre maximal de lancer(s)")
         self.nbr_max_lancer.grid(padx=20, pady=20)
 
-        self.var_nbr_max_lancer = Label(self.frame_de_bas, text = "")
+        self.var_nbr_max_lancer = Label(self.frame_de_bas, text = "XXXXXXXX")
         self.var_nbr_max_lancer.grid(padx=0, pady=20)
 
         self.valeurs_obtenues = Combinaison()
@@ -937,11 +952,11 @@ class InterfaceGraphique(Tk):
             self.indice_joueur_courant = pos
 
             #self.afficher_espace_joueur_courant(pos)
-            self.joueurs[pos].asg_tour(self.tour)
-            self.joueurs[pos].jouer_tour(nb_des_a_lancer=NOMBRE_DES_DU_JEU, nb_maximum_lancer=1)
-            self.joueurs[pos].lancer_des()
+            #self.joueurs[pos].asg_tour(self.tour)
+            #self.joueurs[pos].jouer_tour(nb_des_a_lancer=NOMBRE_DES_DU_JEU, nb_maximum_lancer=1)
+           # self.joueurs[pos].lancer_des()
 
-            self.joueurs[pos].clear_table()
+            #self.joueurs[pos].clear_table()
 
 
 

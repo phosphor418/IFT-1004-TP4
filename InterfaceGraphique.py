@@ -486,7 +486,6 @@ class InterfaceGraphique(Tk):
 
         self.afficher_menu_principal()
 
-        self.sauvegarde = open('Sauvegarde.txt','w')
 
     # ----- Gestion des l'affichage -----
     def afficher_menu_principal(self):
@@ -573,21 +572,20 @@ class InterfaceGraphique(Tk):
 
     def sauvegarder(self):
         if self.nombre_joueurs ==2 :
+            self.sauvegarde = open('Sauvegarde.txt', 'w')
 
             self.sauvegarde.write(str(self.nombre_joueurs) + '\n')
             self.sauvegarde.write(str(self.as_joker) + '\n')
 
             if self.lol_1 == True :
+
                 self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '\n')
                 self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '\n')
                 self.sauvegarde.write(str(self.lol_1)+'\n')
                 self.sauvegarde.write(str(self.nb_lancer_1)+'\n')
                 self.sauvegarde.write(str(self.joueur_1)+'\n')
                 self.sauvegarde.write(str(self.joueur_1_lancer)+ '\n')
-
-
-
-
+                self.sauvegarde.close()
 
 
             elif self.lol_2 == True :
@@ -598,14 +596,20 @@ class InterfaceGraphique(Tk):
                 self.sauvegarde.write(str(self.joueur_1) + '\n')
                 self.sauvegarde.write(str(self.joueur_1_lancer) + '\n')
                 self.sauvegarde.write(str(self.lol_2) + '\n')
-
                 self.sauvegarde.write(str(self.joueur_2) + '\n')
                 self.sauvegarde.write(str(self.joueur_2_lancer) + '\n')
+                self.sauvegarde.close()
+
+            else :
+
+                 self.sauvegarde.close()
 
 
 
 
         elif self.nombre_joueurs == 3 :
+
+                self.sauvegarde = open('Sauvegarde.txt', 'w')
 
                 self.sauvegarde.write(str(self.nombre_joueurs) + '\n')
                 self.sauvegarde.write(str(self.as_joker) + '\n')
@@ -619,6 +623,8 @@ class InterfaceGraphique(Tk):
                     self.sauvegarde.write(str(self.nb_lancer_1) + '\n')
                     self.sauvegarde.write(str(self.joueur_1) + '\n')
                     self.sauvegarde.write(str(self.joueur_1_lancer) + '\n')
+                    self.sauvegarde.close()
+
 
 
                 elif self.lol_2 == True :
@@ -633,6 +639,8 @@ class InterfaceGraphique(Tk):
                      self.sauvegarde.write(str(self.lol_2) + '\n')
                      self.sauvegarde.write(str(self.joueur_2) + '\n')
                      self.sauvegarde.write(str(self.joueur_2_lancer) + '\n')
+                     self.sauvegarde.close()
+
 
 
                 elif self.lol_3 == True :
@@ -650,7 +658,9 @@ class InterfaceGraphique(Tk):
                      self.sauvegarde.write(str(self.lol_3) + '\n')
                      self.sauvegarde.write(str(self.joueur_3) + '\n')
                      self.sauvegarde.write(str(self.joueur_3_lancer) + '\n')
-
+                     self.sauvegarde.close()
+                else :
+                    self.sauvegarde.close()
 
     def afficher_tableau(self):
 
@@ -772,7 +782,7 @@ class InterfaceGraphique(Tk):
                     self.joueur_liste.append(self.joueur_1)
                     self.passer = 2
                     self.sauvegarder()
-                    self.sauvegarde.close()
+                    #self.sauvegarde.close()
                     self.type_de_combin()
                     self.changer_tour()
 
@@ -798,7 +808,7 @@ class InterfaceGraphique(Tk):
                     self.joueur_liste.append(self.joueur_2)
 
                     self.sauvegarder()
-                    self.sauvegarde.close()
+                    #self.sauvegarde.close()
 
                     self.type_de_combin()
                     self.changer_tour()
@@ -875,7 +885,7 @@ class InterfaceGraphique(Tk):
                     self.passer = 2
 
                     self.sauvegarder()
-                    self.sauvegarde.close()
+                    #self.sauvegarde.close()
 
                     self.type_de_combin()
                     self.changer_tour()
@@ -901,7 +911,7 @@ class InterfaceGraphique(Tk):
 
 
                     self.sauvegarder()
-                    self.sauvegarde.close()
+                    #self.sauvegarde.close()
 
 
                     self.type_de_combin()
@@ -929,7 +939,7 @@ class InterfaceGraphique(Tk):
                     self.joueur_liste.append(self.joueur_3)
 
                     self.sauvegarder()
-                    self.sauvegarde.close()
+                    #self.sauvegarde.close()
 
                     self.commencer_disable()
                     self.type_de_combin()

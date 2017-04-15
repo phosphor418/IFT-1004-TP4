@@ -525,6 +525,68 @@ class InterfaceGraphique(Tk):
                                             "   5.  L'ordre de jeu est sélectionné de manière aléatoire\n"
                                             "\n ")
 
+    def definir_partie_charger(self):
+
+        # self.gros_lot = GROS_LOT
+        self.indice_joueur_courant = None
+        self.phase = InterfaceGraphique.TROUVER_PREMIER
+        self.tour = 0
+        self.lancer_passer_control_var = BooleanVar(value=False)
+        self.choix = None
+        self.value_checkbutton()
+
+        afficheur_doptions = Parametres_partie(self)
+        self.nombre_joueurs, self.as_joker, self.nom_joueurs = afficheur_doptions.get_values_saved()
+
+        # self.joueurs = [JoueurInterface(self.frame_de_droit, nom, self.images_des) for nom in self.nom_joueurs]
+
+        # if self.inclure_ordi:
+        #     self.joueurs += [JoueurAlgoInterface(self.frame_de_droit, self.images_des)]
+        self.nb_lancer = 0
+        self.nb_lancer_1 = 0
+        self.nb_lancer_2 = 0
+        self.nb_lancer_autre = 0
+        self.nb_lancer_autre_1 = 0
+        self.nb_lancer_autre_2 = 0
+        self.max_lancer = 3
+        self.zero = 0
+
+        self.joueur_liste = []
+
+        self.passer = 0
+        self.joueur_1 = []
+        self.joueur_2 = []
+        self.joueur_3 = []
+        self.joueur_1_lancer = None
+        self.joueur_2_lancer = None
+        self.joueur_3_lancer = None
+
+        self.commencer_1 = False
+        self.commencer_2 = False
+        self.commencer_3 = False
+        self.commencer = True
+
+        self.bool_passer = True
+        self.bool_compteur_lancer_1 = True
+        self.bool_lancer_1 = True
+        self.bool_lancer_2 = False
+        self.bool_lancer_3 = False
+
+        self.lol_1 = False
+        self.lol_2 = False
+        self.lol_3 = False
+
+        self.tour_joueur_1 = 1
+        self.tour_joueur_2 = 1
+        self.tour_joueur_3 = 1
+        self.test = None
+        self.lolxd = None
+        self.lancer = None
+
+        self.afficher_partie()
+        self.jouer()
+        # self.sauvegarder()
+
     def definir_partie(self):
         #self.gros_lot = GROS_LOT
         self.indice_joueur_courant = None

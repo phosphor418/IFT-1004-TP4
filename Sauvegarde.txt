@@ -4,5 +4,5 @@ Joueur 1
 Joueur 2
 True
 3
-['A', 'D', 'V', 'D', 'A']
-[<Carte.AS: 0>, <Carte.DAME: 2>, <Carte.VALET: 3>, <Carte.DAME: 2>, <Carte.AS: 0>]
+['A', 'R', 'R', 'A', 'D']
+[<Carte.AS: 0>, <Carte.ROI: 1>, <Carte.ROI: 1>, <Carte.AS: 0>, <Carte.DAME: 2>]

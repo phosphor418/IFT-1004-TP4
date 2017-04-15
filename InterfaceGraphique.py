@@ -666,6 +666,7 @@ class InterfaceGraphique(Tk):
 
         if self.nombre_joueurs == 2 :
 
+
             self.nb_lancer += 1
             self.nb_lancer_autre += 1
             print("lancer {0}".format(self.nb_lancer))
@@ -961,6 +962,18 @@ class InterfaceGraphique(Tk):
             print("Le joueur {} est {}".format(i + 1, joueur))
             self.ordre_joueur_label1 = Label(self.frame_de_gauche, text="Le joueur {} est {}".format(i + 1, joueur))
             self.ordre_joueur_label1.grid(row=i + 1, column=0, padx=0, pady=0)
+
+        if  self.nombre_joueurs == 2 :
+
+
+            self.nom_joueur_1.config(text=self.nom_joueurs[self.ordre_joueur[0]])
+            self.nom_joueur_2.config(text=self.nom_joueurs[self.ordre_joueur[1]])
+            self.nom_joueur_3.config(text="")
+            self.nom_joueur_3_resultat.config(text="")
+        elif self.nombre_joueurs == 3 :
+            self.nom_joueur_1.config(text=self.nom_joueurs[self.ordre_joueur[0]])
+            self.nom_joueur_2.config(text=self.nom_joueurs[self.ordre_joueur[1]])
+            self.nom_joueur_3.config(text=self.nom_joueurs[self.ordre_joueur[2]])
 
 
       #  self.empecher_passer()

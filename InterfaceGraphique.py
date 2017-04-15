@@ -1183,6 +1183,7 @@ class InterfaceGraphique(Tk):
             self.nom_joueur_3.config(text="")
             self.nom_joueur_3_resultat.config(text="")
             self.var_joueur_3_resultat.config (text="")
+            self.var_joueur_3_sequence.config(text="")
         elif self.nombre_joueurs == 3 :
             self.nom_joueur_1.config(text=self.nom_joueurs[self.ordre_joueur[0]])
             self.nom_joueur_2.config(text=self.nom_joueurs[self.ordre_joueur[1]])

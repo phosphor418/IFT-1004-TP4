@@ -338,6 +338,7 @@ class InterfaceGraphique(Tk):
 
         self.commencer_1 = False
         self.commencer_2 = False
+        self.commencer_3 = False
         self.commencer = True
 
         self.bool_passer = True
@@ -350,9 +351,9 @@ class InterfaceGraphique(Tk):
         self.lol_2 = False
         self.lol_3 = False
 
-        self.tour_joueur_1 = 0
-        self.tour_joueur_2 = 0
-        self.tour_joueur_3 = 0
+        self.tour_joueur_1 = 1
+        self.tour_joueur_2 = 1
+        self.tour_joueur_3 = 1
         self.test= None
         self.lolxd = None
         self.lancer = None
@@ -697,9 +698,13 @@ class InterfaceGraphique(Tk):
 
             if self.lol_1 == True :
                 if self.tour_joueur_1==NB_MAX_LANCERS or self.passer == 1 :
-                    self.bool_lancer_2 = True
+
                     self.bool_lancer_1 = False
+                    self.bool_lancer_2 = True
+
                     self.commencer_1 = True
+                    self.combinaison_2= False
+
 
 
                     self.nb_lancer_1 = self.tour_joueur_1
@@ -716,10 +721,12 @@ class InterfaceGraphique(Tk):
                 if self.tour_joueur_2 == self.nb_lancer_1 or self.passer == 3 :
 
 
-                    self.bool_lancer_1 = True
-                    self.bool_lancer_2 = False
+                    self.bool_lancer_1 = False
+                    self.bool_lancer_2 = True
+
                     self.commencer_1 = False
                     self.commencer_2 = True
+
 
 
                     self.joueur_2 = self.liste
@@ -728,8 +735,10 @@ class InterfaceGraphique(Tk):
 
                     self.joueur_liste.append(self.joueur_2)
                     self.type_de_combin()
+                    self.changer_tour()
                     self.arreter_jeur()
                     self.combin_gagnant()
+
 
 
 
@@ -742,6 +751,8 @@ class InterfaceGraphique(Tk):
                 self.tour_joueur_1 += 1
                 self.var_num_lancer.config(text = self.tour_joueur_1)
                 self.var_nbr_max_lancer.config(text=NB_MAX_LANCERS)
+
+
 
             if self.bool_lancer_1 == True:
                 self.lol_1 = True
@@ -761,6 +772,7 @@ class InterfaceGraphique(Tk):
 
             if self.bool_lancer_3 == True:
                 self.tour_joueur_3 += 1
+
                 self.var_num_lancer.config(text=self.tour_joueur_3)
                 self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[2]])
 
@@ -771,9 +783,6 @@ class InterfaceGraphique(Tk):
             if self.bool_passer == False:
                 self.passer += 1
 
-                print(self.passer)
-
-                print(self.bool_passer)
 
 
             elif self.bool_passer == True:
@@ -786,8 +795,11 @@ class InterfaceGraphique(Tk):
                 if self.tour_joueur_1 == NB_MAX_LANCERS or self.passer == 1:
                     self.bool_lancer_2 = True
                     self.bool_lancer_1 = False
+                    self.bool_lancer_3 = False
                     self.commencer_1 = True
                     self.commencer_2 = False
+                    self.commencer_3 = False
+
 
 
                     self.nb_lancer_1 = self.tour_joueur_1
@@ -797,6 +809,7 @@ class InterfaceGraphique(Tk):
                     self.passer = 2
                     self.type_de_combin()
                     self.changer_tour()
+
 
 
             elif self.lol_2 == True:
@@ -806,33 +819,43 @@ class InterfaceGraphique(Tk):
                     self.bool_lancer_3 = True
                     self.commencer_1 = False
                     self.commencer_2 = True
+                    self.commencer_3 = False
 
-
-
-
-                    self.nb_lancer_1 = self.tour_joueur_1
                     self.joueur_1 = self.liste
-                    self.joueur_1_lancer = self.lancer
+                    self.joueur_2_lancer = self.lancer
                     self.joueur_liste.append(self.joueur_1)
-                    self.passer = 2
+                    self.passer = 4
                     self.type_de_combin()
                     self.changer_tour()
 
 
 
+
+
             elif self.lol_3 == True:
                 if self.tour_joueur_3 == self.nb_lancer_1 or self.passer == 5:
+                    self.bool_lancer_2 = False
+                    self.bool_lancer_1 = False
+                    self.bool_lancer_3 = True
+
                     self.passer = 5
-                    self.tour_joueur_3 == 5
+
+                    self.commencer_1 = False
+                    self.commencer_2 = False
+                    self.commencer_3 = True
+
 
                     self.joueur_3 = self.liste
                     self.joueur_3_lancer = self.lancer
                     self.joueur_liste.append(self.joueur_3)
 
                     self.commencer_disable()
-                    self.arreter_jeur()
                     self.type_de_combin()
+
+                    self.changer_tour()
+                    self.arreter_jeur()
                     self.combin_gagnant()
+
 
 
 
@@ -844,10 +867,13 @@ class InterfaceGraphique(Tk):
         if self.as_joker == "Oui":
 
             if self.lol_1 == True :
+
                  self.test = Combinaison(self.joueur_1_lancer)
                  self.combinaison_1= self.test.determiner_type_combinaison()
                  self.var_joueur_1_resultat.config(text=self.combinaison_1)
+
             if self.lol_2 == True :
+
                 self.test1 = Combinaison(self.joueur_2_lancer)
                 self.combinaison_2 = self.test1.determiner_type_combinaison()
                 self.var_joueur_2_resultat.config(text=self.combinaison_2)
@@ -859,17 +885,20 @@ class InterfaceGraphique(Tk):
 
 
         else :
+
             if self.lol_1 == True:
                 self.test = Combinaison(self.joueur_1_lancer)
-                self.combinaison_1 = self.test.determiner_type_combinaison()
+                self.combinaison_1 = self.test.determiner_type_combinaison_sans_AS()
                 self.var_joueur_1_resultat.config(text=self.combinaison_1)
+
             if self.lol_2 == True:
                 self.test2 = Combinaison(self.joueur_2_lancer)
-                self.combinaison_2 = self.test3.determiner_type_combinaison()
+                self.combinaison_2 = self.test3.determiner_type_combinaison_sans_AS()
                 self.var_joueur_2_resultat.config(text=self.combinaison_2)
+
             if self.lol_3 == True:
                 self.test3 = Combinaison(self.joueur_3_lancer)
-                self.combinaison_3 = self.test3.determiner_type_combinaison()
+                self.combinaison_3 = self.test3.determiner_type_combinaison_sans_AS()
                 self.var_joueur_3_resultat.config(text=self.combinaison_3)
 
 
@@ -902,14 +931,18 @@ class InterfaceGraphique(Tk):
 
             joueur_1 = self.combinaison_1.value
             joueur_2 = self.combinaison_2.value
-            joueur_3 = self.combinaison_2.value
+            joueur_3 = self.combinaison_3.value
+
 
             if joueur_1 > joueur_2 and joueur_1 > joueur_3:
                 messagebox.showinfo("Gagnant","{0} GAGNE".format(self.nom_joueurs[self.ordre_joueur[0]]))
+
             elif joueur_2 > joueur_3 and joueur_2 > joueur_1:
                 messagebox.showinfo("Gagnant","{0} GAGNE".format(self.nom_joueurs[self.ordre_joueur[1]]))
+
             elif joueur_3> joueur_1 and joueur_3 > joueur_2:
                 messagebox.showinfo("Gagnant","{0} GAGNE".format(self.nom_joueurs[self.ordre_joueur[2]]))
+
             elif joueur_1 == joueur_2 and joueur_1 == joueur_3:
                 messagebox.showinfo("MATCH NUL ")
 
@@ -1024,6 +1057,19 @@ class InterfaceGraphique(Tk):
             self.checkbutton_5.select()
             self.afficher_tableau()
 
+
+            self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[2]])
+            self.joueur_3_lancer = 1
+            self.var_num_lancer.config(text=self.joueur_3_lancer)
+            self.var_nbr_max_lancer.config(text=self.nb_lancer_1)
+
+        elif self.commencer_3 == True :
+            self.checkbutton_1.select()
+            self.checkbutton_2.select()
+            self.checkbutton_3.select()
+            self.checkbutton_4.select()
+            self.checkbutton_5.select()
+            self.afficher_tableau()
 
             self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[2]])
             self.joueur_3_lancer = 1

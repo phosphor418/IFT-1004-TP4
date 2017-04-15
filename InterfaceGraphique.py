@@ -606,6 +606,46 @@ class InterfaceGraphique(Tk):
        # if self.inclure_ordi:
        #     self.joueurs += [JoueurAlgoInterface(self.frame_de_droit, self.images_des)]
 
+        self.nb_lancer = 0
+        self.nb_lancer_1 = 0
+        self.nb_lancer_2 = 0
+        self.nb_lancer_autre = 0
+        self.nb_lancer_autre_1 = 0
+        self.nb_lancer_autre_2 = 0
+        self.max_lancer = 3
+        self.zero = 0
+
+        self.joueur_liste = []
+
+        self.passer = 0
+        self.joueur_1 = []
+        self.joueur_2 = []
+        self.joueur_3 = []
+        self.joueur_1_lancer = None
+        self.joueur_2_lancer = None
+        self.joueur_3_lancer = None
+
+        self.commencer_1 = False
+        self.commencer_2 = False
+        self.commencer_3 = False
+        self.commencer = True
+
+        self.bool_passer = True
+        self.bool_compteur_lancer_1 = True
+        self.bool_lancer_1 = True
+        self.bool_lancer_2 = False
+        self.bool_lancer_3 = False
+
+        self.lol_1 = False
+        self.lol_2 = False
+        self.lol_3 = False
+
+        self.tour_joueur_1 = 1
+        self.tour_joueur_2 = 1
+        self.tour_joueur_3 = 1
+        self.test = None
+        self.lolxd = None
+        self.lancer = None
 
         self.afficher_partie()
         self.jouer()

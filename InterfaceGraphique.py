@@ -310,14 +310,16 @@ class InterfaceGraphique(Tk):
                            PhotoImage(file="ressources/dice_5.gif"), PhotoImage(file="ressources/dice_6.gif")]
 
         # ----- Elements de la partie -----
-        self.frame_de_droit = Frame(self)
+        self.frame_bouton= Frame(self)
         self.frame_de_gauche = Frame(self)
         self.frame_de_bas = Frame(self)
+        self.frame_resultat = Frame (self)
 
         self.recap_canvas = Canvas(self.frame_de_gauche)
         self.bas_canvas = Canvas(self.frame_de_bas)
 
-        self.boutonframe = Frame(self.frame_de_droit)
+
+        self.boutonframe = Frame(self.frame_bouton)
 
         self.nb_lancer = 0
         self.nb_lancer_1 = 0
@@ -364,11 +366,11 @@ class InterfaceGraphique(Tk):
         self.bouton_passer = Button(self.boutonframe, text="Passer", command=self.update_passer)
         self.bouton_passer.grid(column=1, row=0, rowspan=1, columnspan=1)
 
-        self.phase_label = Label(self.frame_de_droit, text="", font="Arial 20 italic")
-        self.message = Label(self.frame_de_droit, text="", font="Arial 14 italic", foreground="blue")
+        #self.phase_label = Label(self.frame_de_droit, text="", font="Arial 20 italic")
+       # self.message = Label(self.frame_de_droit, text="", font="Arial 14 italic", foreground="blue")
 
         self.ordre_joueur_label = Label(self.frame_de_gauche, text=" Ordre des joueurs : ", font='Arial 20 italic')
-        self.ordre_joueur_label.grid(row=0, column=0, padx=40, pady=20)
+        self.ordre_joueur_label.grid(row=0, column=0, padx=0, pady=0)
         self.ordre_joueur_label['background'] = 'blue'
 
         self.jeu_courant_label= Label (self.frame_de_bas,text="Voici le jeu courant ")
@@ -392,24 +394,24 @@ class InterfaceGraphique(Tk):
         self.nom_joueur_3_resultat.grid(row=5, column=0, padx=0, pady=0)
 
         self.nom_joueur_courant = Label(self.frame_de_bas, text = "Joueur courant")
-        self.nom_joueur_courant.grid(row=6, column=0,padx = 0, pady = 20)
+        self.nom_joueur_courant.grid(row=6, column=0,padx = 0, pady = 0)
 
-        self.var_nom_joueur_courant = Label(self.frame_de_bas, text="XXXXXX")
-        self.var_nom_joueur_courant.grid(row=7, column=0,padx=0, pady=20)
+        self.var_nom_joueur_courant = Label(self.frame_de_bas, text="XXX")
+        self.var_nom_joueur_courant.grid(row=7, column=0,padx=0, pady=0)
 
 
 
-        self.num_lancer = Label(self.frame_de_bas, text = "Lancer actuel")
-        self.num_lancer.grid(row=6, column=0,padx=20, pady=20)
+      #  self.num_lancer = Label(self.frame_de_bas, text = "Lancer actuel")
+      #  self.num_lancer.grid(row=6, column=0,padx=20, pady=20)
 
-        self.var_num_lancer = Label(self.frame_de_bas, text = "XXXXXX")
-        self.var_num_lancer.grid(row=7, column=0,padx=20, pady=20)
+      #  self.var_num_lancer = Label(self.frame_de_bas, text = "XXXXXX")
+      #  self.var_num_lancer.grid(row=7, column=0,padx=20, pady=20)
 
-        self.nbr_max_lancer = Label(self.frame_de_bas, text = "Nombre maximal de lancer(s)")
-        self.nbr_max_lancer.grid(row=6, column=0,padx=20, pady=20)
+      #  self.nbr_max_lancer = Label(self.frame_de_bas, text = "Nombre maximal de lancer(s)")
+      #  self.nbr_max_lancer.grid(row=6, column=0,padx=20, pady=20)
 
-        self.var_nbr_max_lancer = Label(self.frame_de_bas, text = "XXXXXXXX")
-        self.var_nbr_max_lancer.grid(row=7, column=0,padx=0, pady=20)
+       # self.var_nbr_max_lancer = Label(self.frame_de_bas, text = "XXXXXXXX")
+       # self.var_nbr_max_lancer.grid(row=7, column=0,padx=0, pady=20)
 
         self.valeurs_obtenues = Combinaison()
 
@@ -497,26 +499,24 @@ class InterfaceGraphique(Tk):
     def afficher_partie(self):
         self.cacher_menu_principal()
         self.frame_de_gauche.grid(row=0, column=0)
-        self.frame_de_droit.grid(row=0, column=1)
+        self.frame_de_bas.grid(row=1,column=0)
+        self.boutonframe.grid(row=2, column=0)
+        self.frame_bouton.grid(row=3, column=0)
+
+
        # self.afficher_espace_joueur_courant()
-        self.boutonframe.grid(row=3, column=0, columnspan=2)
-        self.frame_de_bas.grid(row=7,column=0)
-        self.nom_joueur_courant.grid(row=5, column=0)
-        self.var_nom_joueur_courant.grid(row=6, column=0)
-        self.nbr_max_lancer.grid(row=5, column=1)
-        self.var_nbr_max_lancer.grid(row=6, column=1)
-        self.num_lancer.grid(row=5, column=2)
-        self.var_num_lancer.grid(row=6, column=2)
+
+       # self.frame_resultat (row = 1, column = 0)
+
+        #self.nom_joueur_courant.grid(row=5, column=0)
+      #  self.var_nom_joueur_courant.grid(row=6, column=0)
+      #  self.nbr_max_lancer.grid(row=5, column=1)
+      #  self.var_nbr_max_lancer.grid(row=6, column=1)
+      #  self.num_lancer.grid(row=5, column=2)
+      #  self.var_num_lancer.grid(row=6, column=2)
 
 
-    def afficher_phase(self):
-        self.phase_label.grid_forget()
-        if self.phase == InterfaceGraphique.TROUVER_PREMIER:
-            self.phase_label['text'] = 'Détermination du premier joueur'
-        elif self.phase == InterfaceGraphique.JOUER:
-            self.phase_label['text'] = 'On joue....'
 
-        self.phase_label.grid(row=0, column=0)
 
     def afficher_message(self, message):
         self.message.grid_forget()
@@ -945,8 +945,7 @@ class InterfaceGraphique(Tk):
             self.ordre_joueur_label1 = Label(self.frame_de_gauche, text="Le joueur {} est {}".format(i + 1, joueur))
             self.ordre_joueur_label1.grid(row=i + 1, column=0, padx=0, pady=0)
 
-        self.phase = InterfaceGraphique.TROUVER_PREMIER
-        self.afficher_phase()
+
       #  self.empecher_passer()
         concernes = list(range(self.nombre_joueurs))
         self.premier = concernes[0]
@@ -958,8 +957,7 @@ class InterfaceGraphique(Tk):
         ..........
         """
         self.tour += 1
-        self.phase = InterfaceGraphique.JOUER
-        self.afficher_phase()
+
     #    self.empecher_passer()
         self.afficher_tableau()
 

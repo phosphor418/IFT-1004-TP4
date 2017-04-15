@@ -483,7 +483,7 @@ class InterfaceGraphique(Tk):
         #self.checkbutton_2.select()
         #self.checkbutton_3.select()
         #self.checkbutton_4.select()
-        #self.checkbutton_5.select()
+        #sel  f.checkbutton_5.select()
 
 
         self.afficher_menu_principal()

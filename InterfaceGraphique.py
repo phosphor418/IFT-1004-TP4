@@ -149,7 +149,7 @@ class JoueurInterface(LabelFrame):
         self.nb_cases = 7
         self.table_de_jeu = Canvas(self, width=self.nb_pixels_img*self.nb_cases,
                                   height=self.nb_pixels_img*self.nb_cases, bg='ivory')
-        #self.table_de_jeu.grid()
+        self.table_de_jeu.grid()
 
         self.des_sur_canvas = {}
 
@@ -278,7 +278,7 @@ class InterfaceGraphique(Tk):
     def __init__(self):
         super().__init__()
         self.title("Simulateur")
-        self.geometry("1000x800")
+        self.geometry("1200x800")
         self.protocol("WM_DELETE_WINDOW", self.confirmation_quitter)
 
         # menu
@@ -289,12 +289,11 @@ class InterfaceGraphique(Tk):
         menu1.add_command(label="Enregistrer...", command=None)
         menu1.add_separator()
         menu1.add_command(label="Quitter", command=self.confirmation_quitter)
-        self.menubar.add_cascade(label="Menu", menu=menu1)
+        self.menubar.add_cascade(label="Menu 1", menu=menu1)
         menu3 = Menu(self.menubar, tearoff=0)
-        menu3.add_command(label="Instructions", command=self.instructions)
+        menu3.add_command(label="A venir...", command=None)
         self.menubar.add_cascade(label="Règles du jeu", menu=menu3)
         self.config(menu=self.menubar)
-
 
         # ----- Menu principal -----
         self.title_princ_jeu = Label(self, text="Poker d'as", font=("DejaVu Sans", 26),
@@ -318,7 +317,7 @@ class InterfaceGraphique(Tk):
         self.recap_canvas = Canvas(self.frame_de_gauche)
         self.bas_canvas = Canvas(self.frame_de_bas)
 
-        self.boutonframe = Frame(self.frame_de_bas)
+        self.boutonframe = Frame(self.frame_de_droit)
 
         self.nb_lancer = 0
         self.nb_lancer_1 = 0
@@ -359,17 +358,17 @@ class InterfaceGraphique(Tk):
 
 
 
-        self.bouton_lancer = Button(self.boutonframe, text="Lancer", command=self.tour_jouer)
-        self.bouton_lancer.grid(column=0, row=10, rowspan=1, columnspan=1)
+        self.bouton_lancer = Button(self.boutonframe, text="Lancer", command= self.update)
+        self.bouton_lancer.grid(column=0, row=0, rowspan=1, columnspan=1)
 
-        self.bouton_passer = Button(self.boutonframe, text="Passer", command=self.passer_tour)
-        self.bouton_passer.grid(column=1, row=10, rowspan=1, columnspan=1)
+        self.bouton_passer = Button(self.boutonframe, text="Passer", command=self.update_passer)
+        self.bouton_passer.grid(column=1, row=0, rowspan=1, columnspan=1)
 
         self.phase_label = Label(self.frame_de_droit, text="", font="Arial 20 italic")
         self.message = Label(self.frame_de_droit, text="", font="Arial 14 italic", foreground="blue")
 
-        self.ordre_joueur_label = Label(self.frame_de_droit, text=" Ordre des joueurs : ", font='Arial 20 italic')
-        self.ordre_joueur_label.grid(row=0, column=0, padx=0, pady=20)
+        self.ordre_joueur_label = Label(self.frame_de_gauche, text=" Ordre des joueurs : ", font='Arial 20 italic')
+        self.ordre_joueur_label.grid(row=0, column=0, padx=40, pady=20)
         self.ordre_joueur_label['background'] = 'blue'
 
         self.jeu_courant_label= Label (self.frame_de_bas,text="Voici le jeu courant ")
@@ -393,24 +392,24 @@ class InterfaceGraphique(Tk):
         self.nom_joueur_3_resultat.grid(row=5, column=0, padx=0, pady=0)
 
         self.nom_joueur_courant = Label(self.frame_de_bas, text = "Joueur courant")
-        self.nom_joueur_courant.grid(padx = 0, pady = 20)
+        self.nom_joueur_courant.grid(row=6, column=0,padx = 0, pady = 20)
 
-        self.var_nom_joueur_courant = Label(self.frame_de_bas, text = "X")
-        self.var_nom_joueur_courant.grid(padx = 0, pady = 20)
+        self.var_nom_joueur_courant = Label(self.frame_de_bas, text="XXXXXX")
+        self.var_nom_joueur_courant.grid(row=7, column=0,padx=0, pady=20)
 
 
 
         self.num_lancer = Label(self.frame_de_bas, text = "Lancer actuel")
-        self.num_lancer.grid(padx=20, pady=20)
+        self.num_lancer.grid(row=6, column=0,padx=20, pady=20)
 
-        self.var_num_lancer = Label(self.frame_de_bas, text = "X")
-        self.var_num_lancer.grid(padx=0, pady=20)
+        self.var_num_lancer = Label(self.frame_de_bas, text = "XXXXXX")
+        self.var_num_lancer.grid(row=7, column=0,padx=20, pady=20)
 
         self.nbr_max_lancer = Label(self.frame_de_bas, text = "Nombre maximal de lancer(s)")
-        self.nbr_max_lancer.grid(padx=20, pady=20)
+        self.nbr_max_lancer.grid(row=6, column=0,padx=20, pady=20)
 
         self.var_nbr_max_lancer = Label(self.frame_de_bas, text = "XXXXXXXX")
-        self.var_nbr_max_lancer.grid(padx=0, pady=20)
+        self.var_nbr_max_lancer.grid(row=7, column=0,padx=0, pady=20)
 
         self.valeurs_obtenues = Combinaison()
 
@@ -443,25 +442,6 @@ class InterfaceGraphique(Tk):
     def confirmation_quitter(self):
         if messagebox.askokcancel("Quitter", "Voulez-vous vraiment quitter?"):
             self.destroy()
-
-    def instructions(self):
-        messagebox.showinfo("Instructions", "Voici les règles du jeu de poker d'as:\n"
-                                            "\n"
-                                            "- Le jeu peut se jouer a 1, 2 ou 3 joueurs\n"
-                                            "\n"
-                                            "- L'utilisateur a l'option de choisir s'il veut jouer"
-                                            "  ou non avec les as\n"
-                                            "\n"
-                                            "- L'ordre des joueurs est sélectionné aléatoirement\n"
-                                            "\n"
-                                            "- La partie débute lorsque le premier joueur appuie sur"
-                                            "  le bouton lancer\n"
-                                            "\n"
-                                            "- Le premier joueur détermine le maximum de lancers\n"
-                                            "\n"
-                                            "- La valeur des combinaisons est basée sur celles"
-                                            "  du jeu habituel\n"
-                                            "\n")
 
     def definir_partie(self):
         #self.gros_lot = GROS_LOT
@@ -501,15 +481,15 @@ class InterfaceGraphique(Tk):
         self.cacher_menu_principal()
         self.frame_de_gauche.grid(row=0, column=0)
         self.frame_de_droit.grid(row=0, column=1)
-        self.afficher_espace_joueur_courant()
-        self.boutonframe.grid(row=10, column=0, columnspan=2)
+       # self.afficher_espace_joueur_courant()
+        self.boutonframe.grid(row=3, column=0, columnspan=2)
         self.frame_de_bas.grid(row=7,column=0)
-        self.nom_joueur_courant.grid(row=3, column=0)
-        self.var_nom_joueur_courant.grid(row=4, column=0)
-        self.nbr_max_lancer.grid(row=4, column=1)
-        self.var_nbr_max_lancer.grid(row=3, column=1)
-        self.num_lancer.grid(row=3, column=2)
-        self.var_num_lancer.grid(row=4, column=2)
+        self.nom_joueur_courant.grid(row=5, column=0)
+        self.var_nom_joueur_courant.grid(row=6, column=0)
+        self.nbr_max_lancer.grid(row=5, column=1)
+        self.var_nbr_max_lancer.grid(row=6, column=1)
+        self.num_lancer.grid(row=5, column=2)
+        self.var_num_lancer.grid(row=6, column=2)
 
 
     def afficher_phase(self):
@@ -945,11 +925,11 @@ class InterfaceGraphique(Tk):
         for i in range(0, len(self.ordre_joueur)):
             joueur = self.nom_joueurs[self.ordre_joueur[i]]
             print("Le joueur {} est {}".format(i + 1, joueur))
-            self.ordre_joueur_label1 = Label(self.frame_de_droit, text="Le joueur {} est {}".format(i + 1, joueur))
+            self.ordre_joueur_label1 = Label(self.frame_de_gauche, text="Le joueur {} est {}".format(i + 1, joueur))
             self.ordre_joueur_label1.grid(row=i + 1, column=0, padx=0, pady=0)
 
         self.phase = InterfaceGraphique.TROUVER_PREMIER
-        #self.afficher_phase()
+        self.afficher_phase()
       #  self.empecher_passer()
         concernes = list(range(self.nombre_joueurs))
         self.premier = concernes[0]
@@ -962,7 +942,7 @@ class InterfaceGraphique(Tk):
         """
         self.tour += 1
         self.phase = InterfaceGraphique.JOUER
-        #self.afficher_phase()
+        self.afficher_phase()
     #    self.empecher_passer()
         self.afficher_tableau()
 

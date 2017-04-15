@@ -60,6 +60,30 @@ class Parametres_partie(Toplevel):
         self.list_vars_nom_joueurs = []
 
 
+        self.file = open('testfile.txt','w')
+
+        self.file.write('test ecriture\n')
+
+        self.file.write('test\n')
+
+
+        self.file.write('test\n')
+
+        self.file.close()
+
+
+
+        self.file_1 = open('testfile.txt','r')
+
+        for line in self.file_1 :
+            print(line,end='')
+
+
+
+
+
+
+
         for i in range(NB_MAX_JOUEURS):
             self.list_vars_nom_joueurs.append(StringVar(value='Joueur {}'.format(i + 1)))
             self.list_labels_nom_joueurs.append(Label(self, text="Nom du joueur{}".format(i + 1)))
@@ -86,6 +110,7 @@ class Parametres_partie(Toplevel):
                                 for i in range(self.nombre_joueurs)]
 
             self.as_joker = self.var_As_joker.get()
+
 
 
 
@@ -455,6 +480,8 @@ class InterfaceGraphique(Tk):
 
         self.afficher_menu_principal()
 
+        self.sauvegarde = open('Sauvegarde.txt','w')
+
     # ----- Gestion des l'affichage -----
     def afficher_menu_principal(self):
         self.title_princ_jeu.place(relx=0.5, rely=0.33, anchor=CENTER)
@@ -495,9 +522,11 @@ class InterfaceGraphique(Tk):
         self.lancer_passer_control_var = BooleanVar(value=False)
         self.choix = None
         self.value_checkbutton()
-        
+
         afficheur_doptions = Parametres_partie(self)
         self.nombre_joueurs, self.as_joker, self.nom_joueurs = afficheur_doptions.get_values_saved()
+
+
 
         #self.joueurs = [JoueurInterface(self.frame_de_droit, nom, self.images_des) for nom in self.nom_joueurs]
 
@@ -507,9 +536,7 @@ class InterfaceGraphique(Tk):
 
         self.afficher_partie()
         self.jouer()
-
-
-
+       # self.sauvegarder()
 
     def update(self):
         self.tour_jouer()
@@ -528,17 +555,6 @@ class InterfaceGraphique(Tk):
         self.frame_bouton.grid(row=3, column=0)
 
 
-       # self.afficher_espace_joueur_courant()
-
-       # self.frame_resultat (row = 1, column = 0)
-
-        #self.nom_joueur_courant.grid(row=5, column=0)
-      #  self.var_nom_joueur_courant.grid(row=6, column=0)
-      #  self.nbr_max_lancer.grid(row=5, column=1)
-      #  self.var_nbr_max_lancer.grid(row=6, column=1)
-      #  self.num_lancer.grid(row=5, column=2)
-      #  self.var_num_lancer.grid(row=6, column=2)
-
 
 
 
@@ -548,49 +564,86 @@ class InterfaceGraphique(Tk):
         self.message.grid(row=1, column=0)
         self.message.after(3000, self.message.grid_forget)
 
-    """
 
-    def afficher_tableau_recapitulatif(self):
-        self.recap_canvas.delete('all')
-        h, l = 100, 300
-        i=0
+    def sauvegarder(self):
+        if self.nombre_joueurs ==2 :
 
-        for position in range(len(self.nom_joueurs)):
-            color = "black"
-            self.recap_canvas.create_rectangle(1, 1 + (h * position), l, 1 + (h * (position+1)))
-            self.recap_canvas.create_text(15, 25 + (h * position), text=self.nom_joueurs[position], font="Arial 16 italic", fill=color,
-                                          justify="left", anchor=W)
+            self.sauvegarde.write(str(self.nombre_joueurs) + '\n')
+            self.sauvegarde.write(str(self.as_joker) + '\n')
 
-            self.recap_canvas.create_text(50, 70 + (h * position), text= "Résultat: {0}".format(self.joueur_liste[position]),
-                                          font="Arial 12 italic", fill=color, justify="left")
-
+            if self.lol_1 == True :
+                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '\n')
+                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '\n')
+                self.sauvegarde.write(str(self.lol_1)+'\n')
+                self.sauvegarde.write(str(self.nb_lancer_1)+'\n')
+                self.sauvegarde.write(str(self.joueur_1)+'\n')
+                self.sauvegarde.write(str(self.joueur_1_lancer)+ '\n')
 
 
 
 
 
 
-        #self.recap_canvas.create_text(5, 25 + (h * self.nombre_joueurs),
-                                     # text="Gros lot: {} $".format(self.gros_lot),
-                                      #font="Arial 16 italic", fill="Blue", justify="left", anchor=W)
-        self.recap_canvas.config(height=(h*self.nombre_joueurs+h), width=l+50)
-        self.recap_canvas.grid(padx=5, pady=5)
-        self.recap_canvas.update()
+            elif self.lol_2 == True :
+                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '\n')
+                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '\n')
+                self.sauvegarde.write(str(self.lol_1) + '\n')
+                self.sauvegarde.write(str(self.nb_lancer_1) + '\n')
+                self.sauvegarde.write(str(self.joueur_1) + '\n')
+                self.sauvegarde.write(str(self.joueur_1_lancer) + '\n')
+                self.sauvegarde.write(str(self.lol_2) + '\n')
 
-        """
+                self.sauvegarde.write(str(self.joueur_2) + '\n')
+                self.sauvegarde.write(str(self.joueur_2_lancer) + '\n')
 
 
-    def tour_joueur (self):
 
-        nb_lancer = 0
-        nb_max_prochain = 0
 
-        if self.nombre_joueurs == 2 :
-            while nb_lancer < NB_MAX_LANCERS :
-                nb_lancer+=1
-                print("C'est au tour du jouer 1 ")
+        elif self.nombre_joueurs == 3 :
 
-                nb_max_prochain +=1
+                self.sauvegarde.write(str(self.nombre_joueurs) + '\n')
+                self.sauvegarde.write(str(self.as_joker) + '\n')
+
+                if self.lol_1 == True:
+
+                    self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '\n')
+                    self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '\n')
+                    self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[2]]) + '\n')
+                    self.sauvegarde.write(str(self.lol_1) + '\n')
+                    self.sauvegarde.write(str(self.nb_lancer_1) + '\n')
+                    self.sauvegarde.write(str(self.joueur_1) + '\n')
+                    self.sauvegarde.write(str(self.joueur_1_lancer) + '\n')
+
+
+                elif self.lol_2 == True :
+
+                     self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '\n')
+                     self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '\n')
+                     self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[2]]) + '\n')
+                     self.sauvegarde.write(str(self.lol_1) + '\n')
+                     self.sauvegarde.write(str(self.nb_lancer_1) + '\n')
+                     self.sauvegarde.write(str(self.joueur_1) + '\n')
+                     self.sauvegarde.write(str(self.joueur_1_lancer) + '\n')
+                     self.sauvegarde.write(str(self.lol_2) + '\n')
+                     self.sauvegarde.write(str(self.joueur_2) + '\n')
+                     self.sauvegarde.write(str(self.joueur_2_lancer) + '\n')
+
+
+                elif self.lol_3 == True :
+
+                     self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '\n')
+                     self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '\n')
+                     self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[2]]) + '\n')
+                     self.sauvegarde.write(str(self.lol_1) + '\n')
+                     self.sauvegarde.write(str(self.nb_lancer_1) + '\n')
+                     self.sauvegarde.write(str(self.joueur_1) + '\n')
+                     self.sauvegarde.write(str(self.joueur_1_lancer) + '\n')
+                     self.sauvegarde.write(str(self.lol_2) + '\n')
+                     self.sauvegarde.write(str(self.joueur_2) + '\n')
+                     self.sauvegarde.write(str(self.joueur_2_lancer) + '\n')
+                     self.sauvegarde.write(str(self.lol_3) + '\n')
+                     self.sauvegarde.write(str(self.joueur_3) + '\n')
+                     self.sauvegarde.write(str(self.joueur_3_lancer) + '\n')
 
 
     def afficher_tableau(self):
@@ -712,8 +765,11 @@ class InterfaceGraphique(Tk):
                     self.joueur_1_lancer = self.lancer
                     self.joueur_liste.append(self.joueur_1)
                     self.passer = 2
+                    self.sauvegarder()
+                    self.sauvegarde.close()
                     self.type_de_combin()
                     self.changer_tour()
+
 
 
 
@@ -734,6 +790,10 @@ class InterfaceGraphique(Tk):
                     self.joueur_2_lancer = self.lancer
 
                     self.joueur_liste.append(self.joueur_2)
+
+                    self.sauvegarder()
+                    self.sauvegarde.close()
+
                     self.type_de_combin()
                     self.changer_tour()
                     self.arreter_jeur()
@@ -807,8 +867,15 @@ class InterfaceGraphique(Tk):
                     self.joueur_1_lancer = self.lancer
                     self.joueur_liste.append(self.joueur_1)
                     self.passer = 2
+
+                    self.sauvegarder()
+                    self.sauvegarde.close()
+
                     self.type_de_combin()
                     self.changer_tour()
+
+
+
 
 
 
@@ -825,6 +892,12 @@ class InterfaceGraphique(Tk):
                     self.joueur_2_lancer = self.lancer
                     self.joueur_liste.append(self.joueur_1)
                     self.passer = 4
+
+
+                    self.sauvegarder()
+                    self.sauvegarde.close()
+
+
                     self.type_de_combin()
                     self.changer_tour()
 
@@ -848,6 +921,9 @@ class InterfaceGraphique(Tk):
                     self.joueur_3 = self.liste
                     self.joueur_3_lancer = self.lancer
                     self.joueur_liste.append(self.joueur_3)
+
+                    self.sauvegarder()
+                    self.sauvegarde.close()
 
                     self.commencer_disable()
                     self.type_de_combin()
@@ -945,7 +1021,6 @@ class InterfaceGraphique(Tk):
 
             elif joueur_1 == joueur_2 and joueur_1 == joueur_3:
                 messagebox.showinfo("MATCH NUL ")
-
 
 
     def txt_utilisateur (self, string):
@@ -1056,7 +1131,7 @@ class InterfaceGraphique(Tk):
             self.checkbutton_4.select()
             self.checkbutton_5.select()
             self.afficher_tableau()
-
+            self.permettre_passer()
 
             self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[2]])
             self.joueur_3_lancer = 1
@@ -1081,17 +1156,13 @@ class InterfaceGraphique(Tk):
         self.empecher_lancer()
 
 
-
-
-
-
-
     def determiner_premier_lanceur(self):
         """
         ...
         """
         partie = Partie(self.nom_joueurs)
         self.ordre_joueur = partie._determiner_ordre()
+
 
         for i in range(0, len(self.ordre_joueur)):
             joueur = self.nom_joueurs[self.ordre_joueur[i]]
@@ -1173,7 +1244,9 @@ class InterfaceGraphique(Tk):
 
         self.determiner_premier_lanceur()
 
+
         self.jouer_tour_premiere_phase()
+
 
       #  if messagebox.askokcancel("FIN", "...merci...."):
         #    print("lel")

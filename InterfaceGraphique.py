@@ -1240,10 +1240,27 @@ class InterfaceGraphique(Tk):
             self.nom_joueur_3_resultat.config(text="")
             self.var_joueur_3_resultat.config (text="")
             self.var_joueur_3_sequence.config(text="")
+           # self.var_num_lancer.congif(text="XXXXX")
+            self.var_joueur_1_resultat.config(text="X")
+            self.var_joueur_2_resultat.config(text="X")
+            self.var_joueur_3_resultat.config(text="")
+            self.var_joueur_1_sequence.config(text="X")
+            self.var_joueur_2_sequence.config(text="X")
+            self.var_joueur_3_sequence.config(text="")
+
+
         elif self.nombre_joueurs == 3 :
             self.nom_joueur_1.config(text=self.nom_joueurs[self.ordre_joueur[0]])
             self.nom_joueur_2.config(text=self.nom_joueurs[self.ordre_joueur[1]])
             self.nom_joueur_3.config(text=self.nom_joueurs[self.ordre_joueur[2]])
+            #self.var_num_lancer.config(text="XXXXX")
+            self.var_joueur_1_resultat.config(text="X")
+            self.var_joueur_2_resultat.config(text="X")
+            self.var_joueur_3_resultat.config(text="X")
+            self.var_joueur_1_sequence.config(text="X")
+            self.var_joueur_2_sequence.config(text="X")
+            self.var_joueur_3_sequence.config(text="X")
+
 
 
       #  self.empecher_passer()

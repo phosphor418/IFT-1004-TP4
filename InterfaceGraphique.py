@@ -291,7 +291,7 @@ class InterfaceGraphique(Tk):
         menu1.add_command(label="Quitter", command=self.confirmation_quitter)
         self.menubar.add_cascade(label="Menu 1", menu=menu1)
         menu3 = Menu(self.menubar, tearoff=0)
-        menu3.add_command(label="A venir...", command=None)
+        menu3.add_command(label="Instructions", command=self.instructions)
         self.menubar.add_cascade(label="Règles du jeu", menu=menu3)
         self.config(menu=self.menubar)
 
@@ -442,6 +442,23 @@ class InterfaceGraphique(Tk):
     def confirmation_quitter(self):
         if messagebox.askokcancel("Quitter", "Voulez-vous vraiment quitter?"):
             self.destroy()
+
+    def instructions(self):
+        messagebox.showinfo("Instructions", "Voici les règles du jeu:\n"
+                                            "\n"
+                                            "   1.  Le fonctionnement est basé sur les règlements officiels"
+                                            "       du jeu de poker d'as\n"
+                                            "\n"
+                                            "   2.  Le simulateur accepte un, deux ou trois joueurs\n"
+                                            "\n"
+                                            "   3.  Il est obligatoire de sélectionner l'option où l'on"
+                                            "       joue avec ou sans les as\n"
+                                            "\n"
+                                            "   4.  La partie débute lorsque le premier joueur appuie sur le"
+                                            "       bouton lancer\n"
+                                            "\n"
+                                            "   5.  L'ordre de jeu est sélectionné de manière aléatoire\n"
+                                            "\n ")
 
     def definir_partie(self):
         #self.gros_lot = GROS_LOT

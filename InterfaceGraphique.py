@@ -399,9 +399,17 @@ class InterfaceGraphique(Tk):
         self.var_nom_joueur_courant.grid(row=7, column=0,padx=0, pady=0)
 
         self.jeu_courant_label = Label(self.frame_de_bas, text="Voici le jeu courant ")
-        self.jeu_courant_label.grid(row=8, padx=0, pady=0)
+        self.jeu_courant_label.grid(row=8, column = 0, padx=0, pady=0)
+        self.jeu_courant_label['background'] = 'blue'
 
-
+        self.espace= Label(self.frame_de_bas, text="                    ")
+        self.espace.grid(row=8, column=1, padx=0, pady=0)
+        self.espace1 = Label(self.frame_de_bas, text="                      ")
+        self.espace1.grid(row=8, column=2, padx=0, pady=0)
+        self.espace2 = Label(self.frame_de_bas, text="                      ")
+        self.espace2.grid(row=8, column=3, padx=0, pady=0)
+        self.espace3 = Label(self.frame_de_bas, text="                      ")
+        self.espace3.grid(row=8, column=4, padx=0, pady=0)
 
         #  self.num_lancer = Label(self.frame_de_bas, text = "Lancer actuel")
       #  self.num_lancer.grid(row=6, column=0,padx=20, pady=20)

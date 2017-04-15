@@ -306,8 +306,8 @@ class InterfaceGraphique(Tk):
         self.menubar = Menu(self)
         menu1 = Menu(self.menubar, tearoff=0)
         menu1.add_command(label="Nouvelle partie", command=self.definir_partie)
-        menu1.add_command(label="Poursuivre...", command=None)
-        menu1.add_command(label="Enregistrer...", command=None)
+        menu1.add_command(label="Charger", command=None)
+        menu1.add_command(label="Enregistrer", command=None)
         menu1.add_separator()
         menu1.add_command(label="Quitter", command=self.confirmation_quitter)
         self.menubar.add_cascade(label="Menu 1", menu=menu1)
@@ -322,6 +322,8 @@ class InterfaceGraphique(Tk):
         self.title_princ_jeu['background'] = 'green'
         self.bouton_princ_jouer = Button(self, text="Nouvelle partie",  command=self.definir_partie,
                                          width=20, height=3, bg="yellow")
+        self.bouton_princ_charger = Button(self, text="Charger", command=None,
+                                            width=20, height=3, bg="yellow")
         self.bouton_princ_quitter = Button(self, text="Quitter", command=self.confirmation_quitter,
                                            width=20, height=3, bg="red")
 
@@ -492,11 +494,13 @@ class InterfaceGraphique(Tk):
     def afficher_menu_principal(self):
         self.title_princ_jeu.place(relx=0.5, rely=0.33, anchor=CENTER)
         self.bouton_princ_jouer.place(relx=0.5, rely=0.68, anchor=CENTER)
-        self.bouton_princ_quitter.place(relx=0.5, rely=0.79, anchor=CENTER)
+        self.bouton_princ_charger.place(relx=0.5, rely=0.79, anchor=CENTER)
+        self.bouton_princ_quitter.place(relx=0.5, rely=0.90, anchor=CENTER)
 
     def cacher_menu_principal(self):
         self.title_princ_jeu.place_forget()
         self.bouton_princ_jouer.place_forget()
+        self.bouton_princ_charger.place_forget()
         self.bouton_princ_quitter.place_forget()
 
     def confirmation_quitter(self):
@@ -544,6 +548,7 @@ class InterfaceGraphique(Tk):
         self.jouer()
        # self.sauvegarder()
 
+
     def update(self):
         self.tour_jouer()
 
@@ -569,6 +574,7 @@ class InterfaceGraphique(Tk):
         self.message['text'] = message
         self.message.grid(row=1, column=0)
         self.message.after(3000, self.message.grid_forget)
+
 
 
     def sauvegarder(self):
@@ -710,7 +716,6 @@ class InterfaceGraphique(Tk):
         self.tour_jouer()
 
     def tour_jouer (self):
-
 
 
         if self.nombre_joueurs == 2 :
@@ -1162,13 +1167,55 @@ class InterfaceGraphique(Tk):
         self.empecher_lancer()
 
 
+
+    def wipe_nouvelle_partie(self):
+
+        if self.nombre_joueurs == 2:
+
+            self.ordre_joueur_label.config(text=self.nom_joueurs[self.ordre_joueur[0]])
+            self.ordre_joueur_label1.config(text=self.nom_joueurs[self.ordre_joueur[1]])
+            self.nom_joueur_1.config(text=self.nom_joueurs[self.ordre_joueur[0]])
+            self.nom_joueur_2.config(text=self.nom_joueurs[self.ordre_joueur[1]])
+            self.nom_joueur_3.config(text="")
+
+            self.nom_joueur_1_resultat.config(text="")
+            self.var_joueur_1_resultat.config(text="X")
+            self.nom_joueur_2_resultat.config(text="")
+            self.var_joueur_2_resultat.config(text="X")
+            self.nom_joueur_3_resultat.config(text="")
+            self.var_joueur_3_resultat.config(text="")
+
+            self.tour_joueur_1 = 1
+            self.tour_joueur_2 = 1
+            self.tour_joueur_3 = 1
+
+        elif self.nombre_joueurs == 3:
+
+            self.ordre_joueur_label.config(text=self.nom_joueurs[self.ordre_joueur[0]])
+            self.ordre_joueur_label1.config(text=self.nom_joueurs[self.ordre_joueur[1]])
+            self.nom_joueur_1.config(text=self.nom_joueurs[self.ordre_joueur[0]])
+            self.nom_joueur_2.config(text=self.nom_joueurs[self.ordre_joueur[1]])
+            self.nom_joueur_3.config(text=self.nom_joueurs[self.ordre_joueur[2]])
+
+            self.nom_joueur_1_resultat.config(text="")
+            self.var_joueur_1_resultat.config(text="X")
+            self.nom_joueur_2_resultat.config(text="")
+            self.var_joueur_2_resultat.config(text="X")
+            self.nom_joueur_3_resultat.config(text="")
+            self.var_joueur_3_resultat.config(text="X")
+
+
+            self.tour_joueur_1 = 1
+            self.tour_joueur_2 = 1
+            self.tour_joueur_3 = 1
+
+
     def determiner_premier_lanceur(self):
         """
         ...
         """
         partie = Partie(self.nom_joueurs)
         self.ordre_joueur = partie._determiner_ordre()
-
 
         for i in range(0, len(self.ordre_joueur)):
             joueur = self.nom_joueurs[self.ordre_joueur[i]]
@@ -1253,7 +1300,6 @@ class InterfaceGraphique(Tk):
 
 
         self.jouer_tour_premiere_phase()
-
 
       #  if messagebox.askokcancel("FIN", "...merci...."):
         #    print("lel")

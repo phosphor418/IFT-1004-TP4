@@ -395,33 +395,40 @@ class InterfaceGraphique(Tk):
         self.nom_joueur_courant = Label(self.frame_de_bas, text="Joueur courant")
         self.nom_joueur_courant.grid(row=6, column=0, padx=0, pady=0)
 
-        self.var_nom_joueur_courant = Label(self.frame_de_bas, text="XXX")
-        self.var_nom_joueur_courant.grid(row=7, column=0,padx=0, pady=0)
+        self.num_lancer = Label(self.frame_de_bas, text="Lancer actuel")
+        self.num_lancer.grid(row=6, column=3, padx=0, pady=0)
+
+        self.nbr_max_lancer = Label(self.frame_de_bas, text="Nombre maximal de lancer(s)")
+        self.nbr_max_lancer.grid(row=6, column=5, padx=0, pady=0)
+
+
+
+        self.var_nom_joueur_courant = Label(self.frame_de_bas, text="XXXXX")
+        self.var_nom_joueur_courant.grid(row=7, column=0, padx=0, pady=0)
+
+        self.var_num_lancer = Label(self.frame_de_bas, text="XXXXX")
+        self.var_num_lancer.grid(row=7, column=3, padx=20, pady=20)
+
+        self.var_nbr_max_lancer = Label(self.frame_de_bas, text="XXXXX")
+        self.var_nbr_max_lancer.grid(row=7, column=5, padx=0, pady=20)
+
+
+
+
 
         self.jeu_courant_label = Label(self.frame_de_bas, text="Voici le jeu courant ")
         self.jeu_courant_label.grid(row=8, column = 0, padx=0, pady=0)
         self.jeu_courant_label['background'] = 'blue'
 
-        self.espace= Label(self.frame_de_bas, text="                    ")
+        self.espace= Label(self.frame_de_bas, text="                           ")
         self.espace.grid(row=8, column=1, padx=0, pady=0)
-        self.espace1 = Label(self.frame_de_bas, text="                      ")
+        self.espace1 = Label(self.frame_de_bas, text="                         ")
         self.espace1.grid(row=8, column=2, padx=0, pady=0)
-        self.espace2 = Label(self.frame_de_bas, text="                      ")
+        self.espace2 = Label(self.frame_de_bas, text="                         ")
         self.espace2.grid(row=8, column=3, padx=0, pady=0)
-        self.espace3 = Label(self.frame_de_bas, text="                      ")
+        self.espace3 = Label(self.frame_de_bas, text="                         ")
         self.espace3.grid(row=8, column=4, padx=0, pady=0)
 
-        #  self.num_lancer = Label(self.frame_de_bas, text = "Lancer actuel")
-      #  self.num_lancer.grid(row=6, column=0,padx=20, pady=20)
-
-      #  self.var_num_lancer = Label(self.frame_de_bas, text = "XXXXXX")
-      #  self.var_num_lancer.grid(row=7, column=0,padx=20, pady=20)
-
-      #  self.nbr_max_lancer = Label(self.frame_de_bas, text = "Nombre maximal de lancer(s)")
-      #  self.nbr_max_lancer.grid(row=6, column=0,padx=20, pady=20)
-
-       # self.var_nbr_max_lancer = Label(self.frame_de_bas, text = "XXXXXXXX")
-       # self.var_nbr_max_lancer.grid(row=7, column=0,padx=0, pady=20)
 
         self.valeurs_obtenues = Combinaison()
 

@@ -487,7 +487,7 @@ class InterfaceGraphique(Tk):
 
 
         self.afficher_menu_principal()
-
+        #test
         self.sauvegarde = open('Sauvegarde.txt','w')
 
     # ----- Gestion des l'affichage -----

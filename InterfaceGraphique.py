@@ -821,6 +821,9 @@ class InterfaceGraphique(Tk):
 
             if self.bool_lancer_2 == True :
                 self.tour_joueur_2 +=1
+                if self.tour_joueur_2 > self.nb_lancer_1:
+                    self.tour_joueur_2 = self.nb_lancer_1
+
                 self.var_num_lancer.config(text=self.tour_joueur_2)
                 self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[1]])
                 print(self.nom_joueurs[self.ordre_joueur[1]])
@@ -867,8 +870,9 @@ class InterfaceGraphique(Tk):
 
 
 
+
             elif self.lol_2 == True :
-                if self.tour_joueur_2 == self.nb_lancer_1 or self.passer == 3 :
+                if self.tour_joueur_2 >=  self.nb_lancer_1 or self.passer == 3 :
 
 
                     self.bool_lancer_1 = False
@@ -879,9 +883,11 @@ class InterfaceGraphique(Tk):
 
 
 
+
                     self.joueur_2 = self.liste
 
                     self.joueur_2_lancer = self.lancer
+
 
                     self.joueur_liste.append(self.joueur_2)
 
@@ -890,6 +896,7 @@ class InterfaceGraphique(Tk):
 
                     self.type_de_combin()
                     self.changer_tour()
+                    self.commencer_disable()
                     self.arreter_jeur()
                     self.combin_gagnant()
 
@@ -918,6 +925,9 @@ class InterfaceGraphique(Tk):
 
             if self.bool_lancer_2 == True:
                 self.tour_joueur_2 += 1
+                if self.tour_joueur_2 > self.nb_lancer_1:
+                    self.tour_joueur_2 = self.nb_lancer_1
+
                 self.var_num_lancer.config(text=self.tour_joueur_2)
                 self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[1]])
                 self.lol_1 = False
@@ -926,7 +936,8 @@ class InterfaceGraphique(Tk):
 
             if self.bool_lancer_3 == True:
                 self.tour_joueur_3 += 1
-
+                if self.tour_joueur_3 > self.nb_lancer_1:
+                    self.tour_joueur_3 = self.nb_lancer_1
                 self.var_num_lancer.config(text=self.tour_joueur_3)
                 self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[2]])
 
@@ -1019,10 +1030,11 @@ class InterfaceGraphique(Tk):
                     self.sauvegarder()
                     #self.sauvegarde.close()
 
-                    self.commencer_disable()
+
                     self.type_de_combin()
 
                     self.changer_tour()
+                    self.commencer_disable()
                     self.arreter_jeur()
                     self.combin_gagnant()
 
@@ -1079,16 +1091,6 @@ class InterfaceGraphique(Tk):
 
     def combin_gagnant (self) :
 
-        QUINTON = 7
-        CARRE = 6
-        FULL = 5
-        BRELAN = 4
-        SEQUENCE = 3
-        DEUX_PAIRES = 2
-        UNE_PAIRE = 1
-        AUTRE = 0
-
-        element = ["autre","Une paire","Deux paires","sequence","Brelan","Full","Carre","Quinton"]
 
         if self.nombre_joueurs == 2 :
 
@@ -1096,9 +1098,9 @@ class InterfaceGraphique(Tk):
             joueur_2 = self.combinaison_2.value
 
             if joueur_1 < joueur_2 :
-                messagebox.showinfo("Gagnant","{0} GAGNE".format(self.nom_joueurs[self.ordre_joueur[0]]))
-            elif joueur_1 > joueur_2:
                 messagebox.showinfo("Gagnant","{0} GAGNE".format(self.nom_joueurs[self.ordre_joueur[1]]))
+            elif joueur_1 > joueur_2:
+                messagebox.showinfo("Gagnant","{0} GAGNE".format(self.nom_joueurs[self.ordre_joueur[0]]))
             elif joueur_1 == joueur_2:
                 messagebox.showinfo("Égalité","Le match est nul ")
 

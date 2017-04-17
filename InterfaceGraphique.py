@@ -523,7 +523,11 @@ class InterfaceGraphique(Tk):
                                             "       bouton lancer\n"
                                             "\n"
                                             "   5.  L'ordre de jeu est sélectionné de manière aléatoire\n"
-                                            "\n ")
+                                            "\n "
+                                            "   6.  La sauvegarde enregistre la dernière partie.  Lorsque"
+                                            "       l'utilisateur charge une sauvegarde, il a donc la "
+                                            "       dernière partie jouée\n"
+                                            "\n")
 
     def definir_partie_charger(self):
 

@@ -17,14 +17,14 @@ NOMBRE_DES_DU_JEU = 5
 
 
 #*****************************************************************************
-
 class Parametres_partie(Toplevel):
+
     def __init__(self, parent):
+
+        # Différents paramètres de la fenêtre popup proposant les différentes options de jeu au joueur
+
         super().__init__(parent)
         self.title("Info partie...")
-        # self.geometry("600x200")
-        #tst
-        # On prend le contrôle
         self.parent = parent
         self.transient(parent)
         self.grab_set()
@@ -53,7 +53,8 @@ class Parametres_partie(Toplevel):
 
 
 
-        # ----- Entrer le nom des joueurs -----
+        # On demande le nom de chacun des joueurs
+
         self.instruction_nom_joueurs = Label(self, text="Entrez le nom des joueurs :")
         self.list_labels_nom_joueurs = []
         self.list_entrees_nom_joueurs = []
@@ -307,10 +308,9 @@ class InterfaceGraphique(Tk):
         menu1 = Menu(self.menubar, tearoff=0)
         menu1.add_command(label="Nouvelle partie", command=self.definir_partie)
         menu1.add_command(label="Poursuivre...", command=None)
-        menu1.add_command(label="Enregistrer...", command=None)
         menu1.add_separator()
         menu1.add_command(label="Quitter", command=self.confirmation_quitter)
-        self.menubar.add_cascade(label="Menu 1", menu=menu1)
+        self.menubar.add_cascade(label="Menu", menu=menu1)
         menu3 = Menu(self.menubar, tearoff=0)
         menu3.add_command(label="Instructions", command=self.instructions)
         self.menubar.add_cascade(label="Règles du jeu", menu=menu3)
@@ -800,7 +800,6 @@ class InterfaceGraphique(Tk):
 
     def tour_jouer (self):
 
-
         if self.nombre_joueurs == 2 :
 
 
@@ -1093,6 +1092,7 @@ class InterfaceGraphique(Tk):
     def combin_gagnant (self) :
 
 
+
         if self.nombre_joueurs == 2 :
 
             joueur_1 = self.combinaison_1.value
@@ -1123,6 +1123,8 @@ class InterfaceGraphique(Tk):
 
             elif joueur_1 == joueur_2 and joueur_1 == joueur_3:
                 messagebox.showinfo("Égalité","Le match est nul ")
+
+        self.commencer_disable()
 
 
     def txt_utilisateur (self, string):
@@ -1256,7 +1258,6 @@ class InterfaceGraphique(Tk):
     def arreter_jeur(self):
         self.empecher_passer()
         self.empecher_lancer()
-
 
     def determiner_premier_lanceur(self):
         """

@@ -10,7 +10,7 @@ from partie import Partie
 NB_MAX_JOUEURS = 3
 NB_MAX_LANCERS = 3
 NOMBRE_DES_DU_JEU = 5
-#GROS_LOT = 1
+
 
 
 
@@ -384,6 +384,9 @@ class InterfaceGraphique(Tk):
         self.test= None
         self.lolxd = None
         self.lancer = None
+        self.combinaison_1 = None
+        self.combinaison_2 = None
+        self.combinaison_3 = None
 
         self.bouton_commencer = Button(self.boutonframe, text="Commencer", command=self.commencer_tour)
         self.bouton_commencer.grid(column=0, row=0, rowspan=1, columnspan=1)
@@ -458,7 +461,7 @@ class InterfaceGraphique(Tk):
 
 
         self.jeu_courant_label = Label(self.frame_de_bas, text="Voici le jeu courant ")
-        self.jeu_courant_label.grid(row=8, column = 0, padx=0, pady=0)
+        self.jeu_courant_label.grid(row=9, column = 0, padx=0, pady=0)
         self.jeu_courant_label['background'] = 'blue'
 
         self.espace= Label(self.frame_de_bas, text="                            ")
@@ -595,6 +598,11 @@ class InterfaceGraphique(Tk):
         self.bool_lancer_1 = True
         self.bool_lancer_2 = False
         self.bool_lancer_3 = False
+
+
+        self.combinaison_1 = None
+        self.combinaison_2 = None
+        self.combinaison_3 = None
 
         self.lol_1 = False
         self.lol_2 = False
@@ -808,12 +816,14 @@ class InterfaceGraphique(Tk):
 
                 self.lol_1 = True
                 self.var_nom_joueur_courant.config(text= self.nom_joueurs[self.ordre_joueur[0]])
+                print(self.nom_joueurs[self.ordre_joueur[0]])
 
 
             if self.bool_lancer_2 == True :
                 self.tour_joueur_2 +=1
                 self.var_num_lancer.config(text=self.tour_joueur_2)
                 self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[1]])
+                print(self.nom_joueurs[self.ordre_joueur[1]])
                 self.lol_1= False
                 self.lol_2 = True
 
@@ -1054,7 +1064,7 @@ class InterfaceGraphique(Tk):
 
             if self.lol_2 == True:
                 self.test2 = Combinaison(self.joueur_2_lancer)
-                self.combinaison_2 = self.test3.determiner_type_combinaison_sans_AS()
+                self.combinaison_2 = self.test2.determiner_type_combinaison_sans_AS()
                 self.var_joueur_2_resultat.config(text=self.combinaison_2)
 
             if self.lol_3 == True:
@@ -1086,7 +1096,7 @@ class InterfaceGraphique(Tk):
             elif joueur_1 > joueur_2:
                 messagebox.showinfo("Gagnant","{0} GAGNE".format(self.nom_joueurs[self.ordre_joueur[1]]))
             elif joueur_1 == joueur_2:
-                messagebox.showinfo("MATCH NUL ")
+                messagebox.showinfo("NULL","MATCH NUL ")
 
         elif self.nombre_joueurs == 3 :
 
@@ -1105,7 +1115,7 @@ class InterfaceGraphique(Tk):
                 messagebox.showinfo("Gagnant","{0} GAGNE".format(self.nom_joueurs[self.ordre_joueur[2]]))
 
             elif joueur_1 == joueur_2 and joueur_1 == joueur_3:
-                messagebox.showinfo("MATCH NUL ")
+                messagebox.showinfo("NULL","MATCH NUL ")
 
 
     def txt_utilisateur (self, string):

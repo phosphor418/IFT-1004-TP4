@@ -1,8 +1,8 @@
 2
 Oui
-Joueur 1
 Joueur 2
+Joueur 1
 True
 3
-['A', 'R', 'R', 'A', 'D']
-[<Carte.AS: 0>, <Carte.ROI: 1>, <Carte.ROI: 1>, <Carte.AS: 0>, <Carte.DAME: 2>]
+['9', 'X', '9', 'X', 'D']
+[<Carte.NEUF: 5>, <Carte.DIX: 4>, <Carte.NEUF: 5>, <Carte.DIX: 4>, <Carte.DAME: 2>]

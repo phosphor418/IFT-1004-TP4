@@ -867,7 +867,6 @@ class InterfaceGraphique(Tk):
 
 
 
-
             elif self.lol_2 == True :
                 if self.tour_joueur_2 == self.nb_lancer_1 or self.passer == 3 :
 
@@ -983,7 +982,7 @@ class InterfaceGraphique(Tk):
                     self.commencer_2 = True
                     self.commencer_3 = False
 
-                    self.joueur_1 = self.liste
+                    self.joueur_2 = self.liste
                     self.joueur_2_lancer = self.lancer
                     self.joueur_liste.append(self.joueur_1)
                     self.passer = 4
@@ -1042,17 +1041,20 @@ class InterfaceGraphique(Tk):
                  self.test = Combinaison(self.joueur_1_lancer)
                  self.combinaison_1= self.test.determiner_type_combinaison()
                  self.var_joueur_1_resultat.config(text=self.combinaison_1)
+                 self.var_joueur_1_sequence.config(text=self.joueur_1)
 
             if self.lol_2 == True :
 
                 self.test1 = Combinaison(self.joueur_2_lancer)
                 self.combinaison_2 = self.test1.determiner_type_combinaison()
                 self.var_joueur_2_resultat.config(text=self.combinaison_2)
+                self.var_joueur_2_sequence.config(text=self.joueur_2)
 
             if self.lol_3 == True :
                 self.test1 = Combinaison(self.joueur_3_lancer)
                 self.combinaison_3 = self.test1.determiner_type_combinaison()
                 self.var_joueur_3_resultat.config(text=self.combinaison_3)
+                self.var_joueur_3_sequence.config(text=self.joueur_3)
 
 
         else :
@@ -1061,17 +1063,19 @@ class InterfaceGraphique(Tk):
                 self.test = Combinaison(self.joueur_1_lancer)
                 self.combinaison_1 = self.test.determiner_type_combinaison_sans_AS()
                 self.var_joueur_1_resultat.config(text=self.combinaison_1)
+                self.var_joueur_1_sequence.config(text=self.joueur_1)
 
             if self.lol_2 == True:
                 self.test2 = Combinaison(self.joueur_2_lancer)
                 self.combinaison_2 = self.test2.determiner_type_combinaison_sans_AS()
                 self.var_joueur_2_resultat.config(text=self.combinaison_2)
+                self.var_joueur_2_sequence.config(text=self.joueur_2)
 
             if self.lol_3 == True:
                 self.test3 = Combinaison(self.joueur_3_lancer)
                 self.combinaison_3 = self.test3.determiner_type_combinaison_sans_AS()
                 self.var_joueur_3_resultat.config(text=self.combinaison_3)
-
+                self.var_joueur_3_sequence.config(text=self.joueur_3)
 
     def combin_gagnant (self) :
 
@@ -1096,7 +1100,7 @@ class InterfaceGraphique(Tk):
             elif joueur_1 > joueur_2:
                 messagebox.showinfo("Gagnant","{0} GAGNE".format(self.nom_joueurs[self.ordre_joueur[1]]))
             elif joueur_1 == joueur_2:
-                messagebox.showinfo("NULL","MATCH NUL ")
+                messagebox.showinfo("Égalité","Le match est nul ")
 
         elif self.nombre_joueurs == 3 :
 
@@ -1115,7 +1119,7 @@ class InterfaceGraphique(Tk):
                 messagebox.showinfo("Gagnant","{0} GAGNE".format(self.nom_joueurs[self.ordre_joueur[2]]))
 
             elif joueur_1 == joueur_2 and joueur_1 == joueur_3:
-                messagebox.showinfo("NULL","MATCH NUL ")
+                messagebox.showinfo("Égalité","Le match est nul ")
 
 
     def txt_utilisateur (self, string):
@@ -1251,49 +1255,6 @@ class InterfaceGraphique(Tk):
         self.empecher_lancer()
 
 
-
-    def wipe_nouvelle_partie(self):
-
-        if self.nombre_joueurs == 2:
-
-            self.ordre_joueur_label.config(text=self.nom_joueurs[self.ordre_joueur[0]])
-            self.ordre_joueur_label1.config(text=self.nom_joueurs[self.ordre_joueur[1]])
-            self.nom_joueur_1.config(text=self.nom_joueurs[self.ordre_joueur[0]])
-            self.nom_joueur_2.config(text=self.nom_joueurs[self.ordre_joueur[1]])
-            self.nom_joueur_3.config(text="")
-
-            self.nom_joueur_1_resultat.config(text="")
-            self.var_joueur_1_resultat.config(text="X")
-            self.nom_joueur_2_resultat.config(text="")
-            self.var_joueur_2_resultat.config(text="X")
-            self.nom_joueur_3_resultat.config(text="")
-            self.var_joueur_3_resultat.config(text="")
-
-            self.tour_joueur_1 = 1
-            self.tour_joueur_2 = 1
-            self.tour_joueur_3 = 1
-
-        elif self.nombre_joueurs == 3:
-
-            self.ordre_joueur_label.config(text=self.nom_joueurs[self.ordre_joueur[0]])
-            self.ordre_joueur_label1.config(text=self.nom_joueurs[self.ordre_joueur[1]])
-            self.nom_joueur_1.config(text=self.nom_joueurs[self.ordre_joueur[0]])
-            self.nom_joueur_2.config(text=self.nom_joueurs[self.ordre_joueur[1]])
-            self.nom_joueur_3.config(text=self.nom_joueurs[self.ordre_joueur[2]])
-
-            self.nom_joueur_1_resultat.config(text="")
-            self.var_joueur_1_resultat.config(text="X")
-            self.nom_joueur_2_resultat.config(text="")
-            self.var_joueur_2_resultat.config(text="X")
-            self.nom_joueur_3_resultat.config(text="")
-            self.var_joueur_3_resultat.config(text="X")
-
-
-            self.tour_joueur_1 = 1
-            self.tour_joueur_2 = 1
-            self.tour_joueur_3 = 1
-
-
     def determiner_premier_lanceur(self):
         """
         ...
@@ -1316,7 +1277,7 @@ class InterfaceGraphique(Tk):
             self.nom_joueur_3_resultat.config(text="")
             self.var_joueur_3_resultat.config (text="")
             self.var_joueur_3_sequence.config(text="")
-           # self.var_num_lancer.congif(text="XXXXX")
+            self.var_num_lancer.config(text="XXXXX")
             self.var_joueur_1_resultat.config(text="X")
             self.var_joueur_2_resultat.config(text="X")
             self.var_joueur_3_resultat.config(text="")
@@ -1329,7 +1290,7 @@ class InterfaceGraphique(Tk):
             self.nom_joueur_1.config(text=self.nom_joueurs[self.ordre_joueur[0]])
             self.nom_joueur_2.config(text=self.nom_joueurs[self.ordre_joueur[1]])
             self.nom_joueur_3.config(text=self.nom_joueurs[self.ordre_joueur[2]])
-            #self.var_num_lancer.config(text="XXXXX")
+            self.var_num_lancer.config(text="XXXXX")
             self.var_joueur_1_resultat.config(text="X")
             self.var_joueur_2_resultat.config(text="X")
             self.var_joueur_3_resultat.config(text="X")

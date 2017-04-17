@@ -1,11 +1,1 @@
-2
-Oui
-Joueur 2
-Joueur 1
-False
-3
-['A', 'D', '9', 'A', '9']
-[<Carte.NEUF: 5>, <Carte.ROI: 1>, <Carte.AS: 0>, <Carte.ROI: 1>, <Carte.ROI: 1>]
-True
-['9', 'R', 'A', 'R', 'R']
-[<Carte.NEUF: 5>, <Carte.ROI: 1>, <Carte.AS: 0>, <Carte.ROI: 1>, <Carte.ROI: 1>]
+2 oui Joueur 2Joueur 1True3['9', 'V', '9', 'X', 'V'][<Carte.NEUF: 5>, <Carte.VALET: 3>, <Carte.NEUF: 5>, <Carte.DIX: 4>, <Carte.VALET: 3>]2 oui Joueur 1Joueur 2True3['9', 'V', 'R', 'D', 'R'][<Carte.NEUF: 5>, <Carte.VALET: 3>, <Carte.ROI: 1>, <Carte.DAME: 2>, <Carte.ROI: 1>]

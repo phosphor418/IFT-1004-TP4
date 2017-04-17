@@ -48,7 +48,7 @@ class Parametres_partie(Toplevel):
         self.instruction_nb_joueurs.grid(row=1, column=0, padx=5, pady=5)
         self.var_As_joker = StringVar()
         self.var_As_joker.trace('w', self.selection_nb_joueur)
-        self.var_As_joker = Combobox(self, textvariable=self.var_As_joker, values=["Non", "Oui"])
+        self.var_As_joker = Combobox(self, textvariable=self.var_As_joker, values=["non", "oui"])
         self.var_As_joker.grid(row=1, column=1, padx=5, pady=5)
 
 
@@ -118,7 +118,7 @@ class Parametres_partie(Toplevel):
             if not (2 <= self.nombre_joueurs <= 3):
                 messagebox.showerror("Erreur",
                                      "Le nombre de joueur de la partie incluant l'ordinateur doit être entre 2 et 3")
-            if not (self.as_joker == "Oui" or self.as_joker == "Non" ):
+            if not (self.as_joker == "oui" or self.as_joker == "non" ):
                 messagebox.showerror("Erreur",
                                      "Vous devez entrer une reponse au as étant joker ou non")
             else:
@@ -307,7 +307,8 @@ class InterfaceGraphique(Tk):
         self.menubar = Menu(self)
         menu1 = Menu(self.menubar, tearoff=0)
         menu1.add_command(label="Nouvelle partie", command=self.definir_partie)
-        menu1.add_command(label="Poursuivre...", command=None)
+        menu1.add_command(label="Charger", command=self.definir_partie_charger)
+        menu1.add_command(label="Enregistrer...", command=None)
         menu1.add_separator()
         menu1.add_command(label="Quitter", command=self.confirmation_quitter)
         self.menubar.add_cascade(label="Menu", menu=menu1)
@@ -322,7 +323,7 @@ class InterfaceGraphique(Tk):
         self.title_princ_jeu['background'] = 'green'
         self.bouton_princ_jouer = Button(self, text="Nouvelle partie",  command=self.definir_partie,
                                          width=20, height=3, bg="yellow")
-        self.bouton_princ_charger = Button(self, text="Charger", command=None,
+        self.bouton_princ_charger = Button(self, text="Charger", command=self.definir_partie_charger,
                                             width=20, height=3, bg="yellow")
         self.bouton_princ_quitter = Button(self, text="Quitter", command=self.confirmation_quitter,
                                            width=20, height=3, bg="red")
@@ -482,11 +483,6 @@ class InterfaceGraphique(Tk):
         self.var_4 = IntVar()
         self.var_5 = IntVar()
 
-        #self.checkbutton_1.select()
-        #self.checkbutton_2.select()
-        #self.checkbutton_3.select()
-        #self.checkbutton_4.select()
-        #self.checkbutton_5.select()
 
 
         self.afficher_menu_principal()
@@ -532,22 +528,103 @@ class InterfaceGraphique(Tk):
 
         # self.gros_lot = GROS_LOT
         self.indice_joueur_courant = None
-        self.phase = InterfaceGraphique.TROUVER_PREMIER
+       # self.phase = InterfaceGraphique.TROUVER_PREMIER
         self.tour = 0
         self.lancer_passer_control_var = BooleanVar(value=False)
         self.choix = None
         self.value_checkbutton()
 
-        afficheur_doptions = Parametres_partie(self)
-        self.nombre_joueurs, self.as_joker, self.nom_joueurs = afficheur_doptions.get_values_saved()
+        #afficheur_doptions = Parametres_partie(self)
+        #self.nombre_joueurs, self.as_joker, self.nom_joueurs = afficheur_doptions.get_values_saved()
+        self.nombre_joueurs = None
+        self.as_joker = None
+        self.nom_joueurs = []
 
-        # self.joueurs = [JoueurInterface(self.frame_de_droit, nom, self.images_des) for nom in self.nom_joueurs]
+        self.sauvegarde_read = open('Sauvegarde.txt', 'r')
 
-        # if self.inclure_ordi:
-        #     self.joueurs += [JoueurAlgoInterface(self.frame_de_droit, self.images_des)]
+        # NOMBRE DE JOuEUUR :
+       # nb_joueur = self.sauvegarde_read.readline(1)
+        #print(nb_joueur)
+      #  self.nombre_joueurs = int(nb_joueur)
+        print(self.sauvegarde_read.readlines())
 
-        self.afficher_partie()
-        self.jouer()
+
+
+
+        #AS JOKER :
+       # as_joker = self.sauvegarde_read.readline(2)
+       # print(str(as_joker))
+        #self.as_joker = str(as_joker)
+
+        """if self.nombre_joueurs== 2 :
+            joueur_1_nom = self.sauvegarde_read.readline(4)
+            joueur_2_nom = self.sauvegarde_read.readline(5)
+            self.nom_joueurs.append(joueur_1_nom)
+            self.nom_joueurs.append(joueur_2_nom)
+
+
+
+
+        elif self.nombre_joueurs== 3 :
+            joueur_1_nom = self.sauvegarde_read.readline(3)
+            joueur_2_nom = self.sauvegarde_read.readline(4)
+            joueur_3_nom = self.sauvegarde_read.readline(5)
+
+        """
+
+
+
+
+        self.nb_lancer = 0
+        self.nb_lancer_1 = 0
+        self.nb_lancer_2 = 0
+        self.nb_lancer_autre = 0
+        self.nb_lancer_autre_1 = 0
+        self.nb_lancer_autre_2 = 0
+        self.max_lancer = 3
+        self.zero = 0
+
+        self.joueur_liste = []
+
+        self.passer = 0
+        self.joueur_1 = []
+        self.joueur_2 = []
+        self.joueur_3 = []
+        self.joueur_1_lancer = None
+        self.joueur_2_lancer = None
+        self.joueur_3_lancer = None
+
+        self.commencer_1 = False
+        self.commencer_2 = False
+        self.commencer_3 = False
+        self.commencer = True
+
+        self.bool_passer = True
+        self.bool_compteur_lancer_1 = True
+        self.bool_lancer_1 = True
+        self.bool_lancer_2 = False
+        self.bool_lancer_3 = False
+
+
+        self.combinaison_1 = None
+        self.combinaison_2 = None
+        self.combinaison_3 = None
+
+        self.lol_1 = False
+        self.lol_2 = False
+        self.lol_3 = False
+
+        self.tour_joueur_1 = 1
+        self.tour_joueur_2 = 1
+        self.tour_joueur_3 = 1
+        self.test = None
+        self.lolxd = None
+        self.lancer = None
+
+
+
+       # self.afficher_partie()
+       # self.jouer()
         # self.sauvegarder()
 
     def definir_partie(self):
@@ -561,13 +638,9 @@ class InterfaceGraphique(Tk):
 
         afficheur_doptions = Parametres_partie(self)
         self.nombre_joueurs, self.as_joker, self.nom_joueurs = afficheur_doptions.get_values_saved()
+        print(self.nom_joueurs)
 
 
-
-        #self.joueurs = [JoueurInterface(self.frame_de_droit, nom, self.images_des) for nom in self.nom_joueurs]
-
-       # if self.inclure_ordi:
-       #     self.joueurs += [JoueurAlgoInterface(self.frame_de_droit, self.images_des)]
 
         self.nb_lancer = 0
         self.nb_lancer_1 = 0
@@ -652,11 +725,13 @@ class InterfaceGraphique(Tk):
         if self.nombre_joueurs ==2 :
             self.sauvegarde = open('Sauvegarde.txt', 'w')
 
-            self.sauvegarde.write(str(self.nombre_joueurs) + '\n')
-            self.sauvegarde.write(str(self.as_joker) + '\n')
+            #self.sauvegarde.write(str(self.nombre_joueurs) + '\n')
+            #self.sauvegarde.write(str(self.as_joker) + '\n')
+            self.sauvegarde.write(str(self.nombre_joueurs)+' ')
+            self.sauvegarde.write((self.as_joker)+' ')
 
             if self.lol_1 == True :
-
+                """
                 self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '\n')
                 self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '\n')
                 self.sauvegarde.write(str(self.lol_1)+'\n')
@@ -664,9 +739,20 @@ class InterfaceGraphique(Tk):
                 self.sauvegarde.write(str(self.joueur_1)+'\n')
                 self.sauvegarde.write(str(self.joueur_1_lancer)+ '\n')
                 self.sauvegarde.close()
+                """
+                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]))
+                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]))
+                self.sauvegarde.write(str(self.lol_1))
+                self.sauvegarde.write(str(self.nb_lancer_1))
+                self.sauvegarde.write(str(self.joueur_1))
+                self.sauvegarde.write(str(self.joueur_1_lancer))
+                self.sauvegarde.close()
+
 
 
             elif self.lol_2 == True :
+                print("LOL")
+                """
                 self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '\n')
                 self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '\n')
                 self.sauvegarde.write(str(self.lol_1) + '\n')
@@ -678,11 +764,12 @@ class InterfaceGraphique(Tk):
                 self.sauvegarde.write(str(self.joueur_2) + '\n')
                 self.sauvegarde.write(str(self.joueur_2_lancer) + '\n')
                 self.sauvegarde.close()
+                """
 
             else :
 
                  self.sauvegarde.close()
-
+            """
 
 
 
@@ -690,8 +777,9 @@ class InterfaceGraphique(Tk):
 
                 self.sauvegarde = open('Sauvegarde.txt', 'w')
 
-                self.sauvegarde.write(str(self.nombre_joueurs) + '\n')
-                self.sauvegarde.write(str(self.as_joker) + '\n')
+                self.sauvegarde.write(str(self.nombre_joueurs)+ '\n')
+                self.sauvegarde.write(str(self.as_joker)+ '\n')
+
 
                 if self.lol_1 == True:
 
@@ -740,6 +828,7 @@ class InterfaceGraphique(Tk):
                      self.sauvegarde.close()
                 else :
                     self.sauvegarde.close()
+                """
 
     def afficher_tableau(self):
 
@@ -816,7 +905,7 @@ class InterfaceGraphique(Tk):
 
                 self.lol_1 = True
                 self.var_nom_joueur_courant.config(text= self.nom_joueurs[self.ordre_joueur[0]])
-                print(self.nom_joueurs[self.ordre_joueur[0]])
+
 
 
             if self.bool_lancer_2 == True :
@@ -826,7 +915,7 @@ class InterfaceGraphique(Tk):
 
                 self.var_num_lancer.config(text=self.tour_joueur_2)
                 self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[1]])
-                print(self.nom_joueurs[self.ordre_joueur[1]])
+
                 self.lol_1= False
                 self.lol_2 = True
 
@@ -1046,7 +1135,7 @@ class InterfaceGraphique(Tk):
 
     def type_de_combin (self):
 
-        if self.as_joker == "Oui":
+        if self.as_joker == "oui":
 
             if self.lol_1 == True :
 
@@ -1123,8 +1212,6 @@ class InterfaceGraphique(Tk):
 
             elif joueur_1 == joueur_2 and joueur_1 == joueur_3:
                 messagebox.showinfo("Égalité","Le match est nul ")
-
-        self.commencer_disable()
 
 
     def txt_utilisateur (self, string):

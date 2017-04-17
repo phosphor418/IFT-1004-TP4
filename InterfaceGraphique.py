@@ -619,6 +619,7 @@ class InterfaceGraphique(Tk):
         self.jouer()
        # self.sauvegarder()
 
+
     def update(self):
         self.tour_jouer()
 
@@ -1272,7 +1273,7 @@ class InterfaceGraphique(Tk):
 
         if  self.nombre_joueurs == 2 :
 
-
+            self.commencer_enable()
             self.nom_joueur_1.config(text=self.nom_joueurs[self.ordre_joueur[0]])
             self.nom_joueur_2.config(text=self.nom_joueurs[self.ordre_joueur[1]])
             self.nom_joueur_3.config(text="")

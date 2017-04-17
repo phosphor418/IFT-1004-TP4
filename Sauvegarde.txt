@@ -1,15 +1,11 @@
-3
+2
 Oui
-Joueur 2
 Joueur 1
-Joueur 3
+Joueur 2
 False
-3
-['A', '9', 'A', 'R', 'V']
-[<Carte.VALET: 3>, <Carte.AS: 0>, <Carte.VALET: 3>, <Carte.ROI: 1>, <Carte.NEUF: 5>]
-False
-['V', 'A', '9', 'D', 'D']
-[<Carte.VALET: 3>, <Carte.AS: 0>, <Carte.VALET: 3>, <Carte.ROI: 1>, <Carte.NEUF: 5>]
+1
+['D', 'V', 'D', 'V', 'D']
+[<Carte.DIX: 4>, <Carte.NEUF: 5>, <Carte.VALET: 3>, <Carte.VALET: 3>, <Carte.NEUF: 5>]
 True
-['V', 'A', 'V', 'R', '9']
-[<Carte.VALET: 3>, <Carte.AS: 0>, <Carte.VALET: 3>, <Carte.ROI: 1>, <Carte.NEUF: 5>]
+['X', '9', 'V', 'V', '9']
+[<Carte.DIX: 4>, <Carte.NEUF: 5>, <Carte.VALET: 3>, <Carte.VALET: 3>, <Carte.NEUF: 5>]

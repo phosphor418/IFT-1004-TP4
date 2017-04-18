@@ -1,1 +1,1 @@
-2 oui Joueur 2Joueur 1True3['9', 'V', '9', 'X', 'V'][<Carte.NEUF: 5>, <Carte.VALET: 3>, <Carte.NEUF: 5>, <Carte.DIX: 4>, <Carte.VALET: 3>]2 oui Joueur 1Joueur 2True3['9', 'V', 'R', 'D', 'R'][<Carte.NEUF: 5>, <Carte.VALET: 3>, <Carte.ROI: 1>, <Carte.DAME: 2>, <Carte.ROI: 1>]
+3@oui@Joueur 3@Joueur 2@Joueur 1@3@False@False@True@[2, 1, 0]@['R', 'A', 'X', 'V', 'V']@[<Carte.ROI: 1>, <Carte.VALET: 3>, <Carte.ROI: 1>, <Carte.DIX: 4>, <Carte.DAME: 2>]@['R', 'V', 'R', 'X', 'D']@[<Carte.ROI: 1>, <Carte.VALET: 3>, <Carte.ROI: 1>, <Carte.DIX: 4>, <Carte.DAME: 2>]@

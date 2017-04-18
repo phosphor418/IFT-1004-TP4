@@ -181,6 +181,9 @@ class Combinaison:
         resultats = []
         for _ in range(0, n):
             resultats.append(choice(self.types_cartes))
+
+        print("RESULTAT")
+        print(resultats)
         return resultats
 
     def __str__(self):

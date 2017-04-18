@@ -5,6 +5,7 @@ from tkinter.ttk import Combobox
 from random import randint, shuffle
 from combinaison import Combinaison
 from partie import Partie
+from enums import *
 
 
 NB_MAX_JOUEURS = 3
@@ -356,6 +357,8 @@ class InterfaceGraphique(Tk):
 
         self.joueur_liste=[]
 
+
+
         self.passer = 0
         self.joueur_1 = []
         self.joueur_2 = []
@@ -536,6 +539,10 @@ class InterfaceGraphique(Tk):
 
         #afficheur_doptions = Parametres_partie(self)
         #self.nombre_joueurs, self.as_joker, self.nom_joueurs = afficheur_doptions.get_values_saved()
+
+
+
+        """
         self.nombre_joueurs = None
         self.as_joker = None
         self.nom_joueurs = []
@@ -545,7 +552,7 @@ class InterfaceGraphique(Tk):
         # NOMBRE DE JOuEUUR :
        # nb_joueur = self.sauvegarde_read.readline(1)
         #print(nb_joueur)
-      #  self.nombre_joueurs = int(nb_joueur)
+       #  self.nombre_joueurs = int(nb_joueur)
         print(self.sauvegarde_read.readlines())
 
 
@@ -556,7 +563,7 @@ class InterfaceGraphique(Tk):
        # print(str(as_joker))
         #self.as_joker = str(as_joker)
 
-        """if self.nombre_joueurs== 2 :
+        if self.nombre_joueurs== 2 :
             joueur_1_nom = self.sauvegarde_read.readline(4)
             joueur_2_nom = self.sauvegarde_read.readline(5)
             self.nom_joueurs.append(joueur_1_nom)
@@ -572,59 +579,92 @@ class InterfaceGraphique(Tk):
 
         """
 
+        self.sauvegarde_read = open('Sauvegarde.txt','r')
+        sauvegarde_charactere = self.sauvegarde_read.readlines()
 
 
+        # print(self.sauvegarde_read.readlines())
+        liste = []
+        liste1 = []
 
-        self.nb_lancer = 0
-        self.nb_lancer_1 = 0
-        self.nb_lancer_2 = 0
-        self.nb_lancer_autre = 0
-        self.nb_lancer_autre_1 = 0
-        self.nb_lancer_autre_2 = 0
-        self.max_lancer = 3
-        self.zero = 0
+        for line in sauvegarde_charactere:
+            for c in line :
+                    liste.append(c)
 
-        self.joueur_liste = []
 
-        self.passer = 0
-        self.joueur_1 = []
-        self.joueur_2 = []
-        self.joueur_3 = []
-        self.joueur_1_lancer = None
-        self.joueur_2_lancer = None
-        self.joueur_3_lancer = None
+        for i in liste :
+                liste1 = ''.join(liste)
 
-        self.commencer_1 = False
-        self.commencer_2 = False
-        self.commencer_3 = False
-        self.commencer = True
+        sauvegarde_liste = liste1.split('@')
+        print(sauvegarde_liste)
 
-        self.bool_passer = True
-        self.bool_compteur_lancer_1 = True
-        self.bool_lancer_1 = True
+        nombre_joueur = sauvegarde_liste[0]
+        nombre_joueur_int = int(nombre_joueur)
+
+
+        as_joker = sauvegarde_liste[1]
+
+        if nombre_joueur_int == 2 :
+            nom_joueur_1  = sauvegarde_liste[2]
+            nom_joueur_2 = sauvegarde_liste [3]
+            lancer_max = sauvegarde_liste[4]
+            bool_lancer_1 = sauvegarde_liste[5]
+            bool_lancer_2 = sauvegarde_liste[6]
+            ordre_joueur = sauvegarde_liste[7]
+            joueur_1 = sauvegarde_liste[8]
+            joueur_1_lancer = sauvegarde_liste[9]
+
+
+        elif nombre_joueur_int == 3 :
+            nom_joueur_1 = sauvegarde_liste[2]
+            nom_joueur_2 = sauvegarde_liste[3]
+            nom_joueur_3 = sauvegarde_liste[4]
+            lancer_max = sauvegarde_liste[4]
+
+
+            bool_lancer_1 = sauvegarde_liste[6]
+
+            if bool_lancer_1 == "False":
+
+                bool_lancer_2 = sauvegarde_liste[7]
+                if bool_lancer_2 == "False" :
+
+                    bool_lancer_3 = sauvegarde_liste[8]
+            ordre_joueur = sauvegarde_liste[7]
+            joueur_1 = sauvegarde_liste[8]
+            joueur_1_lancer = sauvegarde_liste[9]
+
+        """
+        self.nombre_joueurs = 3
+
+        self.nb_lancer_1 = 3
+
+        self.as_joker = 'oui'
+
+        self.nom_joueurs=['Lil','Xx','Lol']
+
+        self.ordre_joueur=[1,0,3]
+
+        self.bool_lancer_1 = False
         self.bool_lancer_2 = False
-        self.bool_lancer_3 = False
-
-
-        self.combinaison_1 = None
-        self.combinaison_2 = None
-        self.combinaison_3 = None
-
-        self.lol_1 = False
-        self.lol_2 = False
-        self.lol_3 = False
+        self.bool_lancer_3 = True
 
         self.tour_joueur_1 = 1
         self.tour_joueur_2 = 1
         self.tour_joueur_3 = 1
-        self.test = None
-        self.lolxd = None
-        self.lancer = None
+
+        self.joueur_1 = ['A', 'R', 'X', '9', 'R']
+        self.joueur_2 = ['A', 'R', 'X', '9', 'R']
+
+        self.joueur_1_lancer =  [Carte.AS, Carte.ROI, Carte.DAME, Carte.VALET, Carte.DIX, Carte.NEUF]
+        self.joueur_2_lancer =  [Carte.AS, Carte.ROI, Carte.DAME, Carte.VALET, Carte.DIX, Carte.NEUF]
 
 
 
-       # self.afficher_partie()
-       # self.jouer()
+
+        self.afficher_partie()
+        self.jouer_sauvegarde()
+        """
         # self.sauvegarder()
 
     def definir_partie(self):
@@ -638,7 +678,6 @@ class InterfaceGraphique(Tk):
 
         afficheur_doptions = Parametres_partie(self)
         self.nombre_joueurs, self.as_joker, self.nom_joueurs = afficheur_doptions.get_values_saved()
-        print(self.nom_joueurs)
 
 
 
@@ -725,51 +764,50 @@ class InterfaceGraphique(Tk):
         if self.nombre_joueurs ==2 :
             self.sauvegarde = open('Sauvegarde.txt', 'w')
 
-            #self.sauvegarde.write(str(self.nombre_joueurs) + '\n')
-            #self.sauvegarde.write(str(self.as_joker) + '\n')
-            self.sauvegarde.write(str(self.nombre_joueurs)+' ')
-            self.sauvegarde.write((self.as_joker)+' ')
+
+            self.sauvegarde.write(str(self.nombre_joueurs)+'@')
+            self.sauvegarde.write((self.as_joker)+'@')
 
             if self.lol_1 == True :
-                """
-                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '\n')
-                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '\n')
-                self.sauvegarde.write(str(self.lol_1)+'\n')
-                self.sauvegarde.write(str(self.nb_lancer_1)+'\n')
-                self.sauvegarde.write(str(self.joueur_1)+'\n')
-                self.sauvegarde.write(str(self.joueur_1_lancer)+ '\n')
+
+                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '@')
+                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '@')
+
+                self.sauvegarde.write(str(self.nb_lancer_1) + '@')
+                self.sauvegarde.write(str(self.bool_lancer_1) + '@')
+                self.sauvegarde.write(str(self.bool_lancer_2) + '@')
+
+                self.sauvegarde.write(str(self.ordre_joueur) + '@')
+                self.sauvegarde.write(str(self.joueur_1) + '@')
+                self.sauvegarde.write(str(self.joueur_1_lancer) + '@')
+
                 self.sauvegarde.close()
-                """
-                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]))
-                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]))
-                self.sauvegarde.write(str(self.lol_1))
-                self.sauvegarde.write(str(self.nb_lancer_1))
-                self.sauvegarde.write(str(self.joueur_1))
-                self.sauvegarde.write(str(self.joueur_1_lancer))
-                self.sauvegarde.close()
+
+
 
 
 
             elif self.lol_2 == True :
-                print("LOL")
-                """
-                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '\n')
-                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '\n')
-                self.sauvegarde.write(str(self.lol_1) + '\n')
-                self.sauvegarde.write(str(self.nb_lancer_1) + '\n')
-                self.sauvegarde.write(str(self.joueur_1) + '\n')
-                self.sauvegarde.write(str(self.joueur_1_lancer) + '\n')
-                self.sauvegarde.write(str(self.lol_2) + '\n')
 
-                self.sauvegarde.write(str(self.joueur_2) + '\n')
-                self.sauvegarde.write(str(self.joueur_2_lancer) + '\n')
+                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '@')
+                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '@')
+
+                self.sauvegarde.write(str(self.nb_lancer_1) + '@')
+                self.sauvegarde.write(str(self.bool_lancer_1) + '@')
+                self.sauvegarde.write(str(self.bool_lancer_2) + '@')
+
+                self.sauvegarde.write(str(self.ordre_joueur) + '@')
+                self.sauvegarde.write(str(self.joueur_1) + '@')
+                self.sauvegarde.write(str(self.joueur_1_lancer) + '@')
+                self.sauvegarde.write(str(self.joueur_2) + '@')
+                self.sauvegarde.write(str(self.joueur_2_lancer) + '@')
                 self.sauvegarde.close()
-                """
+
 
             else :
 
                  self.sauvegarde.close()
-            """
+
 
 
 
@@ -777,58 +815,69 @@ class InterfaceGraphique(Tk):
 
                 self.sauvegarde = open('Sauvegarde.txt', 'w')
 
-                self.sauvegarde.write(str(self.nombre_joueurs)+ '\n')
-                self.sauvegarde.write(str(self.as_joker)+ '\n')
+                self.sauvegarde.write(str(self.nombre_joueurs)+ '@')
+                self.sauvegarde.write(str(self.as_joker)+ '@')
 
 
                 if self.lol_1 == True:
 
-                    self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '\n')
-                    self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '\n')
-                    self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[2]]) + '\n')
-                    self.sauvegarde.write(str(self.lol_1) + '\n')
-                    self.sauvegarde.write(str(self.nb_lancer_1) + '\n')
-                    self.sauvegarde.write(str(self.joueur_1) + '\n')
-                    self.sauvegarde.write(str(self.joueur_1_lancer) + '\n')
+                    self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '@')
+                    self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '@')
+                    self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[2]]) + '@')
+                    self.sauvegarde.write(str(self.nb_lancer_1) + '@')
+                    self.sauvegarde.write(str(self.bool_lancer_1) + '@')
+                    self.sauvegarde.write(str(self.bool_lancer_2) + '@')
+                    self.sauvegarde.write(str(self.bool_lancer_3) + '@')
+                    self.sauvegarde.write(str(self.ordre_joueur) + '@')
+                    self.sauvegarde.write(str(self.joueur_1) + '@')
+                    self.sauvegarde.write(str(self.joueur_1_lancer) + '@')
                     self.sauvegarde.close()
 
 
 
                 elif self.lol_2 == True :
 
-                     self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '\n')
-                     self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '\n')
-                     self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[2]]) + '\n')
-                     self.sauvegarde.write(str(self.lol_1) + '\n')
-                     self.sauvegarde.write(str(self.nb_lancer_1) + '\n')
-                     self.sauvegarde.write(str(self.joueur_1) + '\n')
-                     self.sauvegarde.write(str(self.joueur_1_lancer) + '\n')
-                     self.sauvegarde.write(str(self.lol_2) + '\n')
-                     self.sauvegarde.write(str(self.joueur_2) + '\n')
-                     self.sauvegarde.write(str(self.joueur_2_lancer) + '\n')
+                     self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '@')
+                     self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '@')
+                     self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[2]]) + '@')
+                     self.sauvegarde.write(str(self.nb_lancer_1) + '@')
+                     self.sauvegarde.write(str(self.bool_lancer_1) + '@')
+                     self.sauvegarde.write(str(self.bool_lancer_2) + '@')
+                     self.sauvegarde.write(str(self.bool_lancer_3) + '@')
+                     self.sauvegarde.write(str(self.ordre_joueur) + '@')
+                     self.sauvegarde.write(str(self.joueur_1) + '@')
+                     self.sauvegarde.write(str(self.joueur_1_lancer) + '@')
+                     self.sauvegarde.write(str(self.joueur_2) + '@')
+                     self.sauvegarde.write(str(self.joueur_2_lancer) + '@')
                      self.sauvegarde.close()
+
+
+
+
 
 
 
                 elif self.lol_3 == True :
 
-                     self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '\n')
-                     self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '\n')
-                     self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[2]]) + '\n')
-                     self.sauvegarde.write(str(self.lol_1) + '\n')
-                     self.sauvegarde.write(str(self.nb_lancer_1) + '\n')
-                     self.sauvegarde.write(str(self.joueur_1) + '\n')
-                     self.sauvegarde.write(str(self.joueur_1_lancer) + '\n')
-                     self.sauvegarde.write(str(self.lol_2) + '\n')
-                     self.sauvegarde.write(str(self.joueur_2) + '\n')
-                     self.sauvegarde.write(str(self.joueur_2_lancer) + '\n')
-                     self.sauvegarde.write(str(self.lol_3) + '\n')
-                     self.sauvegarde.write(str(self.joueur_3) + '\n')
-                     self.sauvegarde.write(str(self.joueur_3_lancer) + '\n')
-                     self.sauvegarde.close()
+                    self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '@')
+                    self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '@')
+                    self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[2]]) + '@')
+                    self.sauvegarde.write(str(self.nb_lancer_1) + '@')
+                    self.sauvegarde.write(str(self.bool_lancer_1) + '@')
+                    self.sauvegarde.write(str(self.bool_lancer_2) + '@')
+                    self.sauvegarde.write(str(self.bool_lancer_3) + '@')
+                    self.sauvegarde.write(str(self.ordre_joueur) + '@')
+                    self.sauvegarde.write(str(self.joueur_1) + '@')
+                    self.sauvegarde.write(str(self.joueur_1_lancer) + '@')
+                    self.sauvegarde.write(str(self.joueur_2) + '@')
+                    self.sauvegarde.write(str(self.joueur_2_lancer) + '@')
+                    self.sauvegarde.write(str(self.joueur_3) + '@')
+                    self.sauvegarde.write(str(self.joueur_3_lancer) + '@')
+                    self.sauvegarde.close()
+
                 else :
                     self.sauvegarde.close()
-                """
+
 
     def afficher_tableau(self):
 
@@ -866,6 +915,7 @@ class InterfaceGraphique(Tk):
 
 
 
+
         self.carte_1 = Label(self.frame_de_bas,text=self.liste[0])
         self.carte_1.grid(row=10,column=0,padx=0,pady=10)
 
@@ -891,9 +941,6 @@ class InterfaceGraphique(Tk):
 
         if self.nombre_joueurs == 2 :
 
-
-            self.nb_lancer += 1
-            self.nb_lancer_autre += 1
 
             if self.bool_compteur_lancer_1 == True :
                 self.tour_joueur_1 += 1
@@ -950,6 +997,7 @@ class InterfaceGraphique(Tk):
                     self.nb_lancer_1 = self.tour_joueur_1
                     self.joueur_1 = self.liste
                     self.joueur_1_lancer = self.lancer
+
                     self.joueur_liste.append(self.joueur_1)
                     self.passer = 2
                     self.sauvegarder()
@@ -994,8 +1042,6 @@ class InterfaceGraphique(Tk):
 
         elif self.nombre_joueurs == 3:
 
-            self.nb_lancer += 1
-            self.nb_lancer_autre += 1
 
             if self.bool_compteur_lancer_1 == True:
                 self.tour_joueur_1 += 1
@@ -1057,8 +1103,10 @@ class InterfaceGraphique(Tk):
 
 
                     self.nb_lancer_1 = self.tour_joueur_1
+
                     self.joueur_1 = self.liste
                     self.joueur_1_lancer = self.lancer
+
                     self.joueur_liste.append(self.joueur_1)
                     self.passer = 2
 
@@ -1352,6 +1400,7 @@ class InterfaceGraphique(Tk):
         """
         partie = Partie(self.nom_joueurs)
         self.ordre_joueur = partie._determiner_ordre()
+        self.commencer_enable()
 
 
         for i in range(0, len(self.ordre_joueur)):
@@ -1455,11 +1504,74 @@ class InterfaceGraphique(Tk):
 
         self.jouer_tour_premiere_phase()
 
-      #  if messagebox.askokcancel("FIN", "...merci...."):
-        #    print("lel")
+    def jouer_sauvegarde(self):
 
-            #self.destroy()
 
+        self.tour = 0
+
+        self.determiner_premier_lanceur_sauvegarde()
+
+        self.jouer_tour_premiere_phase_sauvegarde()
+
+    def determiner_premier_lanceur_sauvegarde (self):
+
+            partie = Partie(self.nom_joueurs)
+            self.ordre_joueur = partie._determiner_ordre()
+            self.commencer_enable()
+
+            for i in range(0, len(self.ordre_joueur)):
+                joueur = self.nom_joueurs[self.ordre_joueur[i]]
+                self.ordre_joueur_label1 = Label(self.frame_de_gauche, text="Le joueur {} est {}".format(i + 1, joueur))
+                self.ordre_joueur_label1.grid(row=i + 1, column=0, padx=0, pady=0)
+
+            if self.nombre_joueurs == 2:
+
+                self.commencer_enable()
+                self.nom_joueur_1.config(text=self.nom_joueurs[self.ordre_joueur[0]])
+                self.nom_joueur_2.config(text=self.nom_joueurs[self.ordre_joueur[1]])
+
+                self.test = Combinaison(self.joueur_1_lancer)
+                self.combinaison_1 = self.test.determiner_type_combinaison()
+                self.var_joueur_1_resultat.config(text=self.combinaison_1)
+                self.var_joueur_1_sequence.config(text=self.joueur_1)
+
+
+
+            elif self.nombre_joueurs == 3:
+                self.nom_joueur_1.config(text=self.nom_joueurs[self.ordre_joueur[0]])
+                self.nom_joueur_2.config(text=self.nom_joueurs[self.ordre_joueur[1]])
+                self.nom_joueur_3.config(text=self.nom_joueurs[self.ordre_joueur[2]])
+
+                self.test = Combinaison(self.joueur_1_lancer)
+
+                self.combinaison_1 = self.test.determiner_type_combinaison()
+                self.var_joueur_1_resultat.config(text=self.combinaison_1)
+                self.var_joueur_1_sequence.config(text=self.joueur_1)
+
+                self.test2 = Combinaison(self.joueur_2_lancer)
+                self.combinaison_2 = self.test2.determiner_type_combinaison()
+                self.var_joueur_2_resultat.config(text=self.combinaison_2)
+                self.var_joueur_2_sequence.config(text=self.joueur_2)
+
+
+
+                #  self.empecher_passer()
+            concernes = list(range(self.nombre_joueurs))
+            self.premier = concernes[0]
+            # self.afficher_tableau_recapitulatif()
+
+    def jouer_tour_premiere_phase_sauvegarde (self):
+        self.tour += 1
+        # self.tour_jouer()
+
+
+        self.empecher_lancer()
+        self.empecher_passer()
+
+        for i in range(self.nombre_joueurs):
+            pos = (self.premier + i) % self.nombre_joueurs
+
+            self.indice_joueur_courant = pos
 
 #*****************************************************************************
 

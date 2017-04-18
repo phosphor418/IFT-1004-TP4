@@ -1,1 +1,1 @@
-2@non@Joueur 1@Joueur 2@3@False@True@[1, 0]@['X', 'R', 'A', 'D', 'V']@[<Carte.VALET: 3>, <Carte.DAME: 2>, <Carte.DAME: 2>, <Carte.DAME: 2>, <Carte.DAME: 2>]@['V', 'D', 'D', 'D', 'D']@[<Carte.VALET: 3>, <Carte.DAME: 2>, <Carte.DAME: 2>, <Carte.DAME: 2>, <Carte.DAME: 2>]@
+2@oui@Joueur 1@Joueur 2@3@False@True@[1, 0]@['R', '9', 'X', 'X', 'A']@1@['D', 'X', 'A', 'A', 'A']@[<Carte.DAME: 2>, <Carte.DIX: 4>, <Carte.AS: 0>, <Carte.AS: 0>, <Carte.AS: 0>]@

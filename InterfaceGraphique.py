@@ -487,67 +487,38 @@ class InterfaceGraphique(Tk):
         self.lancer_passer_control_var = BooleanVar(value=False)
         self.choix = None
         self.value_checkbutton()
-
-        #afficheur_doptions = Parametres_partie(self)
-        #self.nombre_joueurs, self.as_joker, self.nom_joueurs = afficheur_doptions.get_values_saved()
-
-
-
-
         self.nombre_joueurs = None
         self.as_joker = None
         self.nom_joueurs = []
 
-
-
-        # NOMBRE DE JOuEUUR :
-       # nb_joueur = self.sauvegarde_read.readline(1)
-        #print(nb_joueur)
-       #  self.nombre_joueurs = int(nb_joueur)
-
-
-
-        #AS JOKER :
-       # as_joker = self.sauvegarde_read.readline(2)
-       # print(str(as_joker))
-        #self.as_joker = str(as_joker)
-
-
-
         self.sauvegarde_read = open('Sauvegarde.txt','r')
         sauvegarde_charactere = self.sauvegarde_read.readlines()
 
-
-        # print(self.sauvegarde_read.readlines())
         liste = []
         liste1 = []
         liste_de_joueur=[]
         liste_ordre_joueur =[]
         liste_de_joueur1 = []
         liste_de_joueur2 = []
-        liste_de_joueur3 = []
-        liste_resultat_1 = []
-        liste_resultat_2 = []
-        liste_resultat_3 = []
+
         l_1 = []
         l_2 = []
-        l_3 = []
-
-
 
         bool_lancer1 = False
         bool_lancer2 = False
         bool_lancer3 = False
+
         for line in sauvegarde_charactere:
+
             for c in line :
+
                     liste.append(c)
 
-
         for i in liste :
+
                 liste1 = ''.join(liste)
 
         sauvegarde_liste = liste1.split('@')
-        print(sauvegarde_liste)
 
         nombre_joueur = sauvegarde_liste[0]
         nombre_joueur_int = int(nombre_joueur)
@@ -566,12 +537,19 @@ class InterfaceGraphique(Tk):
             bool_lancer_2 = sauvegarde_liste[6]
 
             if bool_lancer_1 == "False" :
+
                 bool_lancer1 = False
+
             elif bool_lancer_1 == "True" :
+
                 bool_lancer1 = True
+
             if bool_lancer_2 == "False" :
+
                 bool_lancer2 = False
+
             elif bool_lancer_2 == "True" :
+
                 bool_lancer2 = True
 
 
@@ -609,6 +587,7 @@ class InterfaceGraphique(Tk):
 
 
             if bool_lancer_1 == "False" and bool_lancer_2 == "True" :
+
                 joueur_1 = sauvegarde_liste[8]
                 char1 = joueur_1[2]
                 char2 =  joueur_1[7]
@@ -620,7 +599,6 @@ class InterfaceGraphique(Tk):
                 liste_de_joueur1.append(char3)
                 liste_de_joueur1.append(char4)
                 liste_de_joueur1.append(char5)
-                print(liste_de_joueur1)
                 joueur_1_lancer = sauvegarde_liste[9]
 
                 liste_resultat_1 = joueur_1_lancer.replace('[','')
@@ -629,18 +607,31 @@ class InterfaceGraphique(Tk):
                 liste_resultat_1 = liste_resultat_1.replace('>', '')
                 liste_resultat_1 = liste_resultat_1.replace(' ', '')
                 liste_resultat_1 = liste_resultat_1.replace(',', '')
+
                 for i in liste_resultat_1 :
+
                     if i == '0' :
+
                         liste_resultat_1 = liste_resultat_1.replace('0', '')
+
                     if i == '1' :
+
                         liste_resultat_1 = liste_resultat_1.replace('1', '')
+
                     if i == '2' :
+
                         liste_resultat_1 = liste_resultat_1.replace('2', '')
+
                     if i == '3' :
+
                         liste_resultat_1 = liste_resultat_1.replace('3', '')
+
                     if i == '4' :
+
                         liste_resultat_1 = liste_resultat_1.replace('4', '')
+
                     if i == '5' :
+
                         liste_resultat_1 = liste_resultat_1.replace('5', '')
 
 
@@ -651,16 +642,12 @@ class InterfaceGraphique(Tk):
                 l_1.append(eval(liste_res_1[2]))
                 l_1.append(eval(liste_res_1[3]))
                 l_1.append(eval(liste_res_1[4]))
-
-
-                print(eval(liste_res_1[0]))
 
                 self.joueur_1 = liste_de_joueur1
                 self.joueur_1_lancer = l_1
 
-
-
             elif bool_lancer_1 == "False" and bool_lancer_2 == "False":
+
                 joueur_1 = sauvegarde_liste[8]
                 char1 = joueur_1[2]
                 char2 = joueur_1[7]
@@ -681,24 +668,35 @@ class InterfaceGraphique(Tk):
                 liste_resultat_1 = liste_resultat_1.replace('>', '')
                 liste_resultat_1 = liste_resultat_1.replace(' ', '')
                 liste_resultat_1 = liste_resultat_1.replace(',', '')
+
                 for i in liste_resultat_1:
+
                     if i == '0':
+
                         liste_resultat_1 = liste_resultat_1.replace('0', '')
+
                     if i == '1':
+
                         liste_resultat_1 = liste_resultat_1.replace('1', '')
+
                     if i == '2':
+
                         liste_resultat_1 = liste_resultat_1.replace('2', '')
+
                     if i == '3':
+
                         liste_resultat_1 = liste_resultat_1.replace('3', '')
+
                     if i == '4':
+
                         liste_resultat_1 = liste_resultat_1.replace('4', '')
+
                     if i == '5':
+
                         liste_resultat_1 = liste_resultat_1.replace('5', '')
 
                 liste_res_1 = liste_resultat_1.split(':')
 
-
-
                 joueur_1 = sauvegarde_liste[8]
                 char1 = joueur_1[2]
                 char2 = joueur_1[7]
@@ -710,7 +708,6 @@ class InterfaceGraphique(Tk):
                 liste_de_joueur1.append(char3)
                 liste_de_joueur1.append(char4)
                 liste_de_joueur1.append(char5)
-                print(liste_de_joueur1)
                 joueur_1_lancer = sauvegarde_liste[9]
 
                 liste_resultat_1 = joueur_1_lancer.replace('[', '')
@@ -719,18 +716,31 @@ class InterfaceGraphique(Tk):
                 liste_resultat_1 = liste_resultat_1.replace('>', '')
                 liste_resultat_1 = liste_resultat_1.replace(' ', '')
                 liste_resultat_1 = liste_resultat_1.replace(',', '')
+
                 for i in liste_resultat_1:
+
                     if i == '0':
+
                         liste_resultat_1 = liste_resultat_1.replace('0', '')
+
                     if i == '1':
+
                         liste_resultat_1 = liste_resultat_1.replace('1', '')
+
                     if i == '2':
+
                         liste_resultat_1 = liste_resultat_1.replace('2', '')
+
                     if i == '3':
+
                         liste_resultat_1 = liste_resultat_1.replace('3', '')
+
                     if i == '4':
+
                         liste_resultat_1 = liste_resultat_1.replace('4', '')
+
                     if i == '5':
+
                         liste_resultat_1 = liste_resultat_1.replace('5', '')
 
                 l_1.append(eval(liste_res_1[0]))
@@ -738,9 +748,6 @@ class InterfaceGraphique(Tk):
                 l_1.append(eval(liste_res_1[2]))
                 l_1.append(eval(liste_res_1[3]))
                 l_1.append(eval(liste_res_1[4]))
-
-
-
 
                 joueur_2 = sauvegarde_liste[10]
 
@@ -755,7 +762,6 @@ class InterfaceGraphique(Tk):
                 liste_de_joueur2.append(char44)
                 liste_de_joueur2.append(char55)
 
-
                 joueur_2_lancer = sauvegarde_liste[11]
 
                 liste_resultat_2 = joueur_2_lancer.replace('[', '')
@@ -767,30 +773,38 @@ class InterfaceGraphique(Tk):
 
 
                 for i in liste_resultat_2:
+
                     if i == '0':
+
                         liste_resultat_2 = liste_resultat_2.replace('0', '')
+
                     if i == '1':
+
                         liste_resultat_2 = liste_resultat_2.replace('1', '')
+
                     if i == '2':
+
                         liste_resultat_2 = liste_resultat_2.replace('2', '')
+
                     if i == '3':
+
                         liste_resultat_2 = liste_resultat_2.replace('3', '')
+
                     if i == '4':
+
                         liste_resultat_2 = liste_resultat_2.replace('4', '')
+
                     if i == '5':
+
                         liste_resultat_2 = liste_resultat_2.replace('5', '')
 
                 liste_res_2 = liste_resultat_1.split(':')
-
 
                 l_2.append(eval(liste_res_2[0]))
                 l_2.append(eval(liste_res_2[1]))
                 l_2.append(eval(liste_res_2[2]))
                 l_2.append(eval(liste_res_2[3]))
                 l_2.append(eval(liste_res_2[4]))
-
-
-                print(eval(liste_res_2[0]))
 
                 self.joueur_1 = liste_de_joueur1
                 self.joueur_1_lancer = l_1
@@ -799,6 +813,7 @@ class InterfaceGraphique(Tk):
 
 
         elif nombre_joueur_int == 3 :
+
             nom_joueur_1 = sauvegarde_liste[2]
             nom_joueur_2 = sauvegarde_liste[3]
             nom_joueur_3 = sauvegarde_liste[4]
@@ -806,29 +821,36 @@ class InterfaceGraphique(Tk):
             liste_de_joueur.append(nom_joueur_2)
             liste_de_joueur.append(nom_joueur_3)
 
-
             lancer_max = sauvegarde_liste[5]
             lancer_max_int = int(lancer_max)
-
 
             bool_lancer_1 = sauvegarde_liste[6]
             bool_lancer_2 = sauvegarde_liste[7]
             bool_lancer_3 = sauvegarde_liste[8]
 
             if bool_lancer_1 == "False" :
+
                 bool_lancer1 = False
+
             elif bool_lancer_1 == "True" :
+
                 bool_lancer1 = True
+
             if bool_lancer_2 == "False" :
+
                 bool_lancer2 = False
+
             elif bool_lancer_2 == "True" :
+
                 bool_lancer2 = True
+
             if bool_lancer_3 == "False":
+
                 bool_lancer3 = False
+
             elif bool_lancer_3 == "True":
+
                  bool_lancer3 = True
-
-
 
             ordre_joueur = sauvegarde_liste[9]
 
@@ -862,9 +884,8 @@ class InterfaceGraphique(Tk):
             self.tour_joueur_2 = 1
             self.tour_joueur_3 = 1
 
-
-
             if bool_lancer_2 == "False" and bool_lancer_2 == "True" and bool_lancer_3 == "False":
+
                 joueur_1 = sauvegarde_liste[10]
                 char1 = joueur_1[2]
                 char2 = joueur_1[7]
@@ -884,18 +905,31 @@ class InterfaceGraphique(Tk):
                 liste_resultat_1 = liste_resultat_1.replace('>', '')
                 liste_resultat_1 = liste_resultat_1.replace(' ', '')
                 liste_resultat_1 = liste_resultat_1.replace(',', '')
+
                 for i in liste_resultat_1:
+
                     if i == '0':
+
                         liste_resultat_1 = liste_resultat_1.replace('0', '')
+
                     if i == '1':
+
                         liste_resultat_1 = liste_resultat_1.replace('1', '')
+
                     if i == '2':
+
                         liste_resultat_1 = liste_resultat_1.replace('2', '')
+
                     if i == '3':
+
                         liste_resultat_1 = liste_resultat_1.replace('3', '')
+
                     if i == '4':
+
                         liste_resultat_1 = liste_resultat_1.replace('4', '')
+
                     if i == '5':
+
                         liste_resultat_1 = liste_resultat_1.replace('5', '')
 
                 liste_res_1 = liste_resultat_1.split(':')
@@ -906,13 +940,12 @@ class InterfaceGraphique(Tk):
                 l_1.append(eval(liste_res_1[3]))
                 l_1.append(eval(liste_res_1[4]))
 
-                print(eval(liste_res_1[0]))
-
                 self.joueur_1 = liste_de_joueur1
                 self.joueur_1_lancer = l_1
 
 
             elif bool_lancer_2 == "False" and bool_lancer_2 == "False" and bool_lancer_3 == "True":
+
                 joueur_1 = sauvegarde_liste[10]
                 char1 = joueur_1[2]
                 char2 = joueur_1[7]
@@ -932,18 +965,31 @@ class InterfaceGraphique(Tk):
                 liste_resultat_1 = liste_resultat_1.replace('>', '')
                 liste_resultat_1 = liste_resultat_1.replace(' ', '')
                 liste_resultat_1 = liste_resultat_1.replace(',', '')
+
                 for i in liste_resultat_1:
+
                     if i == '0':
+
                         liste_resultat_1 = liste_resultat_1.replace('0', '')
+
                     if i == '1':
+
                         liste_resultat_1 = liste_resultat_1.replace('1', '')
+
                     if i == '2':
+
                         liste_resultat_1 = liste_resultat_1.replace('2', '')
+
                     if i == '3':
+
                         liste_resultat_1 = liste_resultat_1.replace('3', '')
+
                     if i == '4':
+
                         liste_resultat_1 = liste_resultat_1.replace('4', '')
+
                     if i == '5':
+
                         liste_resultat_1 = liste_resultat_1.replace('5', '')
 
                 liste_res_1 = liste_resultat_1.split(':')
@@ -975,17 +1021,29 @@ class InterfaceGraphique(Tk):
                 liste_resultat_2 = liste_resultat_2.replace(',', '')
 
                 for i in liste_resultat_2:
+
                     if i == '0':
+
                         liste_resultat_2 = liste_resultat_2.replace('0', '')
+
                     if i == '1':
+
                         liste_resultat_2 = liste_resultat_2.replace('1', '')
+
                     if i == '2':
+
                         liste_resultat_2 = liste_resultat_2.replace('2', '')
+
                     if i == '3':
+
                         liste_resultat_2 = liste_resultat_2.replace('3', '')
+
                     if i == '4':
+
                         liste_resultat_2 = liste_resultat_2.replace('4', '')
+
                     if i == '5':
+
                         liste_resultat_2 = liste_resultat_2.replace('5', '')
 
                 liste_res_2 = liste_resultat_1.split(':')
@@ -1050,8 +1108,6 @@ class InterfaceGraphique(Tk):
         afficheur_doptions = Parametres_partie(self)
         self.nombre_joueurs, self.as_joker, self.nom_joueurs = afficheur_doptions.get_values_saved()
 
-
-
         self.nb_lancer = 0
         self.nb_lancer_1 = 0
         self.nb_lancer_2 = 0
@@ -1100,17 +1156,19 @@ class InterfaceGraphique(Tk):
 
         self.afficher_partie()
         self.jouer()
-       # self.sauvegarder()
 
 #   Appel un nouveau tour de jeu
     def update(self):
+
         self.tour_jouer()
 
 #   Appel un nouveau tour de jeu en modifiant les compteurs de la définition "passer_tour"
     def update_passer(self):
+
         self.passer_tour()
 
     def afficher_partie(self):
+
         self.cacher_menu_principal()
         self.frame_de_gauche.grid(row=0, column=0)
         self.frame_de_bas.grid(row=1,column=0)
@@ -1118,12 +1176,14 @@ class InterfaceGraphique(Tk):
         self.frame_bouton.grid(row=3, column=0)
 
     def afficher_message(self, message):
+
         self.message.grid_forget()
         self.message['text'] = message
         self.message.grid(row=1, column=0)
         self.message.after(3000, self.message.grid_forget)
 
     def sauvegarder(self):
+
         if self.nombre_joueurs ==2 :
             self.sauvegarde = open('Sauvegarde.txt', 'w')
 
@@ -1146,10 +1206,6 @@ class InterfaceGraphique(Tk):
 
                 self.sauvegarde.close()
 
-
-
-
-
             elif self.lol_2 == True :
 
                 self.sauvegarde.write(str(self.nom_joueurs[0]) + '@')
@@ -1166,13 +1222,9 @@ class InterfaceGraphique(Tk):
                 self.sauvegarde.write(str(self.joueur_2_lancer) + '@')
                 self.sauvegarde.close()
 
-
             else :
 
                  self.sauvegarde.close()
-
-
-
 
         elif self.nombre_joueurs == 3 :
 
@@ -1180,7 +1232,6 @@ class InterfaceGraphique(Tk):
 
                 self.sauvegarde.write(str(self.nombre_joueurs)+ '@')
                 self.sauvegarde.write(str(self.as_joker)+ '@')
-
 
                 if self.lol_1 == True:
 
@@ -1195,8 +1246,6 @@ class InterfaceGraphique(Tk):
                     self.sauvegarde.write(str(self.joueur_1) + '@')
                     self.sauvegarde.write(str(self.joueur_1_lancer) + '@')
                     self.sauvegarde.close()
-
-
 
                 elif self.lol_2 == True :
 
@@ -1213,12 +1262,6 @@ class InterfaceGraphique(Tk):
                      self.sauvegarde.write(str(self.joueur_2) + '@')
                      self.sauvegarde.write(str(self.joueur_2_lancer) + '@')
                      self.sauvegarde.close()
-
-
-
-
-
-
 
                 elif self.lol_3 == True :
 
@@ -1241,7 +1284,7 @@ class InterfaceGraphique(Tk):
                 else :
                     self.sauvegarde.close()
 
-
+#   Affiche les checkbuttons et la valeur des cartes de la main actuelle
     def afficher_tableau(self):
 
         self.recap_canvas.delete()
@@ -1272,10 +1315,7 @@ class InterfaceGraphique(Tk):
         self.lol = self.valeurs_obtenues.relancer_des(list_checkbox)
 
         for elem in self.lancer:
-                 # chaine += "{:^3s}".format(elem)
                 self.liste += "{:s}".format(elem)
-
-
 
         self.carte_1 = Label(self.frame_de_bas,text=self.liste[0])
         self.carte_1.grid(row=10,column=0,padx=0,pady=10)
@@ -1294,6 +1334,7 @@ class InterfaceGraphique(Tk):
 
 
     def passer_tour (self):
+
         self.bool_passer = False
         self.bool_compteur_lancer_1 = False
         self.tour_jouer()
@@ -1314,8 +1355,6 @@ class InterfaceGraphique(Tk):
                 self.lol_1 = True
                 self.var_nom_joueur_courant.config(text= self.nom_joueurs[self.ordre_joueur[0]])
 
-
-
             if self.bool_lancer_2 == True :
                 self.tour_joueur_2 +=1
                 if self.tour_joueur_2 > self.nb_lancer_1:
@@ -1327,12 +1366,8 @@ class InterfaceGraphique(Tk):
                 self.lol_1= False
                 self.lol_2 = True
 
-
-
             if self.bool_passer == False:
                 self.passer += 1
-
-
 
             elif self.bool_passer == True :
 
@@ -1340,8 +1375,6 @@ class InterfaceGraphique(Tk):
 
 
             self.bool_passer = True
-
-
 
 
             if self.lol_1 == True :
@@ -1362,11 +1395,8 @@ class InterfaceGraphique(Tk):
                     self.joueur_liste.append(self.joueur_1)
                     self.passer = 2
                     self.sauvegarder()
-                    #self.sauvegarde.close()
                     self.type_de_combin()
                     self.changer_tour()
-
-
 
 
             elif self.lol_2 == True :
@@ -1390,7 +1420,6 @@ class InterfaceGraphique(Tk):
                     self.joueur_liste.append(self.joueur_2)
 
                     self.sauvegarder()
-                    #self.sauvegarde.close()
 
                     self.type_de_combin()
                     self.changer_tour()
@@ -1398,26 +1427,18 @@ class InterfaceGraphique(Tk):
                     self.arreter_jeur()
                     self.combin_gagnant()
 
-
-
-
         elif self.nombre_joueurs == 3:
-
 
             if self.bool_compteur_lancer_1 == True:
                 self.tour_joueur_1 += 1
                 self.var_num_lancer.config(text = self.tour_joueur_1)
                 self.var_nbr_max_lancer.config(text=NB_MAX_LANCERS)
 
-
-
             if self.bool_lancer_1 == True:
                 self.lol_1 = True
                 self.lol_2 = False
                 self.lol_3 = False
                 self.var_nom_joueur_courant.config(text=self.nom_joueurs[self.ordre_joueur[0]])
-
-
 
             if self.bool_lancer_2 == True:
                 self.tour_joueur_2 += 1
@@ -1460,8 +1481,6 @@ class InterfaceGraphique(Tk):
                     self.commencer_2 = False
                     self.commencer_3 = False
 
-
-
                     self.nb_lancer_1 = self.tour_joueur_1
 
                     self.joueur_1 = self.liste
@@ -1471,15 +1490,9 @@ class InterfaceGraphique(Tk):
                     self.passer = 2
 
                     self.sauvegarder()
-                    #self.sauvegarde.close()
 
                     self.type_de_combin()
                     self.changer_tour()
-
-
-
-
-
 
             elif self.lol_2 == True:
                 if self.tour_joueur_2 == self.nb_lancer_1 or self.passer == 3:
@@ -1495,17 +1508,10 @@ class InterfaceGraphique(Tk):
                     self.joueur_liste.append(self.joueur_1)
                     self.passer = 4
 
-
                     self.sauvegarder()
-                    #self.sauvegarde.close()
-
 
                     self.type_de_combin()
                     self.changer_tour()
-
-
-
-
 
             elif self.lol_3 == True:
                 if self.tour_joueur_3 == self.nb_lancer_1 or self.passer == 5:
@@ -1519,14 +1525,11 @@ class InterfaceGraphique(Tk):
                     self.commencer_2 = False
                     self.commencer_3 = True
 
-
                     self.joueur_3 = self.liste
                     self.joueur_3_lancer = self.lancer
                     self.joueur_liste.append(self.joueur_3)
 
                     self.sauvegarder()
-                    #self.sauvegarde.close()
-
 
                     self.type_de_combin()
 
@@ -1534,11 +1537,6 @@ class InterfaceGraphique(Tk):
                     self.commencer_disable()
                     self.arreter_jeur()
                     self.combin_gagnant()
-
-
-
-
-
 
 
     def type_de_combin (self):
@@ -1587,8 +1585,6 @@ class InterfaceGraphique(Tk):
                 self.var_joueur_3_sequence.config(text=self.joueur_3)
 
     def combin_gagnant (self) :
-
-
 
         if self.nombre_joueurs == 2 :
 
@@ -1890,7 +1886,6 @@ class InterfaceGraphique(Tk):
                 print(self.joueur_1_lancer)
                 print(self.joueur_1)
                 if self.bool_lancer_1 == False and self.bool_lancer_2 == True :
-                    print("lol")
                     self.test = Combinaison(self.joueur_1_lancer)
                     self.combinaison_1 = self.test.determiner_type_combinaison()
                     self.var_joueur_1_resultat.config(text=self.combinaison_1)

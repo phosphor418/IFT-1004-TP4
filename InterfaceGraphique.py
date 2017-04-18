@@ -252,7 +252,7 @@ class InterfaceGraphique(Tk):
         menu1 = Menu(self.menubar, tearoff=0)
         menu1.add_command(label="Nouvelle partie", command=self.definir_partie)
         menu1.add_command(label="Charger", command=self.definir_partie_charger)
-        menu1.add_command(label="Enregistrer...", command=None)
+
         menu1.add_separator()
         menu1.add_command(label="Quitter", command=self.confirmation_quitter)
         self.menubar.add_cascade(label="Menu", menu=menu1)
@@ -275,6 +275,7 @@ class InterfaceGraphique(Tk):
 
 #   Différentes zones de disposition des éléments dans la deuxième fenêtre de jeu
 
+        # ----- Elements de la partie -----
         self.frame_bouton= Frame(self)
         self.frame_de_gauche = Frame(self)
         self.frame_de_bas = Frame(self)
@@ -487,19 +488,22 @@ class InterfaceGraphique(Tk):
         self.choix = None
         self.value_checkbutton()
 
-        """
+        #afficheur_doptions = Parametres_partie(self)
+        #self.nombre_joueurs, self.as_joker, self.nom_joueurs = afficheur_doptions.get_values_saved()
+
+
+
+
         self.nombre_joueurs = None
         self.as_joker = None
         self.nom_joueurs = []
 
-        self.sauvegarde_read = open('Sauvegarde.txt', 'r')
+
 
         # NOMBRE DE JOuEUUR :
        # nb_joueur = self.sauvegarde_read.readline(1)
         #print(nb_joueur)
        #  self.nombre_joueurs = int(nb_joueur)
-        print(self.sauvegarde_read.readlines())
-
 
 
 
@@ -508,21 +512,7 @@ class InterfaceGraphique(Tk):
        # print(str(as_joker))
         #self.as_joker = str(as_joker)
 
-        if self.nombre_joueurs== 2 :
-            joueur_1_nom = self.sauvegarde_read.readline(4)
-            joueur_2_nom = self.sauvegarde_read.readline(5)
-            self.nom_joueurs.append(joueur_1_nom)
-            self.nom_joueurs.append(joueur_2_nom)
 
-
-
-
-        elif self.nombre_joueurs== 3 :
-            joueur_1_nom = self.sauvegarde_read.readline(3)
-            joueur_2_nom = self.sauvegarde_read.readline(4)
-            joueur_3_nom = self.sauvegarde_read.readline(5)
-
-        """
 
         self.sauvegarde_read = open('Sauvegarde.txt','r')
         sauvegarde_charactere = self.sauvegarde_read.readlines()
@@ -531,7 +521,23 @@ class InterfaceGraphique(Tk):
         # print(self.sauvegarde_read.readlines())
         liste = []
         liste1 = []
+        liste_de_joueur=[]
+        liste_ordre_joueur =[]
+        liste_de_joueur1 = []
+        liste_de_joueur2 = []
+        liste_de_joueur3 = []
+        liste_resultat_1 = []
+        liste_resultat_2 = []
+        liste_resultat_3 = []
+        l_1 = []
+        l_2 = []
+        l_3 = []
 
+
+
+        bool_lancer1 = False
+        bool_lancer2 = False
+        bool_lancer3 = False
         for line in sauvegarde_charactere:
             for c in line :
                     liste.append(c)
@@ -545,39 +551,454 @@ class InterfaceGraphique(Tk):
 
         nombre_joueur = sauvegarde_liste[0]
         nombre_joueur_int = int(nombre_joueur)
-
-
         as_joker = sauvegarde_liste[1]
 
         if nombre_joueur_int == 2 :
+
             nom_joueur_1  = sauvegarde_liste[2]
             nom_joueur_2 = sauvegarde_liste [3]
+            liste_de_joueur.append(nom_joueur_1)
+            liste_de_joueur.append(nom_joueur_2)
             lancer_max = sauvegarde_liste[4]
+            lancer_max_int = int(lancer_max)
+
             bool_lancer_1 = sauvegarde_liste[5]
             bool_lancer_2 = sauvegarde_liste[6]
+
+            if bool_lancer_1 == "False" :
+                bool_lancer1 = False
+            elif bool_lancer_1 == "True" :
+                bool_lancer1 = True
+            if bool_lancer_2 == "False" :
+                bool_lancer2 = False
+            elif bool_lancer_2 == "True" :
+                bool_lancer2 = True
+
+
             ordre_joueur = sauvegarde_liste[7]
-            joueur_1 = sauvegarde_liste[8]
-            joueur_1_lancer = sauvegarde_liste[9]
+
+            charactere_1 = ordre_joueur[1]
+            charactere_2 = ordre_joueur[4]
+
+            charactere_1_int = int(charactere_1)
+            charactere_2_int = int(charactere_2)
+
+            liste_ordre_joueur.append(charactere_1_int)
+            liste_ordre_joueur.append(charactere_2_int)
+
+            self.nombre_joueurs = nombre_joueur_int
+
+            self.as_joker = as_joker
+
+            self.nb_lancer_1 = lancer_max_int
+
+            self.nom_joueurs = liste_de_joueur
+
+
+
+            self.bool_lancer_1 = bool_lancer1
+
+            self.bool_lancer_2 = bool_lancer2
+
+
+            self.ordre_joueur =  liste_ordre_joueur
+
+            self.tour_joueur_1 = 1
+            self.tour_joueur_2 = 1
+
+
+
+            if bool_lancer_1 == "False" and bool_lancer_2 == "True" :
+                joueur_1 = sauvegarde_liste[8]
+                char1 = joueur_1[2]
+                char2 =  joueur_1[7]
+                char3 = joueur_1[12]
+                char4 = joueur_1[17]
+                char5 = joueur_1[22]
+                liste_de_joueur1.append(char1)
+                liste_de_joueur1.append(char2)
+                liste_de_joueur1.append(char3)
+                liste_de_joueur1.append(char4)
+                liste_de_joueur1.append(char5)
+                print(liste_de_joueur1)
+                joueur_1_lancer = sauvegarde_liste[9]
+
+                liste_resultat_1 = joueur_1_lancer.replace('[','')
+                liste_resultat_1 = liste_resultat_1.replace(']', '')
+                liste_resultat_1 = liste_resultat_1.replace('<','')
+                liste_resultat_1 = liste_resultat_1.replace('>', '')
+                liste_resultat_1 = liste_resultat_1.replace(' ', '')
+                liste_resultat_1 = liste_resultat_1.replace(',', '')
+                for i in liste_resultat_1 :
+                    if i == '0' :
+                        liste_resultat_1 = liste_resultat_1.replace('0', '')
+                    if i == '1' :
+                        liste_resultat_1 = liste_resultat_1.replace('1', '')
+                    if i == '2' :
+                        liste_resultat_1 = liste_resultat_1.replace('2', '')
+                    if i == '3' :
+                        liste_resultat_1 = liste_resultat_1.replace('3', '')
+                    if i == '4' :
+                        liste_resultat_1 = liste_resultat_1.replace('4', '')
+                    if i == '5' :
+                        liste_resultat_1 = liste_resultat_1.replace('5', '')
+
+
+                liste_res_1 = liste_resultat_1.split(':')
+
+                l_1.append(eval(liste_res_1[0]))
+                l_1.append(eval(liste_res_1[1]))
+                l_1.append(eval(liste_res_1[2]))
+                l_1.append(eval(liste_res_1[3]))
+                l_1.append(eval(liste_res_1[4]))
+
+
+                print(eval(liste_res_1[0]))
+
+                self.joueur_1 = liste_de_joueur1
+                self.joueur_1_lancer = l_1
+
+
+
+            elif bool_lancer_1 == "False" and bool_lancer_2 == "False":
+                joueur_1 = sauvegarde_liste[8]
+                char1 = joueur_1[2]
+                char2 = joueur_1[7]
+                char3 = joueur_1[12]
+                char4 = joueur_1[17]
+                char5 = joueur_1[22]
+                liste_de_joueur1.append(char1)
+                liste_de_joueur1.append(char2)
+                liste_de_joueur1.append(char3)
+                liste_de_joueur1.append(char4)
+                liste_de_joueur1.append(char5)
+
+                joueur_1_lancer = sauvegarde_liste[9]
+
+                liste_resultat_1 = joueur_1_lancer.replace('[', '')
+                liste_resultat_1 = liste_resultat_1.replace(']', '')
+                liste_resultat_1 = liste_resultat_1.replace('<', '')
+                liste_resultat_1 = liste_resultat_1.replace('>', '')
+                liste_resultat_1 = liste_resultat_1.replace(' ', '')
+                liste_resultat_1 = liste_resultat_1.replace(',', '')
+                for i in liste_resultat_1:
+                    if i == '0':
+                        liste_resultat_1 = liste_resultat_1.replace('0', '')
+                    if i == '1':
+                        liste_resultat_1 = liste_resultat_1.replace('1', '')
+                    if i == '2':
+                        liste_resultat_1 = liste_resultat_1.replace('2', '')
+                    if i == '3':
+                        liste_resultat_1 = liste_resultat_1.replace('3', '')
+                    if i == '4':
+                        liste_resultat_1 = liste_resultat_1.replace('4', '')
+                    if i == '5':
+                        liste_resultat_1 = liste_resultat_1.replace('5', '')
+
+                liste_res_1 = liste_resultat_1.split(':')
+
+
+
+                joueur_1 = sauvegarde_liste[8]
+                char1 = joueur_1[2]
+                char2 = joueur_1[7]
+                char3 = joueur_1[12]
+                char4 = joueur_1[17]
+                char5 = joueur_1[22]
+                liste_de_joueur1.append(char1)
+                liste_de_joueur1.append(char2)
+                liste_de_joueur1.append(char3)
+                liste_de_joueur1.append(char4)
+                liste_de_joueur1.append(char5)
+                print(liste_de_joueur1)
+                joueur_1_lancer = sauvegarde_liste[9]
+
+                liste_resultat_1 = joueur_1_lancer.replace('[', '')
+                liste_resultat_1 = liste_resultat_1.replace(']', '')
+                liste_resultat_1 = liste_resultat_1.replace('<', '')
+                liste_resultat_1 = liste_resultat_1.replace('>', '')
+                liste_resultat_1 = liste_resultat_1.replace(' ', '')
+                liste_resultat_1 = liste_resultat_1.replace(',', '')
+                for i in liste_resultat_1:
+                    if i == '0':
+                        liste_resultat_1 = liste_resultat_1.replace('0', '')
+                    if i == '1':
+                        liste_resultat_1 = liste_resultat_1.replace('1', '')
+                    if i == '2':
+                        liste_resultat_1 = liste_resultat_1.replace('2', '')
+                    if i == '3':
+                        liste_resultat_1 = liste_resultat_1.replace('3', '')
+                    if i == '4':
+                        liste_resultat_1 = liste_resultat_1.replace('4', '')
+                    if i == '5':
+                        liste_resultat_1 = liste_resultat_1.replace('5', '')
+
+                l_1.append(eval(liste_res_1[0]))
+                l_1.append(eval(liste_res_1[1]))
+                l_1.append(eval(liste_res_1[2]))
+                l_1.append(eval(liste_res_1[3]))
+                l_1.append(eval(liste_res_1[4]))
+
+
+
+
+                joueur_2 = sauvegarde_liste[10]
+
+                char11 = joueur_2[2]
+                char22 = joueur_2[7]
+                char33 = joueur_2[12]
+                char44 = joueur_2[17]
+                char55 = joueur_2[22]
+                liste_de_joueur2.append(char11)
+                liste_de_joueur2.append(char22)
+                liste_de_joueur2.append(char33)
+                liste_de_joueur2.append(char44)
+                liste_de_joueur2.append(char55)
+
+
+                joueur_2_lancer = sauvegarde_liste[11]
+
+                liste_resultat_2 = joueur_2_lancer.replace('[', '')
+                liste_resultat_2 = liste_resultat_2.replace(']', '')
+                liste_resultat_2 = liste_resultat_2.replace('<', '')
+                liste_resultat_2 = liste_resultat_2.replace('>', '')
+                liste_resultat_2 = liste_resultat_2.replace(' ', '')
+                liste_resultat_2 = liste_resultat_2.replace(',', '')
+
+
+                for i in liste_resultat_2:
+                    if i == '0':
+                        liste_resultat_2 = liste_resultat_2.replace('0', '')
+                    if i == '1':
+                        liste_resultat_2 = liste_resultat_2.replace('1', '')
+                    if i == '2':
+                        liste_resultat_2 = liste_resultat_2.replace('2', '')
+                    if i == '3':
+                        liste_resultat_2 = liste_resultat_2.replace('3', '')
+                    if i == '4':
+                        liste_resultat_2 = liste_resultat_2.replace('4', '')
+                    if i == '5':
+                        liste_resultat_2 = liste_resultat_2.replace('5', '')
+
+                liste_res_2 = liste_resultat_1.split(':')
+
+
+                l_2.append(eval(liste_res_2[0]))
+                l_2.append(eval(liste_res_2[1]))
+                l_2.append(eval(liste_res_2[2]))
+                l_2.append(eval(liste_res_2[3]))
+                l_2.append(eval(liste_res_2[4]))
+
+
+                print(eval(liste_res_2[0]))
+
+                self.joueur_1 = liste_de_joueur1
+                self.joueur_1_lancer = l_1
+                self.joueur_2 = liste_de_joueur2
+                self.joueur_2_lancer = l_2
 
 
         elif nombre_joueur_int == 3 :
             nom_joueur_1 = sauvegarde_liste[2]
             nom_joueur_2 = sauvegarde_liste[3]
             nom_joueur_3 = sauvegarde_liste[4]
-            lancer_max = sauvegarde_liste[4]
+            liste_de_joueur.append(nom_joueur_1)
+            liste_de_joueur.append(nom_joueur_2)
+            liste_de_joueur.append(nom_joueur_3)
+
+
+            lancer_max = sauvegarde_liste[5]
+            lancer_max_int = int(lancer_max)
 
 
             bool_lancer_1 = sauvegarde_liste[6]
+            bool_lancer_2 = sauvegarde_liste[7]
+            bool_lancer_3 = sauvegarde_liste[8]
 
-            if bool_lancer_1 == "False":
+            if bool_lancer_1 == "False" :
+                bool_lancer1 = False
+            elif bool_lancer_1 == "True" :
+                bool_lancer1 = True
+            if bool_lancer_2 == "False" :
+                bool_lancer2 = False
+            elif bool_lancer_2 == "True" :
+                bool_lancer2 = True
+            if bool_lancer_3 == "False":
+                bool_lancer3 = False
+            elif bool_lancer_3 == "True":
+                 bool_lancer3 = True
 
-                bool_lancer_2 = sauvegarde_liste[7]
-                if bool_lancer_2 == "False" :
 
-                    bool_lancer_3 = sauvegarde_liste[8]
-            ordre_joueur = sauvegarde_liste[7]
-            joueur_1 = sauvegarde_liste[8]
-            joueur_1_lancer = sauvegarde_liste[9]
+
+            ordre_joueur = sauvegarde_liste[9]
+
+            charactere_1 = ordre_joueur[1]
+            charactere_2 = ordre_joueur[4]
+            charactere_3 = ordre_joueur[7]
+            charactere_1_int = int(charactere_1)
+            charactere_2_int = int(charactere_2)
+            charactere_3_int = int(charactere_3)
+
+            liste_ordre_joueur.append(charactere_1_int)
+            liste_ordre_joueur.append(charactere_2_int)
+            liste_ordre_joueur.append(charactere_3_int)
+
+            self.nombre_joueurs = nombre_joueur_int
+
+            self.as_joker = as_joker
+
+            self.nb_lancer_1 = lancer_max_int
+
+            self.nom_joueurs = liste_de_joueur
+
+            self.bool_lancer_1 = bool_lancer1
+
+            self.bool_lancer_2 = bool_lancer2
+            self.bool_lancer_3 = bool_lancer3
+
+            self.ordre_joueur = liste_ordre_joueur
+
+            self.tour_joueur_1 = 1
+            self.tour_joueur_2 = 1
+            self.tour_joueur_3 = 1
+
+
+
+            if bool_lancer_2 == "False" and bool_lancer_2 == "True" and bool_lancer_3 == "False":
+                joueur_1 = sauvegarde_liste[10]
+                char1 = joueur_1[2]
+                char2 = joueur_1[7]
+                char3 = joueur_1[12]
+                char4 = joueur_1[17]
+                char5 = joueur_1[22]
+                liste_de_joueur1.append(char1)
+                liste_de_joueur1.append(char2)
+                liste_de_joueur1.append(char3)
+                liste_de_joueur1.append(char4)
+                liste_de_joueur1.append(char5)
+                joueur_1_lancer = sauvegarde_liste[11]
+
+                liste_resultat_1 = joueur_1_lancer.replace('[', '')
+                liste_resultat_1 = liste_resultat_1.replace(']', '')
+                liste_resultat_1 = liste_resultat_1.replace('<', '')
+                liste_resultat_1 = liste_resultat_1.replace('>', '')
+                liste_resultat_1 = liste_resultat_1.replace(' ', '')
+                liste_resultat_1 = liste_resultat_1.replace(',', '')
+                for i in liste_resultat_1:
+                    if i == '0':
+                        liste_resultat_1 = liste_resultat_1.replace('0', '')
+                    if i == '1':
+                        liste_resultat_1 = liste_resultat_1.replace('1', '')
+                    if i == '2':
+                        liste_resultat_1 = liste_resultat_1.replace('2', '')
+                    if i == '3':
+                        liste_resultat_1 = liste_resultat_1.replace('3', '')
+                    if i == '4':
+                        liste_resultat_1 = liste_resultat_1.replace('4', '')
+                    if i == '5':
+                        liste_resultat_1 = liste_resultat_1.replace('5', '')
+
+                liste_res_1 = liste_resultat_1.split(':')
+
+                l_1.append(eval(liste_res_1[0]))
+                l_1.append(eval(liste_res_1[1]))
+                l_1.append(eval(liste_res_1[2]))
+                l_1.append(eval(liste_res_1[3]))
+                l_1.append(eval(liste_res_1[4]))
+
+                print(eval(liste_res_1[0]))
+
+                self.joueur_1 = liste_de_joueur1
+                self.joueur_1_lancer = l_1
+
+
+            elif bool_lancer_2 == "False" and bool_lancer_2 == "False" and bool_lancer_3 == "True":
+                joueur_1 = sauvegarde_liste[10]
+                char1 = joueur_1[2]
+                char2 = joueur_1[7]
+                char3 = joueur_1[12]
+                char4 = joueur_1[17]
+                char5 = joueur_1[22]
+                liste_de_joueur1.append(char1)
+                liste_de_joueur1.append(char2)
+                liste_de_joueur1.append(char3)
+                liste_de_joueur1.append(char4)
+                liste_de_joueur1.append(char5)
+                joueur_1_lancer = sauvegarde_liste[11]
+
+                liste_resultat_1 = joueur_1_lancer.replace('[', '')
+                liste_resultat_1 = liste_resultat_1.replace(']', '')
+                liste_resultat_1 = liste_resultat_1.replace('<', '')
+                liste_resultat_1 = liste_resultat_1.replace('>', '')
+                liste_resultat_1 = liste_resultat_1.replace(' ', '')
+                liste_resultat_1 = liste_resultat_1.replace(',', '')
+                for i in liste_resultat_1:
+                    if i == '0':
+                        liste_resultat_1 = liste_resultat_1.replace('0', '')
+                    if i == '1':
+                        liste_resultat_1 = liste_resultat_1.replace('1', '')
+                    if i == '2':
+                        liste_resultat_1 = liste_resultat_1.replace('2', '')
+                    if i == '3':
+                        liste_resultat_1 = liste_resultat_1.replace('3', '')
+                    if i == '4':
+                        liste_resultat_1 = liste_resultat_1.replace('4', '')
+                    if i == '5':
+                        liste_resultat_1 = liste_resultat_1.replace('5', '')
+
+                liste_res_1 = liste_resultat_1.split(':')
+                l_1.append(eval(liste_res_1[0]))
+                l_1.append(eval(liste_res_1[1]))
+                l_1.append(eval(liste_res_1[2]))
+                l_1.append(eval(liste_res_1[3]))
+                l_1.append(eval(liste_res_1[4]))
+
+                joueur_2 = sauvegarde_liste[12]
+                char11 = joueur_2[2]
+                char22 = joueur_2[7]
+                char33 = joueur_2[12]
+                char44 = joueur_2[17]
+                char55 = joueur_2[22]
+                liste_de_joueur2.append(char11)
+                liste_de_joueur2.append(char22)
+                liste_de_joueur2.append(char33)
+                liste_de_joueur2.append(char44)
+                liste_de_joueur2.append(char55)
+
+                joueur_2_lancer = sauvegarde_liste[13]
+
+                liste_resultat_2 = joueur_2_lancer.replace('[', '')
+                liste_resultat_2 = liste_resultat_2.replace(']', '')
+                liste_resultat_2 = liste_resultat_2.replace('<', '')
+                liste_resultat_2 = liste_resultat_2.replace('>', '')
+                liste_resultat_2 = liste_resultat_2.replace(' ', '')
+                liste_resultat_2 = liste_resultat_2.replace(',', '')
+
+                for i in liste_resultat_2:
+                    if i == '0':
+                        liste_resultat_2 = liste_resultat_2.replace('0', '')
+                    if i == '1':
+                        liste_resultat_2 = liste_resultat_2.replace('1', '')
+                    if i == '2':
+                        liste_resultat_2 = liste_resultat_2.replace('2', '')
+                    if i == '3':
+                        liste_resultat_2 = liste_resultat_2.replace('3', '')
+                    if i == '4':
+                        liste_resultat_2 = liste_resultat_2.replace('4', '')
+                    if i == '5':
+                        liste_resultat_2 = liste_resultat_2.replace('5', '')
+
+                liste_res_2 = liste_resultat_1.split(':')
+                l_2.append(eval(liste_res_2[0]))
+                l_2.append(eval(liste_res_2[1]))
+                l_2.append(eval(liste_res_2[2]))
+                l_2.append(eval(liste_res_2[3]))
+                l_2.append(eval(liste_res_2[4]))
+
+                self.joueur_1 = liste_de_joueur1
+                self.joueur_1_lancer = l_1
+                self.joueur_2 = liste_de_joueur2
+                self.joueur_2_lancer = l_2
 
         """
         self.nombre_joueurs = 3
@@ -598,19 +1019,24 @@ class InterfaceGraphique(Tk):
         self.tour_joueur_2 = 1
         self.tour_joueur_3 = 1
 
-        self.joueur_1 = ['A', 'R', 'X', '9', 'R']
-        self.joueur_2 = ['A', 'R', 'X', '9', 'R']
+        #self.joueur_1 = ['A', 'R', 'D', 'V', 'X']
+        #self.joueur_2 = ['A', 'R', 'D', 'V', 'X']
 
-        self.joueur_1_lancer =  [Carte.AS, Carte.ROI, Carte.DAME, Carte.VALET, Carte.DIX, Carte.NEUF]
-        self.joueur_2_lancer =  [Carte.AS, Carte.ROI, Carte.DAME, Carte.VALET, Carte.DIX, Carte.NEUF]
-
-
+        #self.joueur_1_lancer =  [Carte.AS, Carte.ROI, Carte.DAME, Carte.VALET, Carte.DIX]
+       # self.joueur_2_lancer =  [Carte.AS, Carte.ROI, Carte.DAME, Carte.VALET, Carte.DIX]
 
 
+        self.joueur_1 = ['X', 'X', 'X', 'X', 'X']
+        self.joueur_2 = ['X', 'X', 'X', 'X', 'X']
+
+        self.joueur_1_lancer =  [eval("Carte.DIX"), eval("Carte.DIX"),eval("Carte.DIX"), eval("Carte.DIX"), eval("Carte.DIX")]
+        self.joueur_2_lancer =  [eval("Carte.DIX"), eval("Carte.DIX"),eval("Carte.DIX"), eval("Carte.DIX"), eval("Carte.DIX")]
+        """
         self.afficher_partie()
         self.jouer_sauvegarde()
-        """
-        # self.sauvegarder()
+
+
+
 
     def definir_partie(self):
 
@@ -707,8 +1133,8 @@ class InterfaceGraphique(Tk):
 
             if self.lol_1 == True :
 
-                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '@')
-                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '@')
+                self.sauvegarde.write(str(self.nom_joueurs[0]) + '@')
+                self.sauvegarde.write(str(self.nom_joueurs[1]) + '@')
 
                 self.sauvegarde.write(str(self.nb_lancer_1) + '@')
                 self.sauvegarde.write(str(self.bool_lancer_1) + '@')
@@ -726,8 +1152,8 @@ class InterfaceGraphique(Tk):
 
             elif self.lol_2 == True :
 
-                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '@')
-                self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '@')
+                self.sauvegarde.write(str(self.nom_joueurs[0]) + '@')
+                self.sauvegarde.write(str(self.nom_joueurs[1]) + '@')
 
                 self.sauvegarde.write(str(self.nb_lancer_1) + '@')
                 self.sauvegarde.write(str(self.bool_lancer_1) + '@')
@@ -758,9 +1184,9 @@ class InterfaceGraphique(Tk):
 
                 if self.lol_1 == True:
 
-                    self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '@')
-                    self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '@')
-                    self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[2]]) + '@')
+                    self.sauvegarde.write(str(self.nom_joueurs[0]) + '@')
+                    self.sauvegarde.write(str(self.nom_joueurs[1]) + '@')
+                    self.sauvegarde.write(str(self.nom_joueurs[2]) + '@')
                     self.sauvegarde.write(str(self.nb_lancer_1) + '@')
                     self.sauvegarde.write(str(self.bool_lancer_1) + '@')
                     self.sauvegarde.write(str(self.bool_lancer_2) + '@')
@@ -774,9 +1200,9 @@ class InterfaceGraphique(Tk):
 
                 elif self.lol_2 == True :
 
-                     self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '@')
-                     self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '@')
-                     self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[2]]) + '@')
+                     self.sauvegarde.write(str(self.nom_joueurs[0]) + '@')
+                     self.sauvegarde.write(str(self.nom_joueurs[1]) + '@')
+                     self.sauvegarde.write(str(self.nom_joueurs[2]) + '@')
                      self.sauvegarde.write(str(self.nb_lancer_1) + '@')
                      self.sauvegarde.write(str(self.bool_lancer_1) + '@')
                      self.sauvegarde.write(str(self.bool_lancer_2) + '@')
@@ -796,9 +1222,9 @@ class InterfaceGraphique(Tk):
 
                 elif self.lol_3 == True :
 
-                    self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[0]]) + '@')
-                    self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[1]]) + '@')
-                    self.sauvegarde.write(str(self.nom_joueurs[self.ordre_joueur[2]]) + '@')
+                    self.sauvegarde.write(str(self.nom_joueurs[0]) + '@')
+                    self.sauvegarde.write(str(self.nom_joueurs[1]) + '@')
+                    self.sauvegarde.write(str(self.nom_joueurs[2]) + '@')
                     self.sauvegarde.write(str(self.nb_lancer_1) + '@')
                     self.sauvegarde.write(str(self.bool_lancer_1) + '@')
                     self.sauvegarde.write(str(self.bool_lancer_2) + '@')
@@ -848,6 +1274,7 @@ class InterfaceGraphique(Tk):
         for elem in self.lancer:
                  # chaine += "{:^3s}".format(elem)
                 self.liste += "{:s}".format(elem)
+
 
 
         self.carte_1 = Label(self.frame_de_bas,text=self.liste[0])
@@ -1434,8 +1861,8 @@ class InterfaceGraphique(Tk):
 
     def determiner_premier_lanceur_sauvegarde (self):
 
-            partie = Partie(self.nom_joueurs)
-            self.ordre_joueur = partie._determiner_ordre()
+
+
             self.commencer_enable()
 
             for i in range(0, len(self.ordre_joueur)):
@@ -1449,11 +1876,29 @@ class InterfaceGraphique(Tk):
                 self.commencer_enable()
                 self.nom_joueur_1.config(text=self.nom_joueurs[self.ordre_joueur[0]])
                 self.nom_joueur_2.config(text=self.nom_joueurs[self.ordre_joueur[1]])
+                self.nom_joueur_3.config(text="")
+                self.nom_joueur_3_resultat.config(text="")
+                self.var_joueur_3_resultat.config(text="")
+                self.var_joueur_3_sequence.config(text="")
+                self.var_joueur_3_resultat.config(text="")
 
-                self.test = Combinaison(self.joueur_1_lancer)
-                self.combinaison_1 = self.test.determiner_type_combinaison()
-                self.var_joueur_1_resultat.config(text=self.combinaison_1)
-                self.var_joueur_1_sequence.config(text=self.joueur_1)
+                self.var_joueur_3_sequence.config(text="")
+
+                print(self.bool_lancer_1)
+
+                print(self.bool_lancer_2)
+                print(self.joueur_1_lancer)
+                print(self.joueur_1)
+                if self.bool_lancer_1 == False and self.bool_lancer_2 == True :
+                    print("lol")
+                    self.test = Combinaison(self.joueur_1_lancer)
+                    self.combinaison_1 = self.test.determiner_type_combinaison()
+                    self.var_joueur_1_resultat.config(text=self.combinaison_1)
+                    self.var_joueur_1_sequence.config(text=self.joueur_1)
+
+
+
+
 
 
 
@@ -1463,17 +1908,29 @@ class InterfaceGraphique(Tk):
                 self.nom_joueur_2.config(text=self.nom_joueurs[self.ordre_joueur[1]])
                 self.nom_joueur_3.config(text=self.nom_joueurs[self.ordre_joueur[2]])
 
-                self.test = Combinaison(self.joueur_1_lancer)
+                if self.bool_lancer_1 == False and self.bool_lancer_2 == True and self.bool_lancer_3 == False:
 
-                self.combinaison_1 = self.test.determiner_type_combinaison()
-                self.var_joueur_1_resultat.config(text=self.combinaison_1)
-                self.var_joueur_1_sequence.config(text=self.joueur_1)
 
-                self.test2 = Combinaison(self.joueur_2_lancer)
-                self.combinaison_2 = self.test2.determiner_type_combinaison()
-                self.var_joueur_2_resultat.config(text=self.combinaison_2)
-                self.var_joueur_2_sequence.config(text=self.joueur_2)
+                    self.test = Combinaison(self.joueur_1_lancer)
+                    self.combinaison_1 = self.test.determiner_type_combinaison()
+                    self.var_joueur_1_resultat.config(text=self.combinaison_1)
+                    self.var_joueur_1_sequence.config(text=self.joueur_1)
 
+                elif  self.bool_lancer_1 == False and self.bool_lancer_2 == False and self.bool_lancer_3 == True:
+
+                    self.test = Combinaison(self.joueur_1_lancer)
+                    self.combinaison_1 = self.test.determiner_type_combinaison()
+                    self.var_joueur_1_resultat.config(text=self.combinaison_1)
+                    self.var_joueur_1_sequence.config(text=self.joueur_1)
+                    self.test = Combinaison(self.joueur_2_lancer)
+                    self.combinaison_2 = self.test.determiner_type_combinaison()
+                    self.var_joueur_2_resultat.config(text=self.combinaison_2)
+                    self.var_joueur_2_sequence.config(text=self.joueur_2)
+
+
+
+
+                #  self.empecher_passer()
             concernes = list(range(self.nombre_joueurs))
             self.premier = concernes[0]
 

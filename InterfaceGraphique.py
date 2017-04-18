@@ -22,7 +22,7 @@ class Parametres_partie(Toplevel):
 
     def __init__(self, parent):
 
-        # Différents paramètres de la fenêtre popup proposant les différentes options de jeu au joueur
+#   Différents paramètres de la fenêtre popup proposant les différentes options de jeu au joueur
 
         super().__init__(parent)
         self.title("Info partie...")
@@ -54,7 +54,7 @@ class Parametres_partie(Toplevel):
 
 
 
-        # On demande le nom de chacun des joueurs
+#   On demande le nom de chacun des joueurs
 
         self.instruction_nom_joueurs = Label(self, text="Entrez le nom des joueurs :")
         self.list_labels_nom_joueurs = []
@@ -80,12 +80,6 @@ class Parametres_partie(Toplevel):
         for line in self.file_1 :
             print(line,end='')
 
-
-
-
-
-
-
         for i in range(NB_MAX_JOUEURS):
             self.list_vars_nom_joueurs.append(StringVar(value='Joueur {}'.format(i + 1)))
             self.list_labels_nom_joueurs.append(Label(self, text="Nom du joueur{}".format(i + 1)))
@@ -97,7 +91,6 @@ class Parametres_partie(Toplevel):
 
         self.bouton_commencer_partie = Button(self, text="Commencer", command=self.valider)
 
-        #self.box_ajout_ordi.current(0)
         self.box_nb_joueurs.current(0)
         self.protocol("WM_DELETE_WINDOW", self.valider)
         self.wait_window()
@@ -106,19 +99,22 @@ class Parametres_partie(Toplevel):
     def valider(self):
         valide = False
         try:
-            self.nombre_joueurs = self.var_nb_joueurs.get()  #INT NOMBRE DE JOUEUR
-            #self.inclure_ordi = self.var_ajout_ordi.get() == "Oui"
-            self.nom_joueurs = [self.list_vars_nom_joueurs[i].get()  #LISTE NOM DE JOUEUR
+            self.nombre_joueurs = self.var_nb_joueurs.get()
+            self.nom_joueurs = [self.list_vars_nom_joueurs[i].get()
                                 for i in range(self.nombre_joueurs)]
 
             self.as_joker = self.var_As_joker.get()
 
 
 
+#   Message d'erreur concernant le nombre de joueurs nécessaire
 
             if not (2 <= self.nombre_joueurs <= 3):
                 messagebox.showerror("Erreur",
                                      "Le nombre de joueur de la partie incluant l'ordinateur doit être entre 2 et 3")
+
+#   Message d'erreur sur l'obligation de choisir si le joueur veut utiliser les as
+
             if not (self.as_joker == "oui" or self.as_joker == "non" ):
                 messagebox.showerror("Erreur",
                                      "Vous devez entrer une reponse au as étant joker ou non")
@@ -131,23 +127,28 @@ class Parametres_partie(Toplevel):
                                  "Le nombre de joueur de la partie incluant l'ordinateur doit être entre 2 et 4")
 
         if valide:
-            # On redonne le contole à la fenêtre parent et on ferme la fenêtre.
+#   On redonne le controle à la fenêtre parent et on ferme la fenêtre.
             self.grab_release()
             self.parent.focus_set()
             self.destroy()
 
     def selection_nb_joueur(self, index, value, op):
-        #t = int(self.var_ajout_ordi.get() == "Oui")
+
         for i in range(NB_MAX_JOUEURS):
+
             self.list_labels_nom_joueurs[i].grid_forget()
             self.list_entrees_nom_joueurs[i].grid_forget()
+
         for i in range(self.var_nb_joueurs.get()):
+
             self.list_labels_nom_joueurs[i].grid(row=2+i, column=0, padx=5, pady=5)
             self.list_entrees_nom_joueurs[i].grid(row=2+i, column=1, padx=5, pady=5)
+
         self.bouton_commencer_partie.grid_forget()
         self.bouton_commencer_partie.grid(row=3+i, column=1, padx=5, pady=5)
 
     def get_values_saved(self):
+
         return self.nombre_joueurs, self.as_joker, self.nom_joueurs,
 
 #*****************************************************************************
@@ -183,58 +184,6 @@ class JoueurInterface(LabelFrame):
 
     def is_algo(self):
         return False
-
-    def lancer_des(self):
-        """
-        nombre_des = self.nb_des_a_lancer
-        self.lancer_1 = [0] *5
-
-        valeurs_obtenues = Combinaison()
-
-
-
-
-      #  premier = valeurs_obtenues._lancer_des(5)
-      #  print (premier)
-
-
-       # print(valeurs_obtenues)
-
-       # print(Combinaison.des)
-
-
-
-        for k in range(7):
-            shuffle(self.positions_libres)
-            pos = self.positions_libres[:nombre_des]
-
-            for gif in self.images_des:
-                ids = []
-                for i in range(nombre_des):
-                    x = (pos[i][0] * self.nb_pixels_img) + (self.nb_pixels_img // 2)
-                    y = (pos[i][1] * self.nb_pixels_img) + (self.nb_pixels_img // 2)
-                    id = self.table_de_jeu.create_image(x, y, image=gif)
-                    ids += [id]
-                self.table_de_jeu.update()
-                self.after(100)
-                self.table_de_jeu.delete(*ids)
-
-        shuffle(self.positions_libres)
-        pos = self.positions_libres[:nombre_des]
-
-
-        self.resultat_lancer += valeurs_obtenues
-        #
-        self.combinaison_actuelle = Combinaison(self.resultat_lancer)
-       # print(self.combinaison_actuelle)
-
-
-        self.after(1000)
-        self.num_lancer += 1
-        self.des_a_relancer = []
-        self.nb_des_a_lancer = 0
-        return valeurs_obtenues
-        """
 
     def jouer_tour(self, nb_des_a_lancer=NOMBRE_DES_DU_JEU, nb_maximum_lancer=NB_MAX_LANCERS):
         self.nb_des_a_lancer = nb_des_a_lancer
@@ -282,16 +231,6 @@ class JoueurAlgoInterface(JoueurInterface):
 #*****************************************************************************
 
 
-
-
-
-
-
-
-
-
-
-
 class InterfaceGraphique(Tk):
     TROUVER_PREMIER = 0
     JOUER = 1
@@ -299,12 +238,16 @@ class InterfaceGraphique(Tk):
 
 
     def __init__(self):
+
+#   On initialise la fenêtre où se déroulera le jeu
+
         super().__init__()
         self.title("Simulateur")
         self.geometry("800x500")
         self.protocol("WM_DELETE_WINDOW", self.confirmation_quitter)
 
-        # menu
+#   Menu déroulant des options disponibles pour l'utilisateur
+
         self.menubar = Menu(self)
         menu1 = Menu(self.menubar, tearoff=0)
         menu1.add_command(label="Nouvelle partie", command=self.definir_partie)
@@ -318,7 +261,8 @@ class InterfaceGraphique(Tk):
         self.menubar.add_cascade(label="Règles du jeu", menu=menu3)
         self.config(menu=self.menubar)
 
-        # ----- Menu principal -----
+#   Premier stade du jeu soit l'accueil (nouvelle partie, charger partie, quitter)
+
         self.title_princ_jeu = Label(self, text="Poker d'as", font=("DejaVu Sans", 26),
                                         width=30, height=3)
         self.title_princ_jeu['background'] = 'green'
@@ -329,12 +273,8 @@ class InterfaceGraphique(Tk):
         self.bouton_princ_quitter = Button(self, text="Quitter", command=self.confirmation_quitter,
                                            width=20, height=3, bg="red")
 
-        # images des dés
-        self.images_des = [PhotoImage(file="ressources/dice_1.gif"), PhotoImage(file="ressources/dice_2.gif"),
-                           PhotoImage(file="ressources/dice_3.gif"), PhotoImage(file="ressources/dice_4.gif"),
-                           PhotoImage(file="ressources/dice_5.gif"), PhotoImage(file="ressources/dice_6.gif")]
+#   Différentes zones de disposition des éléments dans la deuxième fenêtre de jeu
 
-        # ----- Elements de la partie -----
         self.frame_bouton= Frame(self)
         self.frame_de_gauche = Frame(self)
         self.frame_de_bas = Frame(self)
@@ -345,6 +285,8 @@ class InterfaceGraphique(Tk):
 
 
         self.boutonframe = Frame(self.frame_bouton)
+
+#   Initialisation des différents compteurs nécessaires au déroulement du jeu
 
         self.nb_lancer = 0
         self.nb_lancer_1 = 0
@@ -392,6 +334,8 @@ class InterfaceGraphique(Tk):
         self.combinaison_2 = None
         self.combinaison_3 = None
 
+#   On fait apparaître les différents bouttons utiles pour jouer une partie ("Commencer", "Lancer" et "Passer")
+
         self.bouton_commencer = Button(self.boutonframe, text="Commencer", command=self.commencer_tour)
         self.bouton_commencer.grid(column=0, row=0, rowspan=1, columnspan=1)
 
@@ -401,9 +345,7 @@ class InterfaceGraphique(Tk):
         self.bouton_passer = Button(self.boutonframe, text="Passer", command=self.update_passer)
         self.bouton_passer.grid(column=2, row=0, rowspan=1, columnspan=1)
 
-
-        #self.phase_label = Label(self.frame_de_droit, text="", font="Arial 20 italic")
-       # self.message = Label(self.frame_de_droit, text="", font="Arial 14 italic", foreground="blue")
+#   Label indiquant l'ordre des joueurs pour la partie en cours
 
         self.ordre_joueur_label = Label(self.frame_de_gauche, text=" Ordre des joueurs : ", font='Arial 20 italic')
         self.ordre_joueur_label.grid(row=0, column=0, padx=0, pady=0)
@@ -411,7 +353,7 @@ class InterfaceGraphique(Tk):
 
 
 
-        #   Zone du tableau des résultats
+#   Zone du tableau des résultats
 
         self.nom_joueur_1 = Label (self.frame_de_bas, text = "Joueur 1")
         self.nom_joueur_1.grid (row = 0, column = 0, padx = 0, pady = 0 )
@@ -491,26 +433,29 @@ class InterfaceGraphique(Tk):
         self.afficher_menu_principal()
 
 
-    # ----- Gestion des l'affichage -----
+#   Gestion des l'affichage
+
     def afficher_menu_principal(self):
+
         self.title_princ_jeu.place(relx=0.5, rely=0.33, anchor=CENTER)
         self.bouton_princ_jouer.place(relx=0.5, rely=0.68, anchor=CENTER)
         self.bouton_princ_charger.place(relx=0.5, rely=0.79, anchor=CENTER)
         self.bouton_princ_quitter.place(relx=0.5, rely=0.90, anchor=CENTER)
 
-
-
     def cacher_menu_principal(self):
+
         self.title_princ_jeu.place_forget()
         self.bouton_princ_jouer.place_forget()
         self.bouton_princ_quitter.place_forget()
         self.bouton_princ_charger.place_forget()
 
     def confirmation_quitter(self):
+
         if messagebox.askokcancel("Quitter", "Voulez-vous vraiment quitter?"):
             self.destroy()
 
     def instructions(self):
+
         messagebox.showinfo("Instructions", "Voici les règles du jeu:\n"
                                             "\n"
                                             "   1.  Le fonctionnement est basé sur les règlements officiels"
@@ -525,22 +470,22 @@ class InterfaceGraphique(Tk):
                                             "       bouton lancer\n"
                                             "\n"
                                             "   5.  L'ordre de jeu est sélectionné de manière aléatoire\n"
-                                            "\n ")
+                                            "\n "
+                                            "   6.  La sauvegarde du jeu ne peut s'effectuer que si le premier"
+                                            "       joueur a terminé son tour\n"
+                                            "\n"
+                                            "   7.  On peut charger une partie lorsque le premier joueur a terminé"
+                                            "       son tour(à deux joueurs) et lorque le premier ou le deuxième"
+                                            "       joueur a terminé (à trois joueurs)\n"
+                                            "\n")
 
     def definir_partie_charger(self):
 
-        # self.gros_lot = GROS_LOT
         self.indice_joueur_courant = None
-       # self.phase = InterfaceGraphique.TROUVER_PREMIER
         self.tour = 0
         self.lancer_passer_control_var = BooleanVar(value=False)
         self.choix = None
         self.value_checkbutton()
-
-        #afficheur_doptions = Parametres_partie(self)
-        #self.nombre_joueurs, self.as_joker, self.nom_joueurs = afficheur_doptions.get_values_saved()
-
-
 
         """
         self.nombre_joueurs = None
@@ -668,7 +613,7 @@ class InterfaceGraphique(Tk):
         # self.sauvegarder()
 
     def definir_partie(self):
-        #self.gros_lot = GROS_LOT
+
         self.indice_joueur_courant = None
         self.phase = InterfaceGraphique.TROUVER_PREMIER
         self.tour = 0
@@ -731,15 +676,13 @@ class InterfaceGraphique(Tk):
         self.jouer()
        # self.sauvegarder()
 
-
+#   Appel un nouveau tour de jeu
     def update(self):
         self.tour_jouer()
 
-       # self.afficher_tableau_recapitulatif()
+#   Appel un nouveau tour de jeu en modifiant les compteurs de la définition "passer_tour"
     def update_passer(self):
         self.passer_tour()
-        #self.afficher_tableau_recapitulatif()
-
 
     def afficher_partie(self):
         self.cacher_menu_principal()
@@ -748,17 +691,11 @@ class InterfaceGraphique(Tk):
         self.boutonframe.grid(row=2, column=0)
         self.frame_bouton.grid(row=3, column=0)
 
-
-
-
-
     def afficher_message(self, message):
         self.message.grid_forget()
         self.message['text'] = message
         self.message.grid(row=1, column=0)
         self.message.after(3000, self.message.grid_forget)
-
-
 
     def sauvegarder(self):
         if self.nombre_joueurs ==2 :
@@ -911,9 +848,6 @@ class InterfaceGraphique(Tk):
         for elem in self.lancer:
                  # chaine += "{:^3s}".format(elem)
                 self.liste += "{:s}".format(elem)
-
-
-
 
 
         self.carte_1 = Label(self.frame_de_bas,text=self.liste[0])
@@ -1082,7 +1016,6 @@ class InterfaceGraphique(Tk):
 
             if self.bool_passer == False:
                 self.passer += 1
-
 
 
             elif self.bool_passer == True:
@@ -1263,35 +1196,41 @@ class InterfaceGraphique(Tk):
 
 
     def txt_utilisateur (self, string):
+
         return self.string
 
 
     def lancer_des(self):
-        self.lancer_passer_control_var.set(True)
-       # lancer =[]
-       # Combinaison(lancer)
 
+        self.lancer_passer_control_var.set(True)
         self.choix = "L"
 
     def empecher_lancer(self):
+
         self.bouton_lancer.config(state=DISABLED)
 
     def permettre_lancer(self):
+
         self.bouton_lancer.config(state=NORMAL)
 
     def empecher_passer(self):
+
         self.bouton_passer.config(state=DISABLED)
 
     def permettre_passer(self):
+
         self.bouton_passer.config(state=NORMAL)
 
     def commencer_disable(self):
+
         self.bouton_commencer.config(state=DISABLED)
 
     def commencer_enable(self):
+
         self.bouton_commencer.config(state=NORMAL)
 
     def passer_au_suivant(self):
+
         self.lancer_passer_control_var.set(True)
         self.choix = "P"
 
@@ -1312,20 +1251,17 @@ class InterfaceGraphique(Tk):
             print(self.joueur_3)
 
 
-
+#   Indique que le tour d'un joueur est terminé et que s'il y a un prochain joueur, c'est à son tour
     def changer_tour (self):
+
             self.commencer_enable()
             self.arreter_jeur()
-            messagebox._show("Tour Terminé","Le joueur a terminé son tour. C'est maintenant au prochain joueur.")
+            messagebox._show("Tour terminé","Le joueur a terminé son tour. C'est maintenant au prochain joueur.")
 
-
-
-
-
-
+#   Empêche la sélection du bouton "Commencer" et permet la sélection du bouton "Lancer"
     def commencer_tour(self):
-        self.permettre_lancer()
 
+        self.permettre_lancer()
         self.commencer_disable()
 
         if self.commencer == True :
@@ -1390,14 +1326,15 @@ class InterfaceGraphique(Tk):
             self.var_num_lancer.config(text=self.joueur_3_lancer)
             self.var_nbr_max_lancer.config(text=self.nb_lancer_1)
 
+#   Empêche le joueur de sélectionner les boutons "Passer" et "Lancer"
     def arreter_jeur(self):
+
         self.empecher_passer()
         self.empecher_lancer()
 
+#   Crée une liste d'ordre aléatoire des joueurs de la partie et permet d'utiliser le bouton "Commencer"
     def determiner_premier_lanceur(self):
-        """
-        ...
-        """
+
         partie = Partie(self.nom_joueurs)
         self.ordre_joueur = partie._determiner_ordre()
         self.commencer_enable()
@@ -1408,6 +1345,7 @@ class InterfaceGraphique(Tk):
             self.ordre_joueur_label1 = Label(self.frame_de_gauche, text="Le joueur {} est {}".format(i + 1, joueur))
             self.ordre_joueur_label1.grid(row=i + 1, column=0, padx=0, pady=0)
 
+#   Initialisation des valeurs par défaut contenues dans le tableau des résultats (pour deux joueurs)
         if  self.nombre_joueurs == 2 :
 
             self.commencer_enable()
@@ -1425,7 +1363,7 @@ class InterfaceGraphique(Tk):
             self.var_joueur_2_sequence.config(text="X")
             self.var_joueur_3_sequence.config(text="")
 
-
+#   Initialisation des valeurs par défaut contenues dans le tableau des résultats (pour deux joueurs)
         elif self.nombre_joueurs == 3 :
             self.nom_joueur_1.config(text=self.nom_joueurs[self.ordre_joueur[0]])
             self.nom_joueur_2.config(text=self.nom_joueurs[self.ordre_joueur[1]])
@@ -1439,21 +1377,13 @@ class InterfaceGraphique(Tk):
             self.var_joueur_3_sequence.config(text="X")
 
 
-
-      #  self.empecher_passer()
         concernes = list(range(self.nombre_joueurs))
         self.premier = concernes[0]
-        #self.afficher_tableau_recapitulatif()
 
 
     def jouer_tour_premiere_phase(self):
-        """
-        ..........
-        """
+
         self.tour += 1
-        #self.tour_jouer()
-
-
         self.empecher_lancer()
         self.empecher_passer()
 
@@ -1462,14 +1392,10 @@ class InterfaceGraphique(Tk):
 
             self.indice_joueur_courant = pos
 
-
-
-
-
         return -1, -1
 
-
-
+#   Prend la valeur inscrite dans chaque bouton (1 ou 0) et retourne une liste (Ex.: [0,1,0,0,0] si seulement le
+#   deuxième dé est activé pour la relance)
     def value_checkbutton(self):
 
         value = []
@@ -1492,25 +1418,18 @@ class InterfaceGraphique(Tk):
 
         return value
 
+#   Place le compteur "self.tour" à zéro et appel les définitions "determiner_premier_lanceur" et "jouer_tour_premiere_phase"
     def jouer(self):
-        """
-        .......
-        """
 
         self.tour = 0
-
         self.determiner_premier_lanceur()
-
-
         self.jouer_tour_premiere_phase()
 
+#   Appel les définitions de sauvegarde pour la reprise d'un jeu
     def jouer_sauvegarde(self):
 
-
         self.tour = 0
-
         self.determiner_premier_lanceur_sauvegarde()
-
         self.jouer_tour_premiere_phase_sauvegarde()
 
     def determiner_premier_lanceur_sauvegarde (self):
@@ -1520,6 +1439,7 @@ class InterfaceGraphique(Tk):
             self.commencer_enable()
 
             for i in range(0, len(self.ordre_joueur)):
+
                 joueur = self.nom_joueurs[self.ordre_joueur[i]]
                 self.ordre_joueur_label1 = Label(self.frame_de_gauche, text="Le joueur {} est {}".format(i + 1, joueur))
                 self.ordre_joueur_label1.grid(row=i + 1, column=0, padx=0, pady=0)
@@ -1538,6 +1458,7 @@ class InterfaceGraphique(Tk):
 
 
             elif self.nombre_joueurs == 3:
+
                 self.nom_joueur_1.config(text=self.nom_joueurs[self.ordre_joueur[0]])
                 self.nom_joueur_2.config(text=self.nom_joueurs[self.ordre_joueur[1]])
                 self.nom_joueur_3.config(text=self.nom_joueurs[self.ordre_joueur[2]])
@@ -1553,18 +1474,12 @@ class InterfaceGraphique(Tk):
                 self.var_joueur_2_resultat.config(text=self.combinaison_2)
                 self.var_joueur_2_sequence.config(text=self.joueur_2)
 
-
-
-                #  self.empecher_passer()
             concernes = list(range(self.nombre_joueurs))
             self.premier = concernes[0]
-            # self.afficher_tableau_recapitulatif()
 
     def jouer_tour_premiere_phase_sauvegarde (self):
+
         self.tour += 1
-        # self.tour_jouer()
-
-
         self.empecher_lancer()
         self.empecher_passer()
 
